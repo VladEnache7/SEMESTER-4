@@ -1,0 +1,60 @@
+﻿body {
+    display: flex; /* Flexbox layout which makes the div centering easier */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* 100% of the viewport height  If the body's height is not explicitly set, it will be as tall as its content, so there won't be any extra space to center the content within.*/
+    background-color: #7b68ee;
+    font-family: Arial, sans-serif;
+    background-size: cover; /* Make the background image cover the whole page */
+}
+
+.centered-div {
+    padding: 50px; /* padding is the space inside the border */
+    /*text-align: center;*/
+    background-color: rgba(255, 255, 255, 0.4); /* Semi-transparent white */
+    border-radius: 25px; /* Rounded corners */
+    transition: border-radius 0.5s ease; /* Transition effect for the border-radius */
+    /*  Make all the items come vertically one under the other  */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Make the images fit the page, not bigger*/
+img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/*Style the buttons */
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Style the <a> tags*/
+a {
+    text-decoration: none;
+    /* very dark green*/
+    color: #08480c;
+    font-weight: bold;
+    padding: 3px;
+    margin: 5px;
+}
+
+a:hover {
+    color: #45a049;
+}
+

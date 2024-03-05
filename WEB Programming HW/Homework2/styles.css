@@ -1,0 +1,20 @@
+body {
+    display: flex; /* Flexbox layout which makes the div centering easier */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* 100% of the viewport height  If the body's height is not explicitly set, it will be as tall as its content, so there won't be any extra space to center the content within.*/
+    background-color: #7b68ee;
+    font-family: Arial, sans-serif;
+}
+
+.centered-div {
+    padding: 50px; /* padding is the space inside the border */
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.4); /* Semi-transparent white */
+    border-radius: 25px; /* Rounded corners */
+    transition: border-radius 0.5s ease; /* Transition effect for the border-radius */
+}
+
+.centered-div:hover {
+    border-radius: 0; /* Right angles when mouse is over */
+}
