@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Dialog Example</title>
+    <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include jQuery UI library -->
+    <link href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <style>
+        /* Style for the dialog window */
+        .my-dialog {
+            width: 400px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<!-- Button to open the dialog -->
+<button id="openDialog">Open Dialog</button>
+
+<!-- Dialog content (hidden by default) -->
+<div class="my-dialog" id="myDialog" title="Sample Dialog">
+    <p>This is a sample dialog window.</p>
+    <p>You can move it around and close it using the 'x' icon.</p>
+</div>
+
+<script>
+    $(document).ready(function () {
+        let counter = 0;
+        // Initialize the dialog
+        $("#myDialog").dialog({
+            autoOpen: false, // Dialog is hidden by default
+            draggable: true, // Allow dragging
+            modal: false, // Prevent interaction with elements outside the dialog
+            buttons: {
+                Close: function () {
+                    $(this).dialog("close"); // Close the dialog
+                },
+                ChangeColor: function () {
+                    counter++;
+                    if (counter % 2 === 0) {
+                        $(this).css("background-color", "lightblue")
+                    } else {
+                        $(this).css("background-color", "lightgreen")
+                    }
+                }
+            },
+
+        });
+
+        // Open the dialog when the button is clicked
+        $("#openDialog").click(function () {
+            $("#myDialog").dialog("open");
+        });
+    });
+</script>
+</body>
+</html>

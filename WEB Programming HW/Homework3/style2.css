@@ -341,10 +341,6 @@ body {
     box-sizing: border-box;
 }
 
-.slide img {
-    width: 1380px;
-    height: 100%;
-}
 
 .container {
     position: relative;
@@ -352,18 +348,12 @@ body {
     height: auto;
 }
 
-.slider {
-    width: 100%;
-    /*overflow: hidden;*/
-    position: absolute;
-    height: 560px;
-    /*margin: 0 50px;*/
-}
 
 .image-box {
     display: flex;
-    position: absolute;
-    width: 100%;
+    /*position: absolute;*/
+    width: 70%;
+    max-width: 70%;
 }
 
 .container-1 {
@@ -479,55 +469,6 @@ body {
     cursor: pointer;
 }
 
-.sec-2 {
-    width: 100%;
-    height: 315px;
-    padding: 25px;
-    padding-top: 0;
-    padding-bottom: 25px;
-}
-
-.sec-2 h3 {
-    font-size: 20px;
-    padding-bottom: 5px;
-    margin-top: 5px;
-}
-
-.slide-sec {
-    height: 100%;
-    width: 100%;
-    padding: 35px;
-    overflow-x: hidden;
-    background-color: white;
-    position: relative;
-    margin-top: 20px;
-    margin-bottom: 25px;
-}
-
-.product-slide {
-    display: flex;
-    margin-top: 10px;
-    overflow-x: scroll;
-    scroll-behavior: smooth;
-}
-
-.product-slide::-webkit-scrollbar {
-    background-color: transparent;
-    height: 7px;
-    cursor: pointer;
-}
-
-.product-slide::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.product-slide li {
-    list-style: none;
-    margin-right: 10px;
-    margin-bottom: 15px;
-    cursor: pointer;
-}
 
 .l-btn,
 .r-btn {
@@ -566,19 +507,6 @@ body {
     top: 35%;
     left: 12%;
     right: 12%;
-}
-
-.slide-sec h3 {
-    font-size: 20px;
-    margin-top: 5px;
-    margin-bottom: 0;
-}
-
-.product-slide.product-slide-1 {
-    display: flex;
-    margin-top: 35px;
-    overflow-x: scroll;
-    scroll-behavior: smooth;
 }
 
 .box-d a {
@@ -706,7 +634,6 @@ body {
     display: flex;
     cursor: pointer;
     transition: all 0.2s;
-    font-size: rgb(70, 70, 70);
     font-size: 14px;
     padding: 15px 25px;
     justify-content: space-between;
