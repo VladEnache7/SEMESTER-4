@@ -16,9 +16,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import MoviesContext from './ContextComponent.jsx';
+import FastAPI from '../FastAPI.js';
 
 function MovieShowAll() {
-    const { movies, deleteMovie, getMoviesSorted } = useContext(MoviesContext);
+    const { movies, deleteMovie, getMovies } = useContext(MoviesContext);
     const [open, setOpen] = useState(false);
     const [selectedMovie, setSelectedMovie] = useState({});
 
@@ -64,7 +65,7 @@ function MovieShowAll() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {getMoviesSorted().map((movie) => (
+                    {getMovies().map((movie) => (
                         <TableRow key={movie.id}>
                             <TableCell data-testid="movie-name">
                                 {movie.name}

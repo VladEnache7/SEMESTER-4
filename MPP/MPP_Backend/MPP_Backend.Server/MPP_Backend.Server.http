@@ -1,0 +1,6 @@
+@MPP_Backend.Server_HostAddress = http://localhost:5239
+
+GET {{MPP_Backend.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
