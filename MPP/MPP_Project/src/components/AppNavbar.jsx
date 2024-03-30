@@ -61,6 +61,14 @@ function AppNavbar() {
                         >
                             Add Movie
                         </Button>
+                        <Button
+                            size={'large'}
+                            onClick={() => navigate('/movies/chart')}
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            data-testid="chart-link"
+                        >
+                            Chart
+                        </Button>
                     </Box>
                 </Toolbar>
                 {/*    </Container>*/}

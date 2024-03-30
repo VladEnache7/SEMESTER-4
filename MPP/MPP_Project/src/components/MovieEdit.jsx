@@ -48,7 +48,7 @@ function MovieEdit() {
             movieGenre,
             movieDescription,
         );
-        navigate(`/movies`);
+        navigate(`/`);
     }
 
     return (

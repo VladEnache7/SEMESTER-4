@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
-import  MovieContext  from './components/ContextComponent';
-
+import MovieContext from './components/ContextComponent';
 
 test('renders without crashing', () => {
     render(<App />);
@@ -32,8 +31,8 @@ test('add movie works', () => {
 
     // Fill in the form
     const movieNameInput = screen.getByTestId('movie-name-input');
-    fireEvent.change(movieNameInput, { target: { value: 'Frozen' } });
-    expect(movieNameInput.value).toBe('Frozen');
+    fireEvent.change(movieNameInput, { target: { value: 'Test Movie' } });
+    expect(movieNameInput.value).toBe('Test Movie');
 
     const movieYearInput = screen.getByTestId('movie-year-input');
     fireEvent.change(movieYearInput, { target: { value: 2013 } });
@@ -44,11 +43,17 @@ test('add movie works', () => {
     expect(movieDurationInput.value).toBe('1h 42min');
 
     const movieGenreInput = screen.getByTestId('movie-genre-input');
-    fireEvent.change(movieGenreInput, { target: { value: 'Animation, Adventure, Comedy' } });
+    fireEvent.change(movieGenreInput, {
+        target: { value: 'Animation, Adventure, Comedy' },
+    });
     expect(movieGenreInput.value).toBe('Animation, Adventure, Comedy');
 
     const movieDescriptionInput = screen.getByTestId('movie-description-input');
-    fireEvent.change(movieDescriptionInput, { target: { value: 'When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain' } });
+    fireEvent.change(movieDescriptionInput, {
+        target: {
+            value: 'When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain',
+        },
+    });
 
     // Submit the form
     const addMovieButtonElement = screen.getByTestId('add-movie-button');
@@ -87,25 +92,34 @@ test('edit movie works', () => {
     expect(movieDurationInput.value).toBe('1h 43min');
 
     const movieGenreInput = screen.getByTestId('movie-genre-input');
-    fireEvent.change(movieGenreInput, { target: { value: 'Animation, Adventure, Comedy' } });
+    fireEvent.change(movieGenreInput, {
+        target: { value: 'Animation, Adventure, Comedy' },
+    });
     expect(movieGenreInput.value).toBe('Animation, Adventure, Comedy');
 
     const movieDescriptionInput = screen.getByTestId('movie-description-input');
-    fireEvent.change(movieDescriptionInput, { target: { value: 'When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain' } });
+    fireEvent.change(movieDescriptionInput, {
+        target: {
+            value: 'When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain',
+        },
+    });
 
     const updateMovieButtonElement = screen.getByTestId('update-movie-button');
     fireEvent.click(updateMovieButtonElement);
 
-    const homePageElementAfterEdit = screen.getByTestId('movies-table-container');
+    const homePageElementAfterEdit = screen.getByTestId(
+        'movies-table-container',
+    );
     expect(homePageElementAfterEdit).toBeInTheDocument();
     const movieRowElement = screen.getByText('Frozen 2');
     expect(movieRowElement).toBeInTheDocument();
 });
 
-test('details button works', () => {
+test('details button works', async () => {
     render(<App />);
     const homeLinkElement = screen.getByTestId('home-link');
     fireEvent.click(homeLinkElement);
+
     const homePageElement = screen.getByTestId('movies-table-container');
     expect(homePageElement).toBeInTheDocument();
 
@@ -115,13 +129,12 @@ test('details button works', () => {
         year: screen.getAllByTestId('movie-year')[0].textContent,
         genre: screen.getAllByTestId('movie-genre')[0].textContent,
     };
-    
+    console.log(firstMovie);
 
     // click the details button on the first movie
     const detailsButtonElement = screen.getAllByTestId('details-button')[0];
     fireEvent.click(detailsButtonElement);
 
-    
     // check if the details page is displayed
     const detailsPageElement = screen.getByTestId('details-page');
     expect(detailsPageElement).toBeInTheDocument();
@@ -148,10 +161,14 @@ test('delete movie works', () => {
     const deleteButtonElement = screen.getAllByTestId('delete-button')[0];
     fireEvent.click(deleteButtonElement);
 
-    const confirmDeleteButtonElement = screen.getByTestId('confirm-delete-button');
+    const confirmDeleteButtonElement = screen.getByTestId(
+        'confirm-delete-button',
+    );
     fireEvent.click(confirmDeleteButtonElement);
 
-    const homePageElementAfterDelete = screen.getByTestId('movies-table-container');
+    const homePageElementAfterDelete = screen.getByTestId(
+        'movies-table-container',
+    );
     expect(homePageElementAfterDelete).toBeInTheDocument();
     const movieRowElement = screen.queryByText(movieName);
     expect(movieRowElement).not.toBeInTheDocument();

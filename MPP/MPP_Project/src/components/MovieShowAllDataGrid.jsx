@@ -29,18 +29,35 @@ function MovieShowAllDataGrid() {
 
     // define the columns for the DataGrid
     const columns = [
-        { field: 'name', headerName: 'Name', flex: 2 },
-        { field: 'year', headerName: 'Year', flex: 1 },
-        { field: 'genre', headerName: 'Genre', flex: 2 },
+        {
+            field: 'name',
+            headerName: 'Name',
+            flex: 2,
+            renderCell: (params) => (
+                <div data-testid="movie-name-grid">{params.value}</div>
+            ),
+        },
+        {
+            field: 'year',
+            headerName: 'Year',
+            flex: 1,
+            renderCell: (params) => (
+                <div data-testid="movie-year-grid">{params.value}</div>
+            ),
+        },
+        {
+            field: 'genre',
+            headerName: 'Genre',
+            flex: 2,
+            renderCell: (params) => (
+                <div data-testid="movie-genre-grid">{params.value}</div>
+            ),
+        },
+
         { field: 'duration', headerName: 'Duration', flex: 1 },
         {
-            field: 'action',
-            headerName: 'Action',
-            flex: 2,
-            minWidth: 255,
-            sortable: false,
             renderCell: (params) => (
-                <strong>
+                <div data-testid="action-buttons">
                     <Button
                         variant="contained"
                         color="primary"
@@ -49,6 +66,7 @@ function MovieShowAllDataGrid() {
                         onClick={() => {
                             navigate(`/movies/${params.row.id}/details`);
                         }}
+                        data-testid="details-button"
                     >
                         Details
                     </Button>
@@ -60,6 +78,7 @@ function MovieShowAllDataGrid() {
                         onClick={() => {
                             navigate(`/movies/${params.row.id}/edit`);
                         }}
+                        data-testid="edit-button"
                     >
                         Edit
                     </Button>
@@ -71,29 +90,25 @@ function MovieShowAllDataGrid() {
                         onClick={() => {
                             handleDeletePopUp(params.row);
                         }}
+                        data-testid="delete-button"
                     >
                         Delete
                     </Button>
-                </strong>
+                </div>
             ),
+            field: 'action',
+            headerName: 'Action',
+            flex: 2,
+            minWidth: 255,
+            sortable: false,
         },
     ];
-
-    const rows = movies.map((movie) => {
-        return {
-            id: movie.id,
-            name: movie.name,
-            year: movie.year,
-            genre: movie.genre,
-            duration: movie.duration,
-            description: movie.description,
-        };
-    });
 
     return (
         <div style={{ marginTop: 20 }}>
             <DataGrid
-                rows={rows}
+                data-testid="movies-table-container-grid"
+                rows={movies}
                 columns={columns}
                 initialState={{
                     pagination: {

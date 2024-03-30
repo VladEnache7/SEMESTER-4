@@ -18,7 +18,7 @@ import { useContext, useState } from 'react';
 import MoviesContext from './ContextComponent.jsx';
 
 function MovieShowAll() {
-    const { movies, deleteMovie } = useContext(MoviesContext);
+    const { movies, deleteMovie, getMoviesSorted } = useContext(MoviesContext);
     const [open, setOpen] = useState(false);
     const [selectedMovie, setSelectedMovie] = useState({});
 
@@ -64,7 +64,7 @@ function MovieShowAll() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {movies.map((movie) => (
+                    {getMoviesSorted().map((movie) => (
                         <TableRow key={movie.id}>
                             <TableCell data-testid="movie-name">
                                 {movie.name}

@@ -246,12 +246,10 @@ export const MoviesContext = createContext({
         movieGenre,
         movieDescription,
     ) => {},
+    getMoviesSorted: () => {},
 });
 
 export const MoviesProvider = ({ children }) => {
-    // sort the movies by year
-    initialMovies.sort((a, b) => a.year - b.year);
-
     const [movies, setMovies] = useState(initialMovies);
 
     const addMovie = (
@@ -300,9 +298,24 @@ export const MoviesProvider = ({ children }) => {
         );
     }
 
+    function sortMovies() {
+        movies.sort((a, b) => b.name.localeCompare(a.name));
+    }
+
+    function getMoviesSorted() {
+        sortMovies();
+        return movies;
+    }
+
     return (
         <MoviesContext.Provider
-            value={{ movies, addMovie, deleteMovie, editMovie }}
+            value={{
+                movies,
+                addMovie,
+                deleteMovie,
+                editMovie,
+                getMoviesSorted,
+            }}
         >
             {children}
         </MoviesContext.Provider>

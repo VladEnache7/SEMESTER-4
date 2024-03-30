@@ -18,8 +18,11 @@ const App = () => {
                 <AppNavbar />
                 <MoviesProvider>
                     <Routes>
-                        <Route path="/" element={<MovieShowAllDataGrid />} />
-                        <Route path="/movies" element={<MovieShowAll />} />
+                        <Route path="/" element={<MovieShowAll />} />
+                        <Route
+                            path="/movies"
+                            element={<MovieShowAllDataGrid />}
+                        />
                         <Route path="/movies/add" element={<MovieAdd />} />
                         <Route
                             path="/movies/:movieId/details"
