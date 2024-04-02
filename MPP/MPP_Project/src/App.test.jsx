@@ -22,6 +22,96 @@ test('links to (add movie page) and (home page) works', () => {
     expect(homePageElement).toBeInTheDocument();
 });
 
+vi.mock('FastAPI.js', () => ({
+    getMovies: vi.fn(() =>
+        Promise.resolve({
+            data: [
+                {
+                    id: 1,
+                    name: 'Frozen',
+                    year: 2013,
+                    genre: 'Animation, Adventure, Comedy',
+                    duration: '1h 42min',
+                    description:
+                        'When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain',
+                },
+                {
+                    id: 2,
+                    name: 'Frozen 2',
+                    year: 2019,
+                    genre: 'Animation, Adventure, Comedy',
+                    duration: '1h 43min',
+                    description:
+                        'When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain',
+                },
+            ],
+        }),
+    ),
+    deleteMovie: vi.fn(() => Promise.resolve({})),
+    addMovie: vi.fn(() => Promise.resolve({})),
+    editMovie: vi.fn(() => Promise.resolve({})),
+}));
+
+test('fetches movies and displays them', async () => {
+    render(<App />);
+    const homePageElement = screen.getByTestId('movies-table-container');
+    expect(homePageElement).toBeInTheDocument();
+
+    const movieNameElement = screen.getByText('Frozen');
+    expect(movieNameElement).toBeInTheDocument();
+});
+
+global.fetch = vi.fn();
+function createFetchResponse(data) {
+    return { json: () => new Promise((resolve) => resolve(data)) };
+}
+
+test('makes a POST request to create a todo', async () => {
+    render(<App />);
+    const addMovieLinkElement = screen.getByTestId('add-movie-link');
+    fireEvent.click(addMovieLinkElement);
+    const addMoviePageElement = screen.getByTestId('add-movie-page');
+    expect(addMoviePageElement).toBeInTheDocument();
+
+    // Fill in the form
+    const movieNameInput = screen.getByTestId('movie-name-input');
+    fireEvent.change(movieNameInput, { target: { value: 'Test Movie' } });
+    expect(movieNameInput.value).toBe('Test Movie');
+
+    const movieYearInput = screen.getByTestId('movie-year-input');
+    fireEvent.change(movieYearInput, { target: { value: 2013 } });
+    expect(movieYearInput.value).toBe('2013');
+
+    const movieDurationInput = screen.getByTestId('movie-duration-input');
+    fireEvent.change(movieDurationInput, { target: { value: '1h 42min' } });
+    expect(movieDurationInput.value).toBe('1h 42min');
+
+    const movieGenreInput = screen.getByTestId('movie-genre-input');
+    fireEvent.change(movieGenreInput, {
+        target: { value: 'Animation, Adventure, Comedy' },
+    });
+    expect(movieGenreInput.value).toBe('Animation, Adventure, Comedy');
+
+    const movieDescriptionInput = screen.getByTestId('movie-description-input');
+    fireEvent.change(movieDescriptionInput, {
+        target: {
+            value: 'When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain',
+        },
+    });
+
+    // Mock the fetch function
+    global.fetch = vi.fn().mockResolvedValueOnce(createFetchResponse({}));
+
+    // Submit the form
+    const addMovieButtonElement = screen.getByTestId('add-movie-button');
+    fireEvent.click(addMovieButtonElement);
+    expect(fetch).toHaveBeenCalledTimes(1);
+
+    // Check if the movie was added without using the movies context
+    const movieRowElement = screen.getByText('Test Movie');
+    expect(movieRowElement).toBeInTheDocument();
+});
+
 test('add movie works', () => {
     render(<App />);
     const addMovieLinkElement = screen.getByTestId('add-movie-link');
@@ -59,10 +149,9 @@ test('add movie works', () => {
     const addMovieButtonElement = screen.getByTestId('add-movie-button');
     fireEvent.click(addMovieButtonElement);
 
-    // Assert that the movie is added
     const homePageElement = screen.getByTestId('movies-table-container');
     expect(homePageElement).toBeInTheDocument();
-    const movieRowElement = screen.getByText('Frozen');
+    const movieRowElement = screen.getByText('Test Movie');
     expect(movieRowElement).toBeInTheDocument();
 });
 

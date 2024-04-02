@@ -65,7 +65,7 @@ function MovieShowAll() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {getMovies().map((movie) => (
+                    {movies.map((movie) => (
                         <TableRow key={movie.id}>
                             <TableCell data-testid="movie-name">
                                 {movie.name}
