@@ -69,6 +69,14 @@ function AppNavbar() {
                         >
                             Chart
                         </Button>
+                        <Button
+                            size={'large'}
+                            onClick={() => navigate('/movies/generate')}
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            data-testid="generate-link"
+                        >
+                            Generate
+                        </Button>
                     </Box>
                 </Toolbar>
                 {/*    </Container>*/}

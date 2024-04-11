@@ -70,7 +70,9 @@ function MovieAdd() {
     return (
         <>
             <Container data-testid="add-movie-page">
-                <h1 style={{ textAlign: 'center' }}>Add Movie</h1>
+                <h1 style={{ textAlign: 'center', marginTop: 20 }}>
+                    Add Movie
+                </h1>
                 <Box
                     component={Paper}
                     sx={{

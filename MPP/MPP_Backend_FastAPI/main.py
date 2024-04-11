@@ -1,5 +1,8 @@
+import time
+
 import uvicorn
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks, WebSocket, WebSocketDisconnect
+from fastapi.responses import HTMLResponse
 from typing import List, Annotated
 from sqlalchemy.orm import Session
 
@@ -10,6 +13,7 @@ from models import Movie
 from fastapi.middleware.cors import CORSMiddleware
 from MoviesRepository import MoviesRepo
 from schemas import MovieBase, MovieModel
+import threading
 
 # Create a new FastAPI instance
 app = FastAPI()
@@ -35,6 +39,35 @@ def get_db():
 
 MoviesRepoInstance = MoviesRepo()
 
+active_connections: List[WebSocket] = []
+
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    print("New client trying to connect")
+    await websocket.accept()
+    print("Client accepted")
+    active_connections.append(websocket)
+    print(f"Active connections: {len(active_connections)}")
+
+    try:
+        while True:
+            data = await websocket.receive_text()
+            print(f"Data received by client: {data}")
+            await websocket.send_text(f"Message text was: {data}")
+    except WebSocketDisconnect:
+        active_connections.remove(websocket)
+
+
+async def notify_clients():
+    for connection in active_connections:
+        # print the last 5 movies
+        # print(MoviesRepoInstance.get_movies()[-5:])
+        message = {"message": "New movies added"}
+        await connection.send_json(MoviesRepoInstance.get_movies())
+        print(f"Notified {len(active_connections)} clients")
+
+
 db_dependency = Annotated[Session, Depends(get_db)]
 
 # the database is going to create our table and columns automatically when this fastAPI application is created
@@ -49,8 +82,10 @@ models.Base.metadata.create_all(bind=engine)
 #     return movies
 
 @app.get('/movies')
-async def get_movies(skip: int = 0, limit: int = 25):
-    return MoviesRepoInstance.get_movies_skip_limit(skip, limit)
+async def get_movies(skip: int = 0, limit: int = 100):
+    returnedList = MoviesRepoInstance.get_movies_skip_limit(skip, limit)
+    print(f"Get Movies Len: {len(returnedList)}")
+    return returnedList
 
 
 # <todo> CREATE a new movie in the database
@@ -67,6 +102,7 @@ async def get_movies(skip: int = 0, limit: int = 25):
 
 @app.post('/movies', response_model=MovieModel)
 async def add_movie(movie: MovieBase):
+    await notify_clients()
     return MoviesRepoInstance.add_movie(movie)
 
 
@@ -97,6 +133,7 @@ async def update_movie(movie_id: int, movie: MovieBase, db: db_dependency):
     movie = MoviesRepoInstance.update_movie(movie_id, movie)
     if movie is None:
         raise HTTPException(status_code=404, detail='Movie not found')
+    await notify_clients()
     return movie
 
 
@@ -112,6 +149,7 @@ async def delete_movie(movie_id: int, db: db_dependency):
     movie = MoviesRepoInstance.delete_movie(movie_id)
     if movie is None:
         raise HTTPException(status_code=404, detail='Movie not found')
+    await notify_clients()
     return {'message': 'Movie deleted successfully'}
 
 
@@ -123,11 +161,52 @@ async def add_bulk_movies(movies: List[MovieBase], db: db_dependency):
     # db_movies = [models.Movie(**movie.dict()) for movie in movies]
     # db.add_all(db_movies)
     # db.commit()
+    await notify_clients()
     return MoviesRepoInstance.add_movies(movies)
+
+
+generation_count = 0
+
+
+async def generate_and_add_movies_periodically(count):
+    global generation_count
+    MoviesRepoInstance.generate_and_add_movies(count)
+    await notify_clients()
+    print("Notified clients - main")
+    generation_count += 1
+    if generation_count < 5:
+        # wait for 1 second before generating the next set of movies
+        time.sleep(3)
+        await generate_and_add_movies_periodically(count)
+        # threading.Timer(1, generate_and_add_movies_periodically, args=[count]).start()
+        print(f"Generating {generation_count} time movies in background every 1 second")
+
+
+# <todo> GENERATE n number of movies in the database periodically
+# a POST route that generates a specified number of random movies in the database.
+# It uses the number parameter to determine the number of movies to generate.
+@app.post('/movies/generate/{number}', response_model=dict)
+async def generate_movies(number: int, db: db_dependency, background_tasks: BackgroundTasks):
+    global generation_count
+    # movies = generate_random_movies(number)
+    # db_movies = [models.Movie(**movie.dict()) for movie in movies]
+    # db.add_all(db_movies)
+    # db.commit()
+    # added_movies = MoviesRepoInstance.generate_and_add_movies(number)
+    # added_movies = MoviesRepoInstance.add_movies(movies)
+    generation_count = 0
+    background_tasks.add_task(generate_and_add_movies_periodically, number)
+    return {'message': f'Generating {number} movies in background every 2 seconds'}
+
+
+@app.post('/movies/generate_once/{number}', response_model=List[dict])
+async def generate_movies_once(number: int, db: db_dependency):
+    added_movies = MoviesRepoInstance.generate_and_add_movies(number)
+    await notify_clients()
+    return added_movies
 
 
 if __name__ == '__main__':
     # for Debugging purposes
     uvicorn.run(app, host="127.0.0.1", port=8001)
-
     pass

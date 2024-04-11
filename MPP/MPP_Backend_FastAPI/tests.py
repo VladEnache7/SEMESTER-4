@@ -1,8 +1,9 @@
 import unittest
 from fastapi import FastAPI
 from starlette.testclient import TestClient
-from main import app, MovieBase, MovieModel
+from main import app
 from typing import List
+from schemas import MovieBase, MovieModel
 
 
 class TestMoviesCRUD(unittest.TestCase):
@@ -53,17 +54,25 @@ class TestMoviesCRUD(unittest.TestCase):
         self.assertEqual(response.json()["message"], "Movie deleted successfully")
 
     def test_add_bulk_movies(self):
-        # get the length of the movies list
-        response = self.client.get("/movies")
-        self.assertEqual(response.status_code, 200)
-        movies_count = len(response.json())
-
         movies = [
             MovieBase(name=f"Test Movie {i}", year=2022, duration="2h", genre="Action", description="Test Description")
             for i in range(5)]
         response = self.client.post("/movies/bulk/", json=[movie.dict() for movie in movies])
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json()), movies_count + 5)
+        self.assertEqual(len(response.json()), 5)
+
+    def test_generate_movie(self):
+        # get the length of the movies list
+        response = self.client.get("/movies")
+        self.assertEqual(response.status_code, 200)
+        movies_count = len(response.json())
+
+        response = self.client.post("/movies/generate_once/1")
+        self.assertEqual(response.status_code, 200)
+
+        # check that the response message is correct
+
+        self.assertEqual(len(response.json()), 1)
 
 
 if __name__ == "__main__":

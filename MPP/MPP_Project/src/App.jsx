@@ -10,6 +10,7 @@ import MovieShowAll from './components/MovieShowAll.jsx';
 import MovieEdit from './components/MovieEdit.jsx';
 import MovieShowAllDataGrid from './components/MovieShowAllDataGrid.jsx';
 import ChartByYear from './components/Chart.jsx';
+import MoviesGenerate from './components/MoviesGenerate.jsx';
 
 const App = () => {
     return (
@@ -33,6 +34,10 @@ const App = () => {
                             element={<MovieEdit />}
                         />
                         <Route path="/movies/chart" element={<ChartByYear />} />
+                        <Route
+                            path="/movies/generate"
+                            element={<MoviesGenerate />}
+                        />
                         <Route path="*" element={<h1>Page Not Found</h1>} />
                     </Routes>
                 </MoviesProvider>

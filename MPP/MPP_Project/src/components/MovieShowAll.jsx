@@ -14,14 +14,38 @@
     TableRow,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import MoviesContext from './ContextComponent.jsx';
 import FastAPI from '../FastAPI.js';
+import Alert from '@mui/material/Alert';
 
 function MovieShowAll() {
-    const { movies, deleteMovie, getMovies } = useContext(MoviesContext);
+    const { movies, deleteMovie, getMovies, error } = useContext(MoviesContext);
     const [open, setOpen] = useState(false);
     const [selectedMovie, setSelectedMovie] = useState({});
+    const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+    useEffect(() => {
+        function updateOnlineStatus() {
+            setIsOnline(navigator.onLine);
+        }
+
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+
+        return () => {
+            window.removeEventListener('online', updateOnlineStatus);
+            window.removeEventListener('offline', updateOnlineStatus);
+        };
+    }, []);
+
+    if (!isOnline) {
+        return (
+            <Alert severity="error" style={{ marginTop: 30 }}>
+                You are not connected to the internet
+            </Alert>
+        );
+    }
 
     // for navigation between pages
     let navigate = useNavigate();
@@ -33,6 +57,15 @@ function MovieShowAll() {
         setOpen(true);
         // console.log(movieId);
         setSelectedMovie(movie);
+    }
+
+    if (error) {
+        // use an alert to show the error
+        return (
+            <Alert severity="error" style={{ marginTop: 30 }}>
+                {error}
+            </Alert>
+        );
     }
 
     return (

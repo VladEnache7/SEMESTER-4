@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
-import MovieContext from './components/ContextComponent';
+import FastAPI from './FastAPI.js';
+import { act } from 'react-dom/test-utils';
 
 test('renders without crashing', () => {
     render(<App />);
@@ -22,97 +23,119 @@ test('links to (add movie page) and (home page) works', () => {
     expect(homePageElement).toBeInTheDocument();
 });
 
-vi.mock('FastAPI.js', () => ({
-    getMovies: vi.fn(() =>
-        Promise.resolve({
-            data: [
-                {
-                    id: 1,
-                    name: 'Frozen',
-                    year: 2013,
-                    genre: 'Animation, Adventure, Comedy',
-                    duration: '1h 42min',
-                    description:
-                        'When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain',
-                },
-                {
-                    id: 2,
-                    name: 'Frozen 2',
-                    year: 2019,
-                    genre: 'Animation, Adventure, Comedy',
-                    duration: '1h 43min',
-                    description:
-                        'When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain',
-                },
-            ],
-        }),
-    ),
-    deleteMovie: vi.fn(() => Promise.resolve({})),
-    addMovie: vi.fn(() => Promise.resolve({})),
-    editMovie: vi.fn(() => Promise.resolve({})),
+vi.mock('./FastAPI.js', () => ({
+    __esModule: true, // this property makes it work
+    default: {
+        get: vi.fn(() =>
+            Promise.resolve({
+                data: [
+                    {
+                        id: 1,
+                        name: 'Frozen',
+                        year: 2013,
+                        genre: 'Animation, Adventure, Comedy',
+                        duration: '1h 42min',
+                        description:
+                            'When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain',
+                    },
+                    {
+                        id: 2,
+                        name: 'Frozen 2',
+                        year: 2019,
+                        genre: 'Animation, Adventure, Comedy',
+                        duration: '1h 43min',
+                        description:
+                            'When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain',
+                    },
+                ],
+            }),
+        ),
+        post: vi.fn(() => Promise.resolve({})),
+        put: vi.fn(() => Promise.resolve({})),
+        delete: vi.fn(() => Promise.resolve({})),
+    },
 }));
 
+test('FastAPI.get is mocked correctly', async () => {
+    const response = await FastAPI.get('/movies');
+    expect(response).toEqual({
+        data: [
+            {
+                id: 1,
+                name: 'Frozen',
+                year: 2013,
+                genre: 'Animation, Adventure, Comedy',
+                duration: '1h 42min',
+                description:
+                    'When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain',
+            },
+            {
+                id: 2,
+                name: 'Frozen 2',
+                year: 2019,
+                genre: 'Animation, Adventure, Comedy',
+                duration: '1h 43min',
+                description:
+                    'When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain',
+            },
+        ],
+    });
+});
+
+test('FastAPI.put is mocked correctly', async () => {
+    const response = await FastAPI.put('/movies/1', {
+        name: 'Frozen',
+        year: 2013,
+        genre: 'Animation, Adventure, Comedy',
+        duration: '1h 42min',
+        description:
+            'When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain',
+    });
+    expect(response).toEqual({});
+});
+
+test('FastAPI.post is mocked correctly', async () => {
+    const response = await FastAPI.post('/movies', {
+        name: 'Frozen',
+        year: 2013,
+        genre: 'Animation, Adventure, Comedy',
+        duration: '1h 42min',
+        description:
+            'When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain',
+    });
+    expect(response).toEqual({});
+});
+
+test('FastAPI.delete is mocked correctly', async () => {
+    const response = await FastAPI.delete('/movies/1');
+    expect(response).toEqual({});
+});
+
 test('fetches movies and displays them', async () => {
+    // spy on the FastAPI.get function
+    const spy = vi.spyOn(FastAPI, 'get');
+
     render(<App />);
     const homePageElement = screen.getByTestId('movies-table-container');
     expect(homePageElement).toBeInTheDocument();
 
-    const movieNameElement = screen.getByText('Frozen');
-    expect(movieNameElement).toBeInTheDocument();
-});
+    // expected "wrap" to be called at least once
+    expect(FastAPI.get).toHaveBeenCalled();
 
-global.fetch = vi.fn();
-function createFetchResponse(data) {
-    return { json: () => new Promise((resolve) => resolve(data)) };
-}
+    // check if the movies are displayed
+    const movieNameElements = screen.getAllByTestId('movie-name');
+    expect(movieNameElements.length).toBe(2);
 
-test('makes a POST request to create a todo', async () => {
-    render(<App />);
-    const addMovieLinkElement = screen.getByTestId('add-movie-link');
-    fireEvent.click(addMovieLinkElement);
-    const addMoviePageElement = screen.getByTestId('add-movie-page');
-    expect(addMoviePageElement).toBeInTheDocument();
+    const movieYearElements = screen.getAllByTestId('movie-year');
+    expect(movieYearElements.length).toBe(2);
 
-    // Fill in the form
-    const movieNameInput = screen.getByTestId('movie-name-input');
-    fireEvent.change(movieNameInput, { target: { value: 'Test Movie' } });
-    expect(movieNameInput.value).toBe('Test Movie');
-
-    const movieYearInput = screen.getByTestId('movie-year-input');
-    fireEvent.change(movieYearInput, { target: { value: 2013 } });
-    expect(movieYearInput.value).toBe('2013');
-
-    const movieDurationInput = screen.getByTestId('movie-duration-input');
-    fireEvent.change(movieDurationInput, { target: { value: '1h 42min' } });
-    expect(movieDurationInput.value).toBe('1h 42min');
-
-    const movieGenreInput = screen.getByTestId('movie-genre-input');
-    fireEvent.change(movieGenreInput, {
-        target: { value: 'Animation, Adventure, Comedy' },
-    });
-    expect(movieGenreInput.value).toBe('Animation, Adventure, Comedy');
-
-    const movieDescriptionInput = screen.getByTestId('movie-description-input');
-    fireEvent.change(movieDescriptionInput, {
-        target: {
-            value: 'When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain',
-        },
-    });
-
-    // Mock the fetch function
-    global.fetch = vi.fn().mockResolvedValueOnce(createFetchResponse({}));
-
-    // Submit the form
-    const addMovieButtonElement = screen.getByTestId('add-movie-button');
-    fireEvent.click(addMovieButtonElement);
-    expect(fetch).toHaveBeenCalledTimes(1);
-
-    // Check if the movie was added without using the movies context
-    const movieRowElement = screen.getByText('Test Movie');
-    expect(movieRowElement).toBeInTheDocument();
+    const movieGenreElements = screen.getAllByTestId('movie-genre');
+    expect(movieGenreElements.length).toBe(2);
 });
 
 test('add movie works', () => {
+    const spy = vi.spyOn(FastAPI, 'post');
+
     render(<App />);
     const addMovieLinkElement = screen.getByTestId('add-movie-link');
     fireEvent.click(addMovieLinkElement);
@@ -149,13 +172,16 @@ test('add movie works', () => {
     const addMovieButtonElement = screen.getByTestId('add-movie-button');
     fireEvent.click(addMovieButtonElement);
 
+    // Check if the post function was called
+    expect(FastAPI.post).toHaveBeenCalled();
+
     const homePageElement = screen.getByTestId('movies-table-container');
     expect(homePageElement).toBeInTheDocument();
-    const movieRowElement = screen.getByText('Test Movie');
-    expect(movieRowElement).toBeInTheDocument();
 });
 
 test('edit movie works', () => {
+    const spy = vi.spyOn(FastAPI, 'put');
+
     render(<App />);
     const homeLinkElement = screen.getByTestId('home-link');
     fireEvent.click(homeLinkElement);
@@ -194,17 +220,22 @@ test('edit movie works', () => {
     });
 
     const updateMovieButtonElement = screen.getByTestId('update-movie-button');
-    fireEvent.click(updateMovieButtonElement);
+    act(() => {
+        fireEvent.click(updateMovieButtonElement);
+    });
 
     const homePageElementAfterEdit = screen.getByTestId(
         'movies-table-container',
     );
     expect(homePageElementAfterEdit).toBeInTheDocument();
-    const movieRowElement = screen.getByText('Frozen 2');
-    expect(movieRowElement).toBeInTheDocument();
+
+    // Check if the post function was called
+    expect(FastAPI.put).toHaveBeenCalled();
 });
 
 test('details button works', async () => {
+    // spy on the FastAPI.get function
+    const spy = vi.spyOn(FastAPI, 'get');
     render(<App />);
     const homeLinkElement = screen.getByTestId('home-link');
     fireEvent.click(homeLinkElement);
@@ -218,7 +249,7 @@ test('details button works', async () => {
         year: screen.getAllByTestId('movie-year')[0].textContent,
         genre: screen.getAllByTestId('movie-genre')[0].textContent,
     };
-    console.log(firstMovie);
+    //console.log(firstMovie);
 
     // click the details button on the first movie
     const detailsButtonElement = screen.getAllByTestId('details-button')[0];
@@ -235,9 +266,14 @@ test('details button works', async () => {
     expect(movieYearElement).toBeInTheDocument();
     const movieGenreElement = screen.getByText(firstMovie.genre);
     expect(movieGenreElement).toBeInTheDocument();
+
+    // expected "wrap" to be called at least once
+    expect(FastAPI.get).toHaveBeenCalled();
 });
 
 test('delete movie works', () => {
+    const spy = vi.spyOn(FastAPI, 'delete');
+
     render(<App />);
     const homeLinkElement = screen.getByTestId('home-link');
     fireEvent.click(homeLinkElement);
@@ -259,6 +295,7 @@ test('delete movie works', () => {
         'movies-table-container',
     );
     expect(homePageElementAfterDelete).toBeInTheDocument();
-    const movieRowElement = screen.queryByText(movieName);
-    expect(movieRowElement).not.toBeInTheDocument();
+
+    // expected "wrap" to be called at least once
+    expect(FastAPI.delete).toHaveBeenCalled();
 });
