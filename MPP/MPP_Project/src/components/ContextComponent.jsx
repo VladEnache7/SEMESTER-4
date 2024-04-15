@@ -295,7 +295,6 @@ export const MoviesProvider = ({ children }) => {
             console.log('Null message received');
         }
     }, [lastJsonMessage]);
-
     const addMovie = (
         movieName,
         movieYear,

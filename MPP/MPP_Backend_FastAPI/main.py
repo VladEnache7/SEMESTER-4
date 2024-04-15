@@ -174,9 +174,9 @@ async def generate_and_add_movies_periodically(count):
     await notify_clients()
     print("Notified clients - main")
     generation_count += 1
-    if generation_count < 5:
+    if generation_count < 100:
         # wait for 1 second before generating the next set of movies
-        time.sleep(3)
+        time.sleep(1)
         await generate_and_add_movies_periodically(count)
         # threading.Timer(1, generate_and_add_movies_periodically, args=[count]).start()
         print(f"Generating {generation_count} time movies in background every 1 second")

@@ -76,6 +76,7 @@ function MovieShowAll() {
                 width: 'fit-content',
                 margin: 'auto',
                 marginTop: 3,
+                marginBottom: 10,
                 backgroundColor: 'lightblue',
             }}
             data-testid="movies-table-container"
