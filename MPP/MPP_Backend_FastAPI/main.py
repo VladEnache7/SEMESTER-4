@@ -28,8 +28,7 @@ app.add_middleware(
 )
 
 
-# This function is used to create a new database session and close it once the request is finished.
-def get_db():
+def get_database():
     db = SessionLocal()
     try:
         yield db
@@ -40,6 +39,7 @@ def get_db():
 MoviesRepoInstance = MoviesRepo()
 
 active_connections: List[WebSocket] = []
+db_dependency = Annotated[models.Movie, Depends(get_database)]
 
 
 @app.websocket("/ws")
@@ -61,106 +61,61 @@ async def websocket_endpoint(websocket: WebSocket):
 
 async def notify_clients():
     for connection in active_connections:
-        # print the last 5 movies
-        # print(MoviesRepoInstance.get_movies()[-5:])
         message = {"message": "New movies added"}
-        await connection.send_json(MoviesRepoInstance.get_movies())
+        await connection.send_json(MoviesRepoInstance.get_all_movies())
         print(f"Notified {len(active_connections)} clients")
 
 
-db_dependency = Annotated[Session, Depends(get_db)]
-
-# the database is going to create our table and columns automatically when this fastAPI application is created
-models.Base.metadata.create_all(bind=engine)
-
-
 # <todo> GET ALL movies from the database
-#  read_movies is a GET route that retrieves a list of movies from the database. It uses the MovieModel model to shape the response data.
-# @app.get('/movies', response_model=List[MovieModel])
-# async def get_movies(db: db_dependency, skip: int = 0, limit: int = 25):
-#     movies = db.query(models.Movie).offset(skip).limit(limit).all()
-#     return movies
-
-@app.get('/movies')
-async def get_movies(skip: int = 0, limit: int = 100):
-    returnedList = MoviesRepoInstance.get_movies_skip_limit(skip, limit)
-    print(f"Get Movies Len: {len(returnedList)}")
-    return returnedList
-
-
-# <todo> CREATE a new movie in the database
-# a POST route that creates a new movie in the database.
-# It uses the MovieBase model to validate the request body and the MovieModel model to shape the response data.
-# @app.post('/movies', response_model=MovieModel)
-# async def add_movie(movie: MovieBase, db: db_dependency):
-#     db_movie = models.Movie(**movie.dict())
-#     db.add(db_movie)
-#     db.commit()
-#     db.refresh(db_movie)
-#     return db_movie
-
-
-@app.post('/movies', response_model=MovieModel)
-async def add_movie(movie: MovieBase):
-    await notify_clients()
-    return MoviesRepoInstance.add_movie(movie)
+@app.get('/movies', response_model=List[MovieModel])
+async def get_movies(db: db_dependency, skip: int = 0, limit: int = 25):
+    #  get_movies is a GET route that retrieves a list of movies from the database.
+    #  It uses the MovieModel model to shape the response data.
+    movies = MoviesRepoInstance.get_movies_skip_limit(db, skip, limit)
+    return movies
 
 
 # <todo> GET a single movie from the database
-# a GET route that retrieves a single movie from the database by its id.
-# It uses the MovieModel model to shape the response data.
 @app.get('/movies/{movie_id}', response_model=MovieModel)
-async def get_movie(movie_id: int, db: db_dependency):
-    # movie = db.query(models.Movie).filter(models.Movie.id == movie_id).first()
+async def get_movie(db: db_dependency, movie_id: int):
     movie = MoviesRepoInstance.get_movie(movie_id)
     if movie is None:
         raise HTTPException(status_code=404, detail='Movie not found')
     return movie
 
 
-# <todo> UPDATE a movie in the database
-# a PUT route that updates a movie in the database by its id.
-# It uses the MovieBase model to validate the request body and the MovieModel model to shape the response data.
-@app.put('/movies/{movie_id}', response_model=MovieModel)
-async def update_movie(movie_id: int, movie: MovieBase, db: db_dependency):
-    # db_movie = db.query(models.Movie).filter(models.Movie.id == movie_id).first()
-    # if db_movie is None:
-    #     raise HTTPException(status_code=404, detail='Movie not found')
-    # for key, value in movie.dict().items():
-    #     setattr(db_movie, key, value)
-    # db.commit()
-    # db.refresh(db_movie)
-    movie = MoviesRepoInstance.update_movie(movie_id, movie)
-    if movie is None:
-        raise HTTPException(status_code=404, detail='Movie not found')
+# <todo> CREATE a new movie in the database
+@app.post('/movies', response_model=MovieModel)
+async def add_movie(db: db_dependency, movie: MovieBase):
+    # a POST route that creates a new movie in the database.
+    # It uses the MovieBase model to validate the request body and the MovieModel model to shape the response data.
     await notify_clients()
-    return movie
+    return MoviesRepoInstance.add_movie(movie)
+
+
+# <todo> UPDATE a movie in the database
+@app.put('/movies/{movie_id}', response_model=MovieModel)
+async def update_movie(db: db_dependency, movie_id: int, movie: MovieBase):
+    # a PUT route that updates a movie in the database by its id.
+    # It uses the MovieBase model to validate the request body and the MovieModel model to shape the response data.
+    return MoviesRepoInstance.update_movie(movie_id, movie)
 
 
 # <todo> DELETE a movie from the database
-# a DELETE route that deletes a movie from the database by its id.
 @app.delete('/movies/{movie_id}')
-async def delete_movie(movie_id: int, db: db_dependency):
-    # db_movie = db.query(models.Movie).filter(models.Movie.id == movie_id).first()
-    # if db_movie is None:
-    #     raise HTTPException(status_code=404, detail='Movie not found')
-    # db.delete(db_movie)
-    # db.commit()
-    movie = MoviesRepoInstance.delete_movie(movie_id)
-    if movie is None:
-        raise HTTPException(status_code=404, detail='Movie not found')
+async def delete_movie(db: db_dependency, movie_id: int):
+    # a DELETE route that deletes a movie from the database by its id.
+    MoviesRepoInstance.delete_movie(movie_id)
     await notify_clients()
     return {'message': 'Movie deleted successfully'}
 
 
 # <todo> CREATE more new movies at the same time in the database
-# a POST route that creates multiple movies in the database at the same time.
-# It uses the List[MovieBase] model to validate the request body and the List[MovieModel] model to shape the response data.
+
 @app.post('/movies/bulk/', response_model=List[MovieModel])
-async def add_bulk_movies(movies: List[MovieBase], db: db_dependency):
-    # db_movies = [models.Movie(**movie.dict()) for movie in movies]
-    # db.add_all(db_movies)
-    # db.commit()
+async def add_bulk_movies(db: db_dependency, movies: List[MovieBase]):
+    # a POST route that creates multiple movies in the database at the same time.
+    # It uses the List[MovieBase] model to validate the request body and the List[MovieModel] model to shape the response data.
     await notify_clients()
     return MoviesRepoInstance.add_movies(movies)
 
@@ -174,7 +129,7 @@ async def generate_and_add_movies_periodically(count):
     await notify_clients()
     print("Notified clients - main")
     generation_count += 1
-    if generation_count < 100:
+    if generation_count < 5:
         # wait for 1 second before generating the next set of movies
         time.sleep(1)
         await generate_and_add_movies_periodically(count)
@@ -186,21 +141,15 @@ async def generate_and_add_movies_periodically(count):
 # a POST route that generates a specified number of random movies in the database.
 # It uses the number parameter to determine the number of movies to generate.
 @app.post('/movies/generate/{number}', response_model=dict)
-async def generate_movies(number: int, db: db_dependency, background_tasks: BackgroundTasks):
+async def generate_movies(number: int, background_tasks: BackgroundTasks):
     global generation_count
-    # movies = generate_random_movies(number)
-    # db_movies = [models.Movie(**movie.dict()) for movie in movies]
-    # db.add_all(db_movies)
-    # db.commit()
-    # added_movies = MoviesRepoInstance.generate_and_add_movies(number)
-    # added_movies = MoviesRepoInstance.add_movies(movies)
     generation_count = 0
     background_tasks.add_task(generate_and_add_movies_periodically, number)
-    return {'message': f'Generating {number} movies in background every 2 seconds'}
+    return {'message': f'Generating {number} movies in background every 1 seconds'}
 
 
 @app.post('/movies/generate_once/{number}', response_model=List[dict])
-async def generate_movies_once(number: int, db: db_dependency):
+async def generate_movies_once(number: int):
     added_movies = MoviesRepoInstance.generate_and_add_movies(number)
     await notify_clients()
     return added_movies

@@ -16,3 +16,16 @@ class MovieModel(MovieBase):
 
     class Config:
         orm_mode = True
+
+
+class CharacterBase(BaseModel):
+    name: str
+    movie_name: str
+    description: str
+
+
+class CharacterModel(CharacterBase):
+    id: int
+
+    class Config:
+        orm_mode = True
