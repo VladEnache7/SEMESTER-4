@@ -1,0 +1,61 @@
+#index-page, #login-form, #addFormDiv, #removeFormDiv, #viewLogsDiv, h2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input {
+
+    max-width: 300px;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /*margin: auto;*/
+    margin-top: 10px;
+}
+
+* {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* Set the background image for the body */
+body {
+    background-image: url("cool-background (3).png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    color: white;
+}
+
+button {
+    margin-top: 10px;
+    /*    expand on row*/
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+    min-width: 300px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+
+td {
+    font-weight: normal;
+}
+
+/* set the with for elements with class newsTable*/
+.newsTable {
+    min-width: 700px;
+}

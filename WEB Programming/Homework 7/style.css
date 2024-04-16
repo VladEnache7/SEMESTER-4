@@ -1,5 +1,0 @@
-#index-page, #login-form, #addFormDiv, #removeFormDiv, #viewLogsDiv {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}

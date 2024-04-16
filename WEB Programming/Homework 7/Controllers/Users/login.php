@@ -1,5 +1,49 @@
 ﻿<?php
+header('Cache-Control: no-cache, must-revalidate');
 
+require_once '../../DataBase/DataBaseConnection.php';
+
+session_start();
+
+// If the user came back to the login page, they should not have any session variables.
+if (isset($_SESSION['username'])) {
+    unset($_SESSION['username']);
+}
+
+function checkValidPassword(string $username, string $password): bool
+{
+    $connection = new DataBaseConnection();
+    $result = $connection->selectUserByUsername($username);
+    if (count($result) == 0) {
+        return false;
+    } else {
+        if ($result[0]["UserPassword"] === $password) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+if (isset($_POST['loginButton'])) {
+    $errors = 0;
+    if (!isset($_POST["username"]) or !isset($_POST["password"]))
+        $_SESSION['login-error'] = "You have not entered a username or password! Try again!";
+    else {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        if (checkValidPassword($username, $password)) {
+            $_SESSION['username'] = $username;
+            header("Location: profile.php");
+        } else {
+            $_SESSION['login-error'] = "Invalid username and/or password! Try again!";
+        }
+    }
+}
+
+if (isset($_POST['indexPage'])) {
+    header('Location: ../../index.html');
+}
 ?>
 
 
@@ -13,7 +57,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../../styles/style.css">
     <title>Login</title>
 </head>
 <body>
@@ -28,7 +72,7 @@
             <label for="password" class="form-label">Password:</label>
             <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
         </div>
-        <input type="submit" class="btn btn-primary" name="loginButton" value="Login">
+        <input type="submit" class="btn btn-info" name="loginButton" value="Login">
         <input type="submit" class="btn btn-secondary" name="indexPage" value="Cancel">
         <?php
         if (isset($_SESSION['login-error'])) {

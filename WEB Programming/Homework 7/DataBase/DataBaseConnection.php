@@ -89,36 +89,23 @@ class DataBaseConnection
         return $statement->execute(['title' => $title, 'content' => $content, 'category' => $category, 'producer' => $producer]);
     }
 
+
     /**
      * Updates a news item in the database only if the news item was created by the user who is currently logged in.
      *
      * @param int $id The ID of the news item to be updated.
+     * @param string $username The username of the news producer.
      * @param string $title The new title of the news item.
      * @param string $content The new content of the news item.
      * @param string $category The new category of the news item.
      *
      * @return bool True if the news item was successfully updated, false otherwise.
      */
-    public function updateNews(int $id, string $title, string $content, string $category): bool
+    public function updateNews(int $id, string $username, string $title, string $content, string $category): bool
     {
-        $sql = "UPDATE news SET NewsTitle = :title, NewsContent = :content, NewsCategory = :category WHERE NewsID = :id";
+        $sql = "UPDATE news SET NewsTitle = :title, NewsContent = :content, NewsCategory = :category WHERE NewsID = :id AND NewsProducer = :username";
         $statement = $this->pdo->prepare($sql);
-        return $statement->execute(['id' => $id, 'title' => $title, 'content' => $content, 'category' => $category]);
-    }
-
-    /**
-     * Deletes a news item from the database only if the news item was created by the user who is currently logged in.
-     *
-     * @param int $id The ID of the news item to be deleted.
-     * @param string $userName The username of the news producer.
-     *
-     * @return void
-     */
-    public function deleteNews(int $id, string $userName): bool
-    {
-        $sql = "DELETE FROM news WHERE NewsID = :id AND NewsProducer = :userName";
-        $statement = $this->pdo->prepare($sql);
-        return $statement->execute(['id' => $id]);
+        return $statement->execute(['id' => $id, 'username' => $username, 'title' => $title, 'content' => $content, 'category' => $category]);
     }
 
     /**
@@ -161,15 +148,19 @@ class DataBaseConnection
                     session_start();
                     $this->insertNews($_GET['title'], $_GET['content'], $_GET['category'], $_SESSION['userName']);
                     break;
-                case 'deleteNews':
+                case 'updateNews':
                     session_start();
-                    $this->deleteNews($_GET['id'], $_SESSION['userName']);
+                    $this->updateNews($_GET['id'], $_SESSION['userName'], $_GET['title'], $_GET['content'], $_GET['category']);
                     break;
             }
         }
     }
+
 }
+
 
 $databaseConnection = new DataBaseConnection();
 $databaseConnection->run();
+
+
 ?>
