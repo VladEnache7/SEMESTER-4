@@ -20,7 +20,7 @@ class MovieModel(MovieBase):
 
 class CharacterBase(BaseModel):
     name: str
-    movie_name: str
+    movieName: str
     description: str
 
 

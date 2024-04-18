@@ -19,13 +19,54 @@ if (isset($_POST['returnButton'])) {
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../styles/style.css">
-    <title>All user News</title>
+    <title>All News</title>
 </head>
 <body>
-<div class="container" id="viewLogsDiv">
+<div class="" id="viewNewsDiv">
     <div class="row">
-        <div class="col-sm">
-            <div class="container" id="showLogs">
+
+        <div class="col-sm" style="flex-grow: 1; margin-top: 30px">
+            <div id="buttons" class="container"
+                 style="min-width: 325px; display: flex; flex-direction: column; margin: auto; align-items: center;">
+                <h3>Filter news:</h3>
+                <div id="filterByCategory" class="mb-1">
+                    <label for="categoryInputFilter" class="form-label">By Category:</label><label
+                            for="categoryInputFilter"></label><input type="text"
+                                                                     id="categoryInputFilter"
+                                                                     class="form-control mb-3">
+                    <button id="filterByCategoryButton" type="button" class="btn btn-info" style="max-width: 300px">
+                        Filter by category
+                    </button>
+                </div>
+                <div id="filterByYear" class="mb-1">
+                    <label for="yearInputFilter" class="form-label">By year: </label><label
+                            for="yearInputFilter"></label><input type="number"
+                                                                 id="yearInputFilter"
+                                                                 class="form-control mb-3"
+                                                                 value="2024">
+                    <button id="filterByYearButton" type="button" class="btn btn-info mb-3" style="max-width: 300px">
+                        Filter by year
+                    </button>
+                </div>
+
+                <div>
+                    <!--                    <button id="filterByUser" type="button" class="btn btn-info mb-1">Show my logs</button>-->
+                    <button id="allNewsButton" type="button" class="btn btn-info mb-3 "
+                            style="max-width: 300px; width: 300px">
+                        Show all news
+                    </button>
+                </div>
+                <div>
+                    <form method="post">
+                        <input id="returnButton" type="submit" class="btn btn-secondary mb-1" name="returnButton"
+                               value="Return to profile">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm" style="flex-grow: 2; margin-top: 30px">
+            <div class="container" id="showNews"
+                 style="min-width: 700px; display: flex; flex-direction: column; margin: auto; align-items: center;">
                 <h3>All news that are currently posted:</h3>
                 <table class="newsTable table" style="min-width: 700px">
                     <thead>
@@ -46,38 +87,6 @@ if (isset($_POST['returnButton'])) {
                     <button type="button" id="previousButton" class="btn btn-info mb-1" style="margin: 10px">Previous
                     </button>
                     <button id="nextButton" type="button" class="btn btn-info mb-1" style="margin: 10px">Next</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm">
-            <div id="buttons" class="container"
-                 style="min-width: 500px; display: flex; flex-direction: column; margin: auto; align-items: center;">
-                <h3>Filter logs:</h3>
-                <div id="filterBySeverity" class="mb-1">
-                    <label for="severityInputFilter" class="form-label">Category:</label><label
-                            for="categoryInputFilter"></label><input type="text"
-                                                                     id="categoryInputFilter"
-                                                                     class="form-control mb-3">
-                    <button id="filterBySeverityButton" type="button" class="btn btn-info">Filter by category
-                    </button>
-                </div>
-                <div id="filterByType" class="mb-1">
-                    <label for="typeInputFilter" class="form-label">News by year: </label><label
-                            for="dateInputFilter"></label><input type="number"
-                                                                 id="dateInputFilter"
-                                                                 class="form-control mb-3">
-                    <button id="filterByTypeButton" type="button" class="btn btn-info mb-3">Filter by year</button>
-                </div>
-
-                <div>
-                    <!--                    <button id="filterByUser" type="button" class="btn btn-info mb-1">Show my logs</button>-->
-                    <button id="allLogsButton" type="button" class="btn btn-info mb-1 ">Show all logs</button>
-                </div>
-                <div>
-                    <form method="post">
-                        <input id="returnButton" type="submit" class="btn btn-secondary mb-1" name="returnButton"
-                               value="Return to profile">
-                    </form>
                 </div>
             </div>
         </div>

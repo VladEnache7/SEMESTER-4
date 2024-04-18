@@ -1,4 +1,4 @@
-#index-page, #login-form, #addFormDiv, #removeFormDiv, #viewLogsDiv, h2 {
+#index-page, #login-form, #addFormDiv, #removeFormDiv, #viewNewsDiv, h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,8 +41,8 @@ button {
 
     cursor: pointer;
     width: 100%;
-    max-width: 300px;
-    min-width: 300px;
+    max-width: 200px;
+    min-width: 200px;
 }
 
 form {

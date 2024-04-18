@@ -6,12 +6,12 @@ const insertData = (newBody, data) => {
     }
     let result = JSON.parse(data);
     let numberOfPages = Math.ceil(result.length / 4);
-    for (let log of result) {
+    for (let news of result) {
         let newRow = newBody.insertRow();
-        if (result.indexOf(log) >= 4 * currentPage) {
-            for (let index of ['id', 'type', 'severity', 'date', 'user', 'logtext']) {
+        if (result.indexOf(news) >= 4 * currentPage) {
+            for (let index of ['NewsTitle', 'NewsDatePosted', 'NewsCategory', 'NewsContent', 'NewsProducer']) {
                 let newCol = newRow.insertCell();
-                let newText = document.createTextNode(log[index]);
+                let newText = document.createTextNode(news[index]);
                 newCol.appendChild(newText);
             }
             // also add at the end of the row an edit button
@@ -19,13 +19,17 @@ const insertData = (newBody, data) => {
             let editButton = document.createElement('button');
             editButton.innerHTML = 'Edit';
             editButton.onclick = () => { // when the button is clicked, it will navigate to updateNews.php with the id of the news
-                window.location.href = `updateNews.php?id=${log['id']}`;
+                window.location.href = `updateNews.php?id=${news['NewsId']}`;
             }
+            editButton.className = 'btn btn-info';
+            editButton.style.maxWidth = '20px';
+            editButton.style.width = '20px';
+
             newCol.appendChild(editButton);
 
             newBody.append(newRow);
         }
-        if (result.indexOf(log) >= 4 * currentPage + 3) {
+        if (result.indexOf(news) >= 4 * currentPage + 3) {
             break;
         }
     }
@@ -48,48 +52,55 @@ const showNewsByUser = () => {
         url: 'getUsername.php',
         success: function (data) {
             username = data;
+            // Insert the username into the <p> element
+            $('#username').text(username);
         }
     });
 
-    let body = $('.logTable tbody').eq(0);
+    let body = $('.newsTable tbody').eq(0);
     let newBody = document.createElement('tbody');
     $.ajax({
         type: 'GET',
         url: "../../DataBase/DataBaseConnection.php",
-        data: {action: 'selectNewsByUser'},
+        data: {action: 'selectNewsByUser', username: username},
         success: (data) => {
+            // console.log(data);
             insertData(newBody, data);
         }
     })
     body.replaceWith(newBody);
+
 }
 
 $(document).ready(() => {
-    showLogsByUser();
-    $('#insertLogButton').click(() => {
-        let type = $('#typeField').val();
-        let severity = $('#severityField').val();
-        let date = $('#dateField').val();
-        let log = $('#logField').val();
-        if (type.trim().length > 0 && severity.trim().length > 0 && date.trim().length > 0 && log.trim().length > 0) {
+    showNewsByUser();
+    $('#insertNewsButton').click(() => {
+        let title = $('#titleField').val();
+        let category = $('#categoryField').val();
+        let content = $('#contentField').val();
+        console.log(title, category, content);
+        if (title.trim().length > 0 && category.trim().length > 0 && content.trim().length > 0) {
             $.ajax({
                 type: 'GET',
-                url: "http://localhost/wp/Lab6-Php,Ajax,JSON/app/db/schema.php",
+                url: "../../DataBase/DataBaseConnection.php",
                 data: {
-                    action: 'addLog',
-                    logType: type,
-                    severity: severity,
-                    date: date,
-                    log: log
+                    action: 'addNews',
+                    title: title,
+                    category: category,
+                    content: content
                 },
                 success: (data) => {
-                    let res = JSON.parse(data);
-                    if (res === 0) {
-                        alert("Log could not be added!");
+                    console.log(data);
+                    // let res = JSON.parse(data);
+                    if (data === 0) {
+                        alert("News could not be added!");
                     } else {
                         $('.form-control').val("");
-                        showLogsByUser();
+                        showNewsByUser();
                     }
+                },
+                error: () => {
+                    alert("News could not be added!");
                 }
             })
         } else {
@@ -104,12 +115,12 @@ $(document).ready(() => {
                 $('#previousButton').attr('disabled', true);
             }
         }
-        showLogsByUser();
+        showNewsByUser();
     })
 
     $('#nextButton').click(() => {
         $('#previousButton').attr('disabled', false);
         currentPage++;
-        showLogsByUser();
+        showNewsByUser();
     })
 })

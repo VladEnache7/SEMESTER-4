@@ -33,10 +33,12 @@ $username = $_SESSION['username'];
     <title>Add news</title>
 </head>
 <body>
-<div class="container" id="addFormDiv">
+
+<div class="" id="addFormDiv">
+    <p id="username"></p>
     <div class="row">
-        <div class="col-sm">
-            <div class="container" id="showLogs">
+        <div class="col-sm" style="margin-top: 30px; min-width: 1000px">
+            <div class="container" id="showNews">
                 <h3>You have added the following news:</h3>
                 <table class="newsTable table">
                     <thead>
@@ -56,22 +58,22 @@ $username = $_SESSION['username'];
                 <button id="nextButton" type="button" class="btn btn-info mb-1" style="margin: 10px">Next</button>
             </div>
         </div>
-        <div class="col-sm">
-            <div id="addForm" class="container text-left">
+        <div class="col-sm" style="margin-top: 30px; display: flex; justify-content: center; align-items: center;">
+            <div id="addForm" class=" text-left" style="max-width: 380px; min-width: 380px">
                 <h3>Enter the details for the news: </h3>
-                <div class="mb-1"><label for="typeField" class="form-label">Title: </label><label
+                <div class="mb-1"><label for="titleField" class="form-label">Title: </label><label
                             for="titleField"></label><input type="text"
                                                             id="titleField"
-                                                            style="width: 100%; max-width: 500px"
+                                                            style="width: 100%; max-width: 450px"
                                                             class="form-control">
                 </div>
-                <div class="mb-1"><label for="severityField" class="form-label">Category: </label><label
+                <div class="mb-1"><label for="categoryField" class="form-label">Category: </label><label
                             for="categoryField"></label><input type="text"
                                                                id="categoryField"
                                                                class="form-control"
-                                                               style="width: 100%; max-width: 500px">
+                                                               style="width: 100%; max-width: 400px">
                 </div>
-                <div class="mb-1"><label for="dateField" class="form-label">Content: </label><label
+                <div class="mb-1"><label for="contentField" class="form-label">Content: </label><label
                             for="contentField"></label>
                     <textarea id="contentField" class="form-control" rows="5"></textarea>
                 </div>

@@ -49,20 +49,6 @@ const showNews = () => {
     body.replaceWith(newBody);
 }
 
-// const showLogsByUser = () => {
-//     let body = $('.logTable tbody').eq(0);
-//     let newBody = document.createElement('tbody');
-//     $.ajax({
-//         type: 'GET',
-//         url: "http://localhost/wp/Lab6-Php,Ajax,JSON/app/db/schema.php",
-//         data: {action: 'selectLogsByUser'},
-//         success: (data) => {
-//             insertData(newBody, data);
-//         }
-//     })
-//     body.replaceWith(newBody);
-// }
-
 const showNewsByCategory = (category) => {
     let body = $('.newsTable tbody').eq(0);
     let newBody = document.createElement('tbody');
@@ -77,53 +63,47 @@ const showNewsByCategory = (category) => {
         error: () => {
             alert("The filter field is empty!");
             showType = 'all';
-            showCorrectLogs();
+            showCorrectNews();
         }
     })
     body.replaceWith(newBody);
 }
 
-const showLogsByType = (type) => {
-    let body = $('.logTable tbody').eq(0);
+const showNewsByYear = (year) => {
+    let body = $('.newsTable tbody').eq(0);
     let newBody = document.createElement('tbody');
+    // console.log(year);
     $.ajax({
         type: 'GET',
-        url: "http://localhost/wp/Lab6-Php,Ajax,JSON/app/db/schema.php",
-        data: {action: 'selectLogsByType', type: type},
+        url: "../../DataBase/DataBaseConnection.php",
+        data: {action: 'selectNewsByYear', year: year},
         success: (data) => {
-            $('.form-control').val("");
+            // console.log(data)
+            // $('#categoryInputFilter').val("");
             insertData(newBody, data);
+        },
+        error: () => {
+            alert("The filter field is empty!");
+            showType = 'all';
+            showCorrectNews();
         }
     })
     body.replaceWith(newBody);
 }
 
-const showCorrectLogs = () => {
+const showCorrectNews = () => {
     switch (showType) {
         case 'all':
             showNews();
             break;
-        case 'user':
-            showLogsByUser();
+        case 'category':
+            let category = $('#categoryInputFilter').val().trim();
+            showNewsByCategory(category);
             break;
-        case 'severity':
-            severity = $('#severityInputFilter').val().trim();
-            // if (severity.length > 0)
-            //     showNewsByCategory(severity);
-            // else {
-            //     showType = 'all';
-            //     alert("Input field for severity is empty!");
-            // }
-            showNewsByCategory(severity);
-            break;
-        case 'type':
-            type = $('#typeInputFilter').val().trim();
-            if (type.length > 0)
-                showLogsByType(type);
-            else {
-                showType = 'all';
-                alert("Input field for type is empty!");
-            }
+        case 'year':
+            let year = $('#yearInputFilter').val().trim();
+            showNewsByYear(year);
+            // console.log(year);
             break;
     }
 }
@@ -131,28 +111,22 @@ const showCorrectLogs = () => {
 $(document).ready(() => {
     showNews();
 
-    $('#allLogsButton').click(() => {
+    $('#allNewsButton').click(() => {
         currentPage = 0;
         showType = 'all';
-        showCorrectLogs();
+        showCorrectNews();
     })
 
-    $('#filterByUser').click(() => {
+    $('#filterByCategoryButton').click(() => {
         currentPage = 0;
-        showType = 'user';
-        showCorrectLogs();
+        showType = 'category';
+        showCorrectNews();
     })
 
-    $('#filterBySeverityButton').click(() => {
+    $('#filterByYearButton').click(() => {
         currentPage = 0;
-        showType = 'severity';
-        showCorrectLogs();
-    })
-
-    $('#filterByTypeButton').click(() => {
-        currentPage = 0;
-        showType = 'type';
-        showCorrectLogs();
+        showType = 'year';
+        showCorrectNews();
     })
 
     $('#previousButton').click(() => {
@@ -162,12 +136,12 @@ $(document).ready(() => {
                 $('#previousButton').attr('disabled', true);
             }
         }
-        showCorrectLogs();
+        showCorrectNews();
     })
 
     $('#nextButton').click(() => {
         $('#previousButton').attr('disabled', false);
         currentPage++;
-        showCorrectLogs();
+        showCorrectNews();
     })
 })

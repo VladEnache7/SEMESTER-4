@@ -73,6 +73,21 @@ class DataBaseConnection
     }
 
     /**
+     * Selects all news items from the database that were created in a specific year.
+     *
+     * @param string $year The year of the news items.
+     *
+     * @return array An associative array containing all news items that were created in the specified year.
+     */
+    public function selectNewsByYear(string $year): array
+    {
+        $sql = "SELECT * FROM news WHERE YEAR(NewsDatePosted) = :year";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(['year' => $year]);
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Inserts a new news item into the database.
      *
      * @param string $title The title of the news item.
@@ -123,6 +138,21 @@ class DataBaseConnection
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Selects a news item from the database by its ID.
+     *
+     * @param int $id The ID of the news item.
+     * returns the news item with the specified ID.
+     * @return array An associative array containing the news item.
+     */
+    public function selectNewsById(int $id): array
+    {
+        $sql = "SELECT * FROM news WHERE NewsID = :id";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(['id' => $id]);
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function show($value)
     {
         echo json_encode($value);
@@ -138,19 +168,27 @@ class DataBaseConnection
                     break;
                 case 'selectNewsByUser':
                     session_start();
-                    $this->show($this->selectNewsByUser($_SESSION['userName']));
+                    $this->show($this->selectNewsByUser($_SESSION['username']));
                     break;
                 case 'selectNewsByCategory':
                     session_start();
                     $this->show($this->selectNewsByCategory($_GET['category']));
                     break;
+                case 'selectNewsByYear':
+                    session_start();
+                    $this->show($this->selectNewsByYear($_GET['year']));
+                    break;
                 case 'addNews':
                     session_start();
-                    $this->insertNews($_GET['title'], $_GET['content'], $_GET['category'], $_SESSION['userName']);
+                    $this->insertNews($_GET['title'], $_GET['content'], $_GET['category'], $_SESSION['username']);
                     break;
                 case 'updateNews':
                     session_start();
-                    $this->updateNews($_GET['id'], $_SESSION['userName'], $_GET['title'], $_GET['content'], $_GET['category']);
+                    $this->updateNews($_GET['id'], $_SESSION['username'], $_GET['title'], $_GET['content'], $_GET['category']);
+                    break;
+                case 'selectNewsById':
+                    session_start();
+                    $this->show($this->selectNewsById($_GET['id']));
                     break;
             }
         }
