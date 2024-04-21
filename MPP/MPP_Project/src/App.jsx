@@ -4,13 +4,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import { MoviesProvider } from './components/ContextComponent.jsx';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import MovieDetails from './components/MovieDetails.jsx';
-import MovieAdd from './components/MovieAdd.jsx';
-import MovieShowAll from './components/MovieShowAll.jsx';
-import MovieEdit from './components/MovieEdit.jsx';
-import MovieShowAllDataGrid from './components/MovieShowAllDataGrid.jsx';
+import MovieDetails from './components/MoviesComponents/MovieDetails.jsx';
+import MovieAdd from './components/MoviesComponents/MovieAdd.jsx';
+import MovieShowAll from './components/MoviesComponents/MovieShowAll.jsx';
+import MovieEdit from './components/MoviesComponents/MovieEdit.jsx';
+import MovieShowAllDataGrid from './components/MoviesComponents/MovieShowAllDataGrid.jsx';
 import ChartByYear from './components/Chart.jsx';
-import MoviesGenerate from './components/MoviesGenerate.jsx';
+import MoviesGenerate from './components/MoviesComponents/MoviesGenerate.jsx';
 
 const App = () => {
     return (

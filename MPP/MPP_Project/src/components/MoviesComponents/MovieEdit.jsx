@@ -7,7 +7,7 @@ import {
     Paper,
 } from '@mui/material';
 import React, { useContext } from 'react';
-import MoviesContext from './ContextComponent.jsx';
+import MoviesContext from './../ContextComponent.jsx';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 

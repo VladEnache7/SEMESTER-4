@@ -1,7 +1,7 @@
 ﻿import { useParams } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { useContext } from 'react';
-import MoviesContext from './ContextComponent.jsx';
+import MoviesContext from './../ContextComponent.jsx';
 
 function MovieDetails() {
     const { movies } = useContext(MoviesContext);

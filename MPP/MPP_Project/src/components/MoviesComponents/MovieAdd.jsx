@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import React, { useContext, useState } from 'react';
 
-import MoviesContext from './ContextComponent.jsx';
+import MoviesContext from './../ContextComponent.jsx';
 import { useNavigate } from 'react-router-dom';
 
 function MovieAdd() {

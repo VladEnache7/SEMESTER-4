@@ -1,5 +1,5 @@
 ﻿import { useContext, useState } from 'react';
-import MoviesContext from './ContextComponent.jsx';
+import MoviesContext from './../ContextComponent.jsx';
 import {
     Button,
     Dialog,

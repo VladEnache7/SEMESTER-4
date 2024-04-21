@@ -9,7 +9,7 @@
 import Container from 'react-bootstrap/Container';
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import MoviesContext from './ContextComponent.jsx';
+import MoviesContext from './../ContextComponent.jsx';
 
 function MoviesGenerate() {
     const { generateMovies } = useContext(MoviesContext);

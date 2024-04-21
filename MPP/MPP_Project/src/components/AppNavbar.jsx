@@ -1,15 +1,33 @@
 ﻿import { useNavigate } from 'react-router-dom';
 import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
+import { alpha } from '@mui/material/styles';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
+import { Dropdown } from '@mui/base/Dropdown';
+import { Menu } from '@mui/base/Menu';
+import { MenuButton as BaseMenuButton } from '@mui/base/MenuButton';
+import { MenuItem as BaseMenuItem, menuItemClasses } from '@mui/base/MenuItem';
+import { styled } from '@mui/system';
 
 import MovieFilterRoundedIcon from '@mui/icons-material/MovieFilterRounded';
+import { useState } from 'react';
 
 function AppNavbar() {
     let navigate = useNavigate();
 
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
     const linkStyle = {
-        color: 'black',
+        color: 'purple',
         textDecoration: 'none',
-        //     center vertically
+        backgroundColor: 'lightblue',
     };
     return (
         <>
@@ -31,6 +49,7 @@ function AppNavbar() {
                                 marginRight: 2,
                                 alignSelf: 'center',
                             }}
+                            onClick={() => navigate('/')}
                         />
                         <Typography
                             variant="h6"
@@ -45,38 +64,62 @@ function AppNavbar() {
                         >
                             Disney Movies
                         </Typography>
-                        <Button
-                            size={'large'}
-                            onClick={() => navigate('/')}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                            data-testid="home-link"
-                        >
-                            Home
-                        </Button>
-                        <Button
-                            size={'large'}
-                            onClick={() => navigate('/movies/add')}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                            data-testid="add-movie-link"
-                        >
-                            Add Movie
-                        </Button>
-                        <Button
-                            size={'large'}
-                            onClick={() => navigate('/movies/chart')}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                            data-testid="chart-link"
-                        >
-                            Chart
-                        </Button>
-                        <Button
-                            size={'large'}
-                            onClick={() => navigate('/movies/generate')}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                            data-testid="generate-link"
-                        >
-                            Generate
-                        </Button>
+                        <Dropdown>
+                            <MenuButton>MOVIES</MenuButton>
+                            <Menu>
+                                <MenuItem
+                                    onClick={() => navigate('/movies')}
+                                    data-testid="movies-link"
+                                    sx={{
+                                        marginTop: 3,
+                                    }}
+                                >
+                                    All Movies
+                                </MenuItem>
+                                <MenuItem
+                                    onClick={() => navigate('/movies/add')}
+                                    data-testid="add-movie-link"
+                                >
+                                    Add Movie
+                                </MenuItem>
+                                <MenuItem
+                                    onClick={() => {
+                                        navigate('/movies/chart');
+                                        handleClose();
+                                    }}
+                                >
+                                    Chart Movies
+                                </MenuItem>
+                                <MenuItem
+                                    onClick={() => {
+                                        navigate('/movies/generate');
+                                        handleClose();
+                                    }}
+                                >
+                                    Generate Movies
+                                </MenuItem>
+                            </Menu>
+                        </Dropdown>
+                        <Dropdown>
+                            <MenuButton>CHARACTERS</MenuButton>
+                            <Menu>
+                                <MenuItem
+                                    onClick={() => navigate('/characters')}
+                                    data-testid="characters-link"
+                                    sx={{
+                                        marginTop: 3,
+                                    }}
+                                >
+                                    All Characters
+                                </MenuItem>
+                                <MenuItem
+                                    onClick={() => navigate('/characters/add')}
+                                    data-testid="characters-link"
+                                >
+                                    Add Characters
+                                </MenuItem>
+                            </Menu>
+                        </Dropdown>
                     </Box>
                 </Toolbar>
                 {/*    </Container>*/}
@@ -86,3 +129,87 @@ function AppNavbar() {
 }
 
 export default AppNavbar;
+
+const MenuButton = styled(BaseMenuButton)(
+    ({ theme }) => `
+
+  font-weight: 600;
+  padding: 0px 30px;
+  border-radius: 8px;
+  color: white;
+  
+  height: 40px;
+  overflow: hidden;
+  margin: auto;
+  
+  background: transparent;
+  transition: all 150ms ease;
+  cursor: pointer;
+ 
+  border: 0px solid;
+  &:hover {
+    background: ${theme.palette.mode === 'dark' ? blue[800] : blue[400]};
+
+  }
+
+  &:active {
+    background: ${theme.palette.mode === 'dark' ? blue[700] : blue[100]};
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 4px ${theme.palette.mode === 'dark' ? blue[300] : blue[200]};
+    outline: none;
+  }
+  `,
+);
+
+const MenuItem = styled(BaseMenuItem)(
+    ({ theme }) => `
+  list-style: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: default;
+  // user-select: none;
+  background-color: ${blue[200]};
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+  &:focus {
+    outline: 3px solid ${theme.palette.mode === 'dark' ? blue[600] : blue[300]};
+    background-color: ${grey[100]};
+    color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
+  }
+
+  &.${menuItemClasses.disabled} {
+    color: ${theme.palette.mode === 'dark' ? grey[700] : grey[400]};
+  }
+  `,
+);
+
+const blue = {
+    50: '#F0F7FF',
+    100: '#C2E0FF',
+    200: '#99CCF3',
+    300: '#66B2FF',
+    400: '#3399FF',
+    500: '#007FFF',
+    600: '#0072E6',
+    700: '#0059B3',
+    800: '#004C99',
+    900: '#003A75',
+};
+
+const grey = {
+    50: '#F3F6F9',
+    100: '#E5EAF2',
+    200: '#DAE2ED',
+    300: '#C7D0DD',
+    400: '#B0B8C4',
+    500: '#9DA8B7',
+    600: '#6B7A90',
+    700: '#434D5B',
+    800: '#303740',
+    900: '#1C2025',
+};

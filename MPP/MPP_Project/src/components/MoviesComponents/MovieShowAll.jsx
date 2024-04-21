@@ -15,8 +15,7 @@
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import MoviesContext from './ContextComponent.jsx';
-import FastAPI from '../FastAPI.js';
+import MoviesContext from './../ContextComponent.jsx';
 import Alert from '@mui/material/Alert';
 
 function MovieShowAll() {
