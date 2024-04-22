@@ -391,7 +391,7 @@ class MoviesRepo:
         db_movies = [models.Movie(**movie.dict()) for movie in movies]
         db.add_all(db_movies)
         db.commit()
-        return [movie.dict() for movie in db_movies]
+        return db_movies
 
     @staticmethod
     def update_movie(db: db_dependency_movies, movie_id: int, movie: MovieBase):
@@ -411,6 +411,20 @@ class MoviesRepo:
             raise HTTPException(status_code=404, detail='Movie not found')
         db.delete(db_movie)
         db.commit()
+
+    # delete duplicates from the movies list
+    @staticmethod
+    def delete_duplicates(db: db_dependency_movies):
+        deleted_movies = []
+        movies = db.query(models.Movie).all()
+        movie_names = [movie.name for movie in movies]
+        for movie in movies:
+            if movie_names.count(movie.name) > 1:
+                deleted_movies.append(movie)
+                db.delete(movie)
+                movie_names.remove(movie.name)
+        db.commit()
+        return deleted_movies
 
     @staticmethod
     def generate_and_add_movies(db: db_dependency_movies, count):

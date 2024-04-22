@@ -13,7 +13,8 @@ from models import Movie
 from fastapi.middleware.cors import CORSMiddleware
 from MoviesRepository import MoviesRepo
 from schemas import MovieBase, MovieModel, CharacterModel, CharacterBase
-import threading
+
+from fastapi.encoders import jsonable_encoder
 
 # Create a new FastAPI instance
 app = FastAPI()
@@ -87,14 +88,15 @@ async def websocket_endpoint(websocket: WebSocket):
 
 async def notify_clients(db: db_dependency_movies):
     for connection in active_connections:
-        message = {"message": "New movies added"}
-        await connection.send_json(MoviesRepo().get_all_movies(db))
+        movies = MoviesRepo().get_all_movies(db)
+        # transform the movies to JSON use this MovieModel.from_orm(movie) for each movie
+        await connection.send_json(jsonable_encoder(movies))
         print(f"Notified {len(active_connections)} clients")
 
 
 # <todo> GET ALL movies from the database
 @app.get('/movies', response_model=List[MovieModel])
-async def get_movies(db: db_dependency_movies, skip: int = 0, limit: int = 25):
+async def get_movies(db: db_dependency_movies, skip: int = 0, limit: int = 200):
     #  get_movies is a GET route that retrieves a list of movies from the database.
     #  It uses the MovieModel model to shape the response data.
     movies = MoviesRepo().get_movies_skip_limit(db, skip, limit)
@@ -116,8 +118,7 @@ async def add_movie(db: db_dependency_movies, movie: MovieBase):
     # a POST route that creates a new movie in the database.
     # It uses the MovieBase model to validate the request body and the MovieModel model to shape the response data.
     added_movie = MoviesRepo().add_movie(db, movie)
-    # await notify_clients(db)
-
+    await notify_clients(db)
     return added_movie
 
 
@@ -140,6 +141,24 @@ async def delete_movie(db: db_dependency_movies, movie_id: int):
     return {'message': 'Movie deleted successfully'}
 
 
+# <todo> DELETE a bulk of movies from the database
+@app.delete('/movies/bulk/{movie_id_start}/{start_id}/{end_id}')
+async def delete_bulk_movies(db: db_dependency_movies, start_id: int, end_id: int):
+    # a DELETE route that deletes multiple movies from the database by their ids.
+    # MoviesRepo().delete_movies(db, movie_ids)
+    deleted_movies = []
+    not_found_movies = []
+    for movie_id in range(start_id, end_id):
+        try:
+            MoviesRepo().delete_movie(db, movie_id)
+            deleted_movies.append(movie_id)
+        except Exception as e:
+            not_found_movies.append(movie_id)
+
+    await notify_clients(db)
+    return {'deleted': deleted_movies, 'not_found': not_found_movies}
+
+
 # <todo> ADD a bulk of new movies at the same time in the database
 @app.post('/movies/bulk/', response_model=List[MovieModel])
 async def add_bulk_movies(db: db_dependency_movies, movies: List[MovieBase]):
@@ -147,6 +166,15 @@ async def add_bulk_movies(db: db_dependency_movies, movies: List[MovieBase]):
     # It uses the List[MovieBase] model to validate the request body and the List[MovieModel] model to shape the response data.
     await notify_clients(db)
     return MoviesRepo().add_movies(db, movies)
+
+
+# <todo> DELETE the duplicates from the database
+@app.delete('/movies/delete_duplicates/')
+async def delete_duplicates(db: db_dependency_movies):
+    # a DELETE route that deletes all the duplicate movies from the database.
+    deleted_movies = MoviesRepo().delete_duplicates(db)
+    await notify_clients(db)
+    return {'deleted_movies': deleted_movies}
 
 
 generation_count = 0
@@ -186,7 +214,7 @@ async def generate_movies(db: db_dependency_movies, number: int, background_task
 
 # <todo> GET ALL characters from the database
 @app.get('/characters', response_model=List[CharacterModel])
-async def get_characters(db: db_dependency_characters, skip: int = 0, limit: int = 25):
+async def get_characters(db: db_dependency_characters, skip: int = 0, limit: int = 200):
     # a GET route that retrieves a list of characters from the database.
     # It uses the CharacterModel model to shape the response data.
     characters = MoviesRepo().get_characters_skip_limit(db, skip, limit)
@@ -225,6 +253,23 @@ async def delete_character(db: db_dependency_characters, character_id: int):
     # a DELETE route that deletes a character from the database by its id.
     MoviesRepo().delete_character(db, character_id)
     return {'message': 'Character deleted successfully'}
+
+
+# delete all the characters that are between 2 ids
+@app.delete('/characters/bulk/{start_id}/{end_id}')
+async def delete_bulk_characters(db: db_dependency_characters, start_id: int, end_id: int):
+    # a DELETE route that deletes multiple characters from the database by their ids.
+    # MoviesRepo().delete_characters(db, character_ids)
+    deleted_characters = []
+    not_found_characters = []
+    for character_id in range(start_id, end_id):
+        try:
+            MoviesRepo().delete_character(db, character_id)
+            deleted_characters.append(character_id)
+        except Exception as e:
+            not_found_characters.append(character_id)
+
+    return {'deleted': deleted_characters, 'not_found': not_found_characters}
 
 
 # <todo> ADD a bulk of new characters at the same time in the database

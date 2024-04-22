@@ -16,6 +16,7 @@ class MovieModel(MovieBase):
 
     class Config:
         orm_mode = True
+        from_attributes = True
 
 
 class CharacterBase(BaseModel):
@@ -29,3 +30,4 @@ class CharacterModel(CharacterBase):
 
     class Config:
         orm_mode = True
+        from_attributes = True

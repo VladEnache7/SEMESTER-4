@@ -1,4 +1,4 @@
-﻿import {
+import {
     Button,
     Dialog,
     DialogActions,
@@ -10,18 +10,18 @@
     TableCell,
     TableContainer,
     TableHead,
-    TablePagination,
     TableRow,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import MoviesContext from './../ContextComponent.jsx';
+import CharactersContext from './../ContextComponent.jsx';
 import Alert from '@mui/material/Alert';
 
-function MovieShowAll() {
-    const { movies, deleteMovie, error } = useContext(MoviesContext);
+function CharacterShowAll() {
+    const { characters, deleteCharacter, error } =
+        useContext(CharactersContext);
     const [open, setOpen] = useState(false);
-    const [selectedMovie, setSelectedMovie] = useState({});
+    const [selectedCharacter, setSelectedCharacter] = useState({});
     const [isOnline, setIsOnline] = useState(navigator.onLine);
 
     useEffect(() => {
@@ -49,13 +49,12 @@ function MovieShowAll() {
     // for navigation between pages
     let navigate = useNavigate();
 
-    function handleDeletePopUp(movie) {
+    function handleDeletePopUp(character) {
         // open a pop up to confirm the delete
-        // if confirmed, delete the movie
+        // if confirmed, delete the character
         // if not, do nothing
         setOpen(true);
-        // console.log(movieId);
-        setSelectedMovie(movie);
+        setSelectedCharacter(character);
     }
 
     if (error) {
@@ -78,7 +77,7 @@ function MovieShowAll() {
                 marginBottom: 10,
                 backgroundColor: 'lightblue',
             }}
-            data-testid="movies-table-container"
+            data-testid="characters-table-container"
         >
             <Table>
                 <TableHead>
@@ -87,10 +86,10 @@ function MovieShowAll() {
                             Name
                         </TableCell>
                         <TableCell sx={{ fontWeight: 'bold', fontSize: 20 }}>
-                            Year
+                            Movie Name
                         </TableCell>
                         <TableCell sx={{ fontWeight: 'bold', fontSize: 20 }}>
-                            Genre
+                            Description
                         </TableCell>
                         <TableCell sx={{ fontWeight: 'bold', fontSize: 20 }}>
                             Action
@@ -98,16 +97,16 @@ function MovieShowAll() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {movies.map((movie) => (
-                        <TableRow key={movie.id}>
-                            <TableCell data-testid="movie-name">
-                                {movie.name}
+                    {characters.map((character) => (
+                        <TableRow key={character.id}>
+                            <TableCell data-testid="character-name">
+                                {character.name}
                             </TableCell>
-                            <TableCell data-testid="movie-year">
-                                {movie.year}
+                            <TableCell data-testid="character-age">
+                                {character.movieName}
                             </TableCell>
-                            <TableCell data-testid="movie-genre">
-                                {movie.genre}
+                            <TableCell data-testid="character-role">
+                                {character.description}
                             </TableCell>
 
                             <TableCell>
@@ -116,8 +115,9 @@ function MovieShowAll() {
                                     size="small"
                                     sx={{ margin: 0.5 }}
                                     onClick={() => {
-                                        navigate(`/movies/${movie.id}/details`);
-                                        // console.log('🚀 ~ MovieShowAll ~ movie.id:', movie.id);
+                                        navigate(
+                                            `/characters/${character.id}/details`,
+                                        );
                                     }}
                                     data-testid="details-button"
                                 >
@@ -128,7 +128,9 @@ function MovieShowAll() {
                                     size="small"
                                     sx={{ margin: 0.5 }}
                                     onClick={() => {
-                                        navigate(`/movies/${movie.id}/edit`);
+                                        navigate(
+                                            `/characters/${character.id}/edit`,
+                                        );
                                     }}
                                     data-testid="edit-button"
                                 >
@@ -139,8 +141,7 @@ function MovieShowAll() {
                                     size="small"
                                     sx={{ margin: 0.5 }}
                                     onClick={() => {
-                                        handleDeletePopUp(movie);
-                                        // console.log(movie.id);
+                                        handleDeletePopUp(character);
                                     }}
                                     data-testid="delete-button"
                                 >
@@ -157,16 +158,16 @@ function MovieShowAll() {
                 onClose={() => setOpen(false)}
                 BackdropProps={{ invisible: true }}
             >
-                <DialogTitle>Delete Movie</DialogTitle>
+                <DialogTitle>Delete Character</DialogTitle>
                 <DialogContent>
-                    Are you sure you want to delete "{selectedMovie.name}"?
+                    Are you sure you want to delete "{selectedCharacter.name}"?
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setOpen(false)}>No</Button>
                     <Button
                         onClick={() => {
                             setOpen(false);
-                            deleteMovie(selectedMovie.id);
+                            deleteCharacter(selectedCharacter.id);
                         }}
                         data-testid="confirm-delete-button"
                     >
@@ -178,4 +179,4 @@ function MovieShowAll() {
     );
 }
 
-export default MovieShowAll;
+export default CharacterShowAll;

@@ -9,7 +9,7 @@ import MovieAdd from './components/MoviesComponents/MovieAdd.jsx';
 import MovieShowAll from './components/MoviesComponents/MovieShowAll.jsx';
 import MovieEdit from './components/MoviesComponents/MovieEdit.jsx';
 import MovieShowAllDataGrid from './components/MoviesComponents/MovieShowAllDataGrid.jsx';
-import ChartByYear from './components/Chart.jsx';
+import ChartByYear from './components/MoviesComponents/MoviesChart.jsx';
 import MoviesGenerate from './components/MoviesComponents/MoviesGenerate.jsx';
 
 const App = () => {
