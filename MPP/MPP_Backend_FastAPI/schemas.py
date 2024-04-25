@@ -9,6 +9,7 @@ class MovieBase(BaseModel):
     duration: str
     genre: str
     description: str
+    nrCharacters: int = 0
 
 
 class MovieModel(MovieBase):

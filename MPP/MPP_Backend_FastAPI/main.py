@@ -1,17 +1,15 @@
+import threading
 import time
 
 import uvicorn
 from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse
 from typing import List, Annotated
-from sqlalchemy.orm import Session
 
 import models
-from database import SessionLocalMovies, engine_movies, SessionLocalCharacters, engine_characters
-from pydantic import BaseModel
-from models import Movie
+from database import SessionLocalMovies, engine_movies
 from fastapi.middleware.cors import CORSMiddleware
-from MoviesRepository import MoviesRepo
+from EntitiesRepository import EntitiesRepo
 from schemas import MovieBase, MovieModel, CharacterModel, CharacterBase
 
 from fastapi.encoders import jsonable_encoder
@@ -28,8 +26,10 @@ app.add_middleware(
     allow_headers=['*'],
 )
 
+active_connections: List[WebSocket] = []
 
-def get_database_movies():
+
+def get_database():
     db = SessionLocalMovies()
     try:
         yield db
@@ -37,21 +37,10 @@ def get_database_movies():
         db.close()
 
 
-def get_database_characters():
-    db = SessionLocalCharacters()
-    try:
-        yield db
-    finally:
-        db.close()
+db_dependency_movies = Annotated[models.Movie, Depends(get_database)]
+db_dependency_characters = Annotated[models.Character, Depends(get_database)]
 
-
-active_connections: List[WebSocket] = []
-
-db_dependency_movies = Annotated[models.Movie, Depends(get_database_movies)]
-db_dependency_characters = Annotated[models.Character, Depends(get_database_characters)]
-
-models.Base_movies.metadata.create_all(bind=engine_movies)
-models.Base_characters.metadata.create_all(bind=engine_characters)
+models.Base_database.metadata.create_all(bind=engine_movies)
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -86,27 +75,36 @@ async def websocket_endpoint(websocket: WebSocket):
         active_connections.remove(websocket)
 
 
-async def notify_clients(db: db_dependency_movies):
+async def notify_clients():
     for connection in active_connections:
-        movies = MoviesRepo().get_all_movies(db)
-        # transform the movies to JSON use this MovieModel.from_orm(movie) for each movie
-        await connection.send_json(jsonable_encoder(movies))
-        print(f"Notified {len(active_connections)} clients")
+        message = {"message": "New data is available. Please refresh."}
+        await connection.send_json(jsonable_encoder(message))
+
+        print(f"Notified {len(active_connections)} clients with message: {message}")
 
 
 # <todo> GET ALL movies from the database
 @app.get('/movies', response_model=List[MovieModel])
-async def get_movies(db: db_dependency_movies, skip: int = 0, limit: int = 200):
+async def get_movies(db: db_dependency_movies, skip: int = 0, limit: int = 10000):
     #  get_movies is a GET route that retrieves a list of movies from the database.
     #  It uses the MovieModel model to shape the response data.
-    movies = MoviesRepo().get_movies_skip_limit(db, skip, limit)
+    movies = EntitiesRepo().get_movies_skip_limit(db, skip, limit)
     return movies
+
+
+# <todo> GET ALL movies names from the database
+@app.get('/movies/names', response_model=List[str])
+async def get_movies_names(db: db_dependency_movies):
+    #  get_movies is a GET route that retrieves a list of movies from the database.
+    #  It uses the MovieModel model to shape the response data.
+    movies_names = EntitiesRepo().get_movies_names(db)
+    return movies_names
 
 
 # <todo> GET a single movie from the database
 @app.get('/movies/{movie_id}', response_model=MovieModel)
 async def get_movie(db: db_dependency_movies, movie_id: int):
-    movie = MoviesRepo().get_movie(db, movie_id)
+    movie = EntitiesRepo().get_movie(db, movie_id)
     if movie is None:
         raise HTTPException(status_code=404, detail='Movie not found')
     return movie
@@ -117,8 +115,8 @@ async def get_movie(db: db_dependency_movies, movie_id: int):
 async def add_movie(db: db_dependency_movies, movie: MovieBase):
     # a POST route that creates a new movie in the database.
     # It uses the MovieBase model to validate the request body and the MovieModel model to shape the response data.
-    added_movie = MoviesRepo().add_movie(db, movie)
-    await notify_clients(db)
+    added_movie = EntitiesRepo().add_movie(db, movie)
+    await notify_clients()
     return added_movie
 
 
@@ -127,8 +125,8 @@ async def add_movie(db: db_dependency_movies, movie: MovieBase):
 async def update_movie(db: db_dependency_movies, movie_id: int, movie: MovieBase):
     # a PUT route that updates a movie in the database by its id.
     # It uses the MovieBase model to validate the request body and the MovieModel model to shape the response data.
-    updated_movie = MoviesRepo().update_movie(db, movie_id, movie)
-    await notify_clients(db)
+    updated_movie = EntitiesRepo().update_movie(db, movie_id, movie)
+    await notify_clients()
     return updated_movie
 
 
@@ -136,8 +134,8 @@ async def update_movie(db: db_dependency_movies, movie_id: int, movie: MovieBase
 @app.delete('/movies/{movie_id}')
 async def delete_movie(db: db_dependency_movies, movie_id: int):
     # a DELETE route that deletes a movie from the database by its id.
-    MoviesRepo().delete_movie(db, movie_id)
-    await notify_clients(db)
+    EntitiesRepo().delete_movie(db, movie_id)
+    await notify_clients()
     return {'message': 'Movie deleted successfully'}
 
 
@@ -150,30 +148,40 @@ async def delete_bulk_movies(db: db_dependency_movies, start_id: int, end_id: in
     not_found_movies = []
     for movie_id in range(start_id, end_id):
         try:
-            MoviesRepo().delete_movie(db, movie_id)
+            EntitiesRepo().delete_movie(db, movie_id)
             deleted_movies.append(movie_id)
         except Exception as e:
             not_found_movies.append(movie_id)
 
-    await notify_clients(db)
+    await notify_clients()
     return {'deleted': deleted_movies, 'not_found': not_found_movies}
 
 
+# <todo> GET the number of movies in the database
+@app.get('/movies/count/', response_model=dict)
+async def get_movies_count(db: db_dependency_movies):
+    #  get_movies is a GET route that retrieves a list of movies from the database.
+    #  It uses the MovieModel model to shape the response data.
+    movies_count = EntitiesRepo().get_number_of_movies_in_database(db)
+    return {'count': movies_count}
+
+
 # <todo> ADD a bulk of new movies at the same time in the database
-@app.post('/movies/bulk/', response_model=List[MovieModel])
+@app.post('/movies/bulk/')
 async def add_bulk_movies(db: db_dependency_movies, movies: List[MovieBase]):
     # a POST route that creates multiple movies in the database at the same time.
     # It uses the List[MovieBase] model to validate the request body and the List[MovieModel] model to shape the response data.
-    await notify_clients(db)
-    return MoviesRepo().add_movies(db, movies)
+    returned = EntitiesRepo().add_movies(db, movies)
+    await notify_clients()
+    return returned
 
 
 # <todo> DELETE the duplicates from the database
 @app.delete('/movies/delete_duplicates/')
 async def delete_duplicates(db: db_dependency_movies):
     # a DELETE route that deletes all the duplicate movies from the database.
-    deleted_movies = MoviesRepo().delete_duplicates(db)
-    await notify_clients(db)
+    deleted_movies = EntitiesRepo().delete_duplicates(db)
+    await notify_clients()
     return {'deleted_movies': deleted_movies}
 
 
@@ -182,15 +190,15 @@ generation_count = 0
 
 async def generate_and_add_movies_periodically(db: db_dependency_movies, count):
     global generation_count
-    MoviesRepo().generate_and_add_movies(db, count)
-    await notify_clients(db)
+    EntitiesRepo().generate_and_add_movies(db, count)
+    await notify_clients()
     print("Notified clients - main")
     generation_count += 1
     if generation_count < 5:
         # wait for 1 second before generating the next set of movies
-        time.sleep(1)
-        await generate_and_add_movies_periodically(count)
-        # threading.Timer(1, generate_and_add_movies_periodically, args=[count]).start()
+        # time.sleep(1)
+        # await generate_and_add_movies_periodically(db, count)
+        threading.Timer(1, generate_and_add_movies_periodically, args=[count]).start()
         print(f"Generating {generation_count} time movies in background every 1 second")
 
 
@@ -206,18 +214,12 @@ async def generate_movies(db: db_dependency_movies, number: int, background_task
     return {'message': f'Generating {number} movies in background every 1 seconds'}
 
 
-# @app.post('/movies/generate_once/{number}', response_model=List[dict])
-# async def generate_movies_once(number: int):
-#     added_movies = MoviesRepo().generate_and_add_movies(number)
-#     await notify_clients()
-#     return added_movies
-
 # <todo> GET ALL characters from the database
 @app.get('/characters', response_model=List[CharacterModel])
-async def get_characters(db: db_dependency_characters, skip: int = 0, limit: int = 200):
+async def get_characters(db: db_dependency_characters, skip: int = 0, limit: int = 500):
     # a GET route that retrieves a list of characters from the database.
     # It uses the CharacterModel model to shape the response data.
-    characters = MoviesRepo().get_characters_skip_limit(db, skip, limit)
+    characters = EntitiesRepo().get_characters_skip_limit(db, skip, limit)
     return characters
 
 
@@ -225,7 +227,7 @@ async def get_characters(db: db_dependency_characters, skip: int = 0, limit: int
 @app.get('/characters/{character_id}', response_model=CharacterModel)
 async def get_character(db: db_dependency_characters, character_id: int):
     # a GET route that retrieves a character from the database by its id.
-    character = MoviesRepo().get_character(db, character_id)
+    character = EntitiesRepo().get_character(db, character_id)
     if character is None:
         raise HTTPException(status_code=404, detail='Character not found')
     return character
@@ -233,10 +235,14 @@ async def get_character(db: db_dependency_characters, character_id: int):
 
 # <todo> CREATE a new character in the database
 @app.post('/characters', response_model=CharacterModel)
-async def add_character(db: db_dependency_characters, character: CharacterBase):
+async def add_character(db_characters: db_dependency_characters, db_movies: db_dependency_movies,
+                        character: CharacterBase):
     # a POST route that creates a new character in the database.
     # It uses the CharacterModel model to validate the request body and shape the response data.
-    return MoviesRepo().add_character(db, character)
+    added_character = EntitiesRepo().add_character(db_characters, character)
+    EntitiesRepo().update_aggregated_column_movies(db_movies, db_characters)
+    await notify_clients()
+    return added_character
 
 
 # <todo> UPDATE a character in the database
@@ -244,14 +250,17 @@ async def add_character(db: db_dependency_characters, character: CharacterBase):
 async def update_character(db: db_dependency_characters, character_id: int, character: CharacterBase):
     # a PUT route that updates a character in the database by its id.
     # It uses the CharacterModel model to validate the request body and shape the response data.
-    return MoviesRepo().update_character(db, character_id, character)
+    updated_character = EntitiesRepo().update_character(db, character_id, character)
+    await notify_clients()
+    return updated_character
 
 
 # <todo> DELETE a character from the database
 @app.delete('/characters/{character_id}')
 async def delete_character(db: db_dependency_characters, character_id: int):
     # a DELETE route that deletes a character from the database by its id.
-    MoviesRepo().delete_character(db, character_id)
+    EntitiesRepo().delete_character(db, character_id)
+    await notify_clients()
     return {'message': 'Character deleted successfully'}
 
 
@@ -264,11 +273,11 @@ async def delete_bulk_characters(db: db_dependency_characters, start_id: int, en
     not_found_characters = []
     for character_id in range(start_id, end_id):
         try:
-            MoviesRepo().delete_character(db, character_id)
+            EntitiesRepo().delete_character(db, character_id)
             deleted_characters.append(character_id)
         except Exception as e:
             not_found_characters.append(character_id)
-
+    await notify_clients()
     return {'deleted': deleted_characters, 'not_found': not_found_characters}
 
 
@@ -277,10 +286,58 @@ async def delete_bulk_characters(db: db_dependency_characters, start_id: int, en
 async def add_bulk_characters(db: db_dependency_characters, characters: List[CharacterBase]):
     # a POST route that creates multiple characters in the database at the same time.
     # It uses the List[CharacterBase] model to validate the request body and the List[CharacterModel] model to shape the response data.
-    return MoviesRepo().add_characters(db, characters)
+    added_characters = EntitiesRepo().add_characters(db, characters)
+    await notify_clients()
+    return added_characters
+
+
+# <todo> UPDATE the aggregated column in the movies table
+@app.put('/movies/update_nr_characters/')
+async def update_nr_characters(db_movies: db_dependency_movies, db_characters: db_dependency_characters):
+    # a PUT route that updates the aggregated column in the movies table.
+    try:
+        EntitiesRepo().update_aggregated_column_movies(db_movies, db_characters)
+        await notify_clients()
+        return {'message': 'Aggregated column updated successfully'}
+    except Exception as e:
+        print(e)
+        return {'message': 'Failed to update the aggregated column'}
+
+
+# <todo> Get the number of characters in the database
+@app.get('/characters/count/', response_model=dict)
+async def get_characters_count(db: db_dependency_characters):
+    # a GET route that retrieves the number of characters in the database.
+    characters_count = EntitiesRepo().get_number_of_characters_in_database(db)
+    return {'count': characters_count}
+
+
+# <todo> GENERATE n number of characters in the database
+@app.post('/characters/generate/{number}', response_model=dict)
+async def generate_characters(db: db_dependency_characters, number: int):
+    # a POST route that generates a specified number of random characters in the database.
+    # put 10 threads to generate characters
+    # EntitiesRepo().generate_and_add_characters(db, number)
+    # await notify_clients()
+    threads = []
+
+    for i in range(10):
+        file_name = f'characters_{i}.json'
+        thread = threading.Thread(target=EntitiesRepo().generate_characters_and_save_in_files,
+                                  args=(db, number, file_name))
+        threads.append(thread)
+
+    for thread in threads:
+        thread.start()
+
+    for thread in threads:
+        thread.join()
+
+    return {'message': f'Generated {number} characters'}
 
 
 if __name__ == '__main__':
     # for Debugging purposes
-    uvicorn.run(app, host="127.0.0.1", port=8002)
+    uvicorn.run(app, host="127.0.0.1", port=8000)
+
     pass
