@@ -1,5 +1,5 @@
 ﻿import { useContext, useState } from 'react';
-import MoviesContext from './../ContextComponent.jsx';
+import EntitiesContext from './../ContextComponent.jsx';
 import {
     Button,
     Dialog,
@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 function MovieShowAllDataGrid() {
     // get the movies from the context
-    const { movies, deleteMovie } = useContext(MoviesContext);
+    const { movies, deleteMovie } = useContext(EntitiesContext);
     const [open, setOpen] = useState(false);
     const [selectedMovie, setSelectedMovie] = useState({});
 

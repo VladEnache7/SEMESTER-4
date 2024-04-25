@@ -68,7 +68,7 @@ function AppNavbar() {
                             <MenuButton>MOVIES</MenuButton>
                             <Menu>
                                 <MenuItem
-                                    onClick={() => navigate('/movies')}
+                                    onClick={() => navigate('/')}
                                     data-testid="movies-link"
                                     sx={{
                                         marginTop: 3,

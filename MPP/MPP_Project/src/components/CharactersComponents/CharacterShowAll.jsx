@@ -14,12 +14,11 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import CharactersContext from './../ContextComponent.jsx';
+import EntitiesContext from './../ContextComponent.jsx';
 import Alert from '@mui/material/Alert';
 
 function CharacterShowAll() {
-    const { characters, deleteCharacter, error } =
-        useContext(CharactersContext);
+    const { characters, deleteCharacter, error } = useContext(EntitiesContext);
     const [open, setOpen] = useState(false);
     const [selectedCharacter, setSelectedCharacter] = useState({});
     const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -89,9 +88,6 @@ function CharacterShowAll() {
                             Movie Name
                         </TableCell>
                         <TableCell sx={{ fontWeight: 'bold', fontSize: 20 }}>
-                            Description
-                        </TableCell>
-                        <TableCell sx={{ fontWeight: 'bold', fontSize: 20 }}>
                             Action
                         </TableCell>
                     </TableRow>
@@ -105,10 +101,6 @@ function CharacterShowAll() {
                             <TableCell data-testid="character-age">
                                 {character.movieName}
                             </TableCell>
-                            <TableCell data-testid="character-role">
-                                {character.description}
-                            </TableCell>
-
                             <TableCell>
                                 <Button
                                     variant="contained"

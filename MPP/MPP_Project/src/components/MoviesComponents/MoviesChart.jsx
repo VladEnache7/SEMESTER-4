@@ -1,11 +1,11 @@
 ﻿// a chart component that displays a bar chart with how many movies were released each decade.
 import { useContext } from 'react';
-import MoviesContext from './../ContextComponent.jsx';
+import EntitiesContext from './../ContextComponent.jsx';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { PieChart } from '@mui/x-charts/PieChart';
 
 function ChartByYear() {
-    const { movies } = useContext(MoviesContext);
+    const { movies } = useContext(EntitiesContext);
 
     // get the decades
     let decades = [];

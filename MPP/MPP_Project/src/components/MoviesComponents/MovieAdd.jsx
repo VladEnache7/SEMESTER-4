@@ -9,11 +9,11 @@ import {
 } from '@mui/material';
 import React, { useContext, useState } from 'react';
 
-import MoviesContext from './../ContextComponent.jsx';
+import EntitiesContext from './../ContextComponent.jsx';
 import { useNavigate } from 'react-router-dom';
 
 function MovieAdd() {
-    const { addMovie } = useContext(MoviesContext);
+    const { addMovie } = useContext(EntitiesContext);
     let navigate = useNavigate();
     // initial state to be the movies
     const [movieName, setMovieName] = useState('');

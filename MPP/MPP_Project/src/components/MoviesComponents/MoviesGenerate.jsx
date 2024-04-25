@@ -9,10 +9,10 @@
 import Container from 'react-bootstrap/Container';
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import MoviesContext from './../ContextComponent.jsx';
+import EntitiesContext from './../ContextComponent.jsx';
 
 function MoviesGenerate() {
-    const { generateMovies } = useContext(MoviesContext);
+    const { generateMovies } = useContext(EntitiesContext);
 
     const [numberOfMovies, setNumberOfMovies] = React.useState(0);
     let navigate = useNavigate();

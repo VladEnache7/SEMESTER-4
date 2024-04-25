@@ -15,11 +15,12 @@
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import MoviesContext from './../ContextComponent.jsx';
+import EntitiesContext from './../ContextComponent.jsx';
 import Alert from '@mui/material/Alert';
 
 function MovieShowAll() {
-    const { movies, deleteMovie, error } = useContext(MoviesContext);
+    const { movies, deleteMovie, error, updateMoviesNrCharacters } =
+        useContext(EntitiesContext);
     const [open, setOpen] = useState(false);
     const [selectedMovie, setSelectedMovie] = useState({});
     const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -83,7 +84,12 @@ function MovieShowAll() {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell sx={{ fontWeight: 'bold', fontSize: 20 }}>
+                        <TableCell
+                            sx={{
+                                fontWeight: 'bold',
+                                fontSize: 20,
+                            }}
+                        >
                             Name
                         </TableCell>
                         <TableCell sx={{ fontWeight: 'bold', fontSize: 20 }}>
@@ -93,7 +99,28 @@ function MovieShowAll() {
                             Genre
                         </TableCell>
                         <TableCell sx={{ fontWeight: 'bold', fontSize: 20 }}>
-                            Action
+                            Characters
+                        </TableCell>
+                        <TableCell sx={{ fontWeight: 'bold', fontSize: 20 }}>
+                            <Button
+                                variant="outlined"
+                                color="secondary"
+                                onClick={() => {
+                                    updateMoviesNrCharacters();
+                                }}
+                            >
+                                =>Update
+                            </Button>
+
+                            <p
+                                style={{
+                                    display: 'inline',
+                                    marginLeft: 30,
+                                }}
+                            >
+                                Actions
+                            </p>
+                            {/*>Action</p>*/}
                         </TableCell>
                     </TableRow>
                 </TableHead>
@@ -108,6 +135,9 @@ function MovieShowAll() {
                             </TableCell>
                             <TableCell data-testid="movie-genre">
                                 {movie.genre}
+                            </TableCell>
+                            <TableCell data-testid="movie-characters">
+                                {movie.nrCharacters}
                             </TableCell>
 
                             <TableCell>

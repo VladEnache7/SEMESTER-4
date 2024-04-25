@@ -7,12 +7,12 @@ import {
     Paper,
 } from '@mui/material';
 import React, { useContext } from 'react';
-import MoviesContext from './../ContextComponent.jsx';
+import EntitiesContext from './../ContextComponent.jsx';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 
 function MovieEdit() {
-    const { movies, editMovie } = useContext(MoviesContext);
+    const { movies, editMovie } = useContext(EntitiesContext);
     let navigate = useNavigate();
 
     // take the movie id from the url
@@ -48,13 +48,12 @@ function MovieEdit() {
             movieGenre,
             movieDescription,
         );
-        navigate(`/`);
+        navigate(`/movies/${movieId}/details`);
     }
 
     return (
         <Container data-testid="edit-movie-page">
-            <h1 style={{ textAlign: 'center' }}>Edit Movie</h1>
-            {/*Have the box centered*/}
+            <h1 style={{ textAlign: 'center', marginTop: 20 }}>Edit Movie</h1>
             <Box
                 component={Paper}
                 sx={{

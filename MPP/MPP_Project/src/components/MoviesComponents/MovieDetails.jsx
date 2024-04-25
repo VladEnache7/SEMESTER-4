@@ -1,16 +1,14 @@
 ﻿import { useParams } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { useContext } from 'react';
-import MoviesContext from './../ContextComponent.jsx';
+import EntitiesContext from './../ContextComponent.jsx';
 
 function MovieDetails() {
-    const { movies } = useContext(MoviesContext);
+    const { movies } = useContext(EntitiesContext);
     let { movieId } = useParams();
     movieId = parseInt(movieId);
-    // console.log('🚀 ~ MovieDetails ~ movieId:', movieId);
 
     // get the movie
-
     const movie = movies.find((movie) => movie.id === movieId);
 
     return (
@@ -29,10 +27,10 @@ function MovieDetails() {
                 }}
             >
                 <p>
-                    <b>ID:</b> {movieId}
+                    <b>Name:</b> {movie.name}
                 </p>
                 <p>
-                    <b>Name:</b> {movie.name}
+                    <b>ID:</b> {movieId}
                 </p>
                 <p>
                     <b>Year:</b> {movie.year}

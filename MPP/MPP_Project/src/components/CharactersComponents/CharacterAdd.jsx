@@ -1,62 +1,56 @@
 import Container from 'react-bootstrap/Container';
 import {
+    Autocomplete,
     Box,
     Button,
     FormControl,
     InputLabel,
     OutlinedInput,
     Paper,
+    TextField,
 } from '@mui/material';
 import React, { useContext, useState } from 'react';
 
-import CharactersContext from './../ContextComponent.jsx';
+import EntitiesContext from './../ContextComponent.jsx';
 import { useNavigate } from 'react-router-dom';
 
 function CharacterAdd() {
-    const { addCharacter } = useContext(CharactersContext);
+    const { movies, addCharacter } = useContext(EntitiesContext);
     let navigate = useNavigate();
     // initial state to be the characters
     const [characterName, setCharacterName] = useState('');
-    const [characterAge, setCharacterAge] = useState(0);
-    const [characterRole, setCharacterRole] = useState('');
+    const [characterMovieName, setCharacterMovieName] = useState('');
     const [characterDescription, setCharacterDescription] = useState('');
 
     function allFieldsFilled() {
         return (
             characterName !== '' &&
-            characterRole !== '' &&
+            characterMovieName !== '' &&
             characterDescription !== ''
         );
     }
 
     function handleAddCharacter() {
-        addCharacter(
-            characterName,
-            characterAge,
-            characterRole,
-            characterDescription,
-        );
+        addCharacter(characterName, characterMovieName, characterDescription);
         setCharacterName('');
-        setCharacterAge(0);
-        setCharacterRole('');
+        setCharacterMovieName('');
         setCharacterDescription('');
-        navigate(`/`);
+        navigate(`/characters`);
     }
 
     function handleNameChange(event) {
         setCharacterName(event.target.value);
+        console.log(characterName);
     }
 
-    function handleAgeChange(event) {
-        setCharacterAge(event.target.value);
-    }
-
-    function handleRoleChange(event) {
-        setCharacterRole(event.target.value);
+    function handleMovieNameChange(event, value) {
+        setCharacterMovieName(value);
+        console.log(characterMovieName);
     }
 
     function handleDescriptionChange(event) {
         setCharacterDescription(event.target.value);
+        console.log(characterDescription);
     }
 
     return (
@@ -71,9 +65,13 @@ function CharacterAdd() {
                         display: 'flex',
                         flexDirection: 'column',
                         margin: 5,
+                        marginX: 15,
                         backgroundColor: 'lightblue',
                         borderRadius: 4,
                         padding: 5,
+
+                        //     center the box
+                        alignSelf: 'center',
                     }}
                 >
                     <FormControl style={{ marginTop: 7 }}>
@@ -94,42 +92,25 @@ function CharacterAdd() {
                             }}
                         />
                     </FormControl>
-                    <FormControl style={{ marginTop: 7 }}>
-                        <InputLabel
-                            htmlFor="component-outlined"
-                            color="secondary"
-                        >
-                            Age
-                        </InputLabel>
-                        <OutlinedInput
-                            id="component-outlined"
-                            label="Age"
-                            type={'number'}
-                            value={characterAge}
-                            onChange={handleAgeChange}
-                            color="secondary"
-                            inputProps={{
-                                'data-testid': 'character-age-input',
-                            }}
-                        />
-                    </FormControl>
 
                     <FormControl style={{ marginTop: 7 }}>
-                        <InputLabel
-                            htmlFor="component-outlined"
-                            color="secondary"
-                        >
-                            Role
-                        </InputLabel>
-                        <OutlinedInput
-                            id="component-outlined"
-                            label="Role"
-                            value={characterRole}
-                            onChange={handleRoleChange}
-                            color="secondary"
-                            inputProps={{
-                                'data-testid': 'character-role-input',
-                            }}
+                        <Autocomplete
+                            disablePortal
+                            id="combo-box-demo"
+                            sx={{}}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    color="secondary"
+                                    inputProps={{
+                                        ...params.inputProps,
+                                        'data-testid': 'movie-name-input',
+                                    }}
+                                    label="Movie Name"
+                                />
+                            )}
+                            options={movies.map((movie) => movie.name)}
+                            onChange={handleMovieNameChange}
                         />
                     </FormControl>
 
