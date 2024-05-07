@@ -5,9 +5,10 @@ import { AllNewsComponent } from './all-news/all-news.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AddNewsComponent } from './add-news/add-news.component';
 import { UpdateNewsComponent } from './update-news/update-news.component';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    // { path: '', component: AppComponent },
     { path: 'login', component: LoginComponent },
     { path: 'all-news', component: AllNewsComponent },
     { path: 'profile', component: ProfileComponent },

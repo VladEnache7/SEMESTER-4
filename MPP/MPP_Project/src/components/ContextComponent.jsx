@@ -4,6 +4,7 @@ import useWebSocket, { ReadyState } from 'react-use-websocket';
 
 export const EntitiesContext = createContext({
     movies: [],
+    fetchMoreData: function () {},
     addMovie: function (
         movieName,
         movieYear,
@@ -38,6 +39,35 @@ let offlineMovies = [];
 let offlineCharacters = [];
 let offlineOperations = [];
 export const EntitiesProvider = ({ children }) => {
+    // State for the current page
+    const [page, setPage] = useState(0);
+    // Function to fetch more data
+    const fetchMoreData = () => {
+        // Increase the page number
+        setPage(page + 1);
+
+        // Fetch more data and append it to the current data
+        // This is a placeholder function, replace it with your actual data fetching function
+        fetchMoreMovies(page + 1).then((newMovies) => {
+            setMovies([...movies, ...newMovies]);
+        });
+    };
+
+    async function fetchMoreMovies(page) {
+        try {
+            const response = await FastAPI.get('/movies/', {
+                params: {
+                    skip: page * 50,
+                    limit: 50,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Failed to fetch more movies:', error);
+            return [];
+        }
+    }
+
     async function performOperationOnServer(operation) {
         try {
             switch (operation.type) {
@@ -155,7 +185,7 @@ export const EntitiesProvider = ({ children }) => {
             FastAPI.get('/movies/', {
                 params: {
                     skip: 0,
-                    limit: 500,
+                    limit: 50,
                 },
             }).then((response) => {
                 if (response.status === 200) {
@@ -460,6 +490,7 @@ export const EntitiesProvider = ({ children }) => {
         <EntitiesContext.Provider
             value={{
                 movies,
+                fetchMoreData,
                 addMovie,
                 deleteMovie,
                 editMovie,

@@ -85,7 +85,7 @@ async def notify_clients():
 
 # <todo> GET ALL movies from the database
 @app.get('/movies', response_model=List[MovieModel])
-async def get_movies(db: db_dependency_movies, skip: int = 0, limit: int = 10000):
+async def get_movies(db: db_dependency_movies, skip: int = 0, limit: int = 100):
     #  get_movies is a GET route that retrieves a list of movies from the database.
     #  It uses the MovieModel model to shape the response data.
     movies = EntitiesRepo().get_movies_skip_limit(db, skip, limit)
@@ -216,7 +216,7 @@ async def generate_movies(db: db_dependency_movies, number: int, background_task
 
 # <todo> GET ALL characters from the database
 @app.get('/characters', response_model=List[CharacterModel])
-async def get_characters(db: db_dependency_characters, skip: int = 0, limit: int = 500):
+async def get_characters(db: db_dependency_characters, skip: int = 0, limit: int = 100):
     # a GET route that retrieves a list of characters from the database.
     # It uses the CharacterModel model to shape the response data.
     characters = EntitiesRepo().get_characters_skip_limit(db, skip, limit)

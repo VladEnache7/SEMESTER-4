@@ -1,10 +1,11 @@
-<div class="container text-center" id="index-page">
+<div *ngIf="!isNavigating" class="container text-center" id="index-page">
   <h2>News Website</h2>
-  <button type="button" class="btn btn-primary btn-block" >
-    Login 7
+  <button type="button" class="btn btn-primary btn-block" routerLink="/login">
+    Login
   </button>
-  <button type="button" class="btn btn-primary btn-block">
+  <button type="button" class="btn btn-primary btn-block" routerLink="/all-news">
     View all news without logging
   </button>
 </div>
 
+<router-outlet></router-outlet>

@@ -244,7 +244,8 @@ class EntitiesRepo:
         :return: None
         """
         # Fetch all movies
-        movies = EntitiesRepo().get_all_movies(db_movies)
+        # movies = EntitiesRepo().get_all_movies(db_movies)
+        movies = EntitiesRepo().get_movies_skip_limit(db_movies, 0, 1000)
 
         for movie in movies:
             # Fetch all characters associated with the movie

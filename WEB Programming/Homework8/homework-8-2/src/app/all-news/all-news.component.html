@@ -1,1 +1,77 @@
-<p>all-news works!</p>
+<div class="" id="viewNewsDiv">
+  <div class="row">
+
+    <div class="col-sm" style="flex-grow: 1; margin-top: 30px">
+      <div id="buttons" class="container"
+           style="min-width: 325px; display: flex; flex-direction: column; margin: auto; align-items: center;">
+        <h3>Filter news:</h3>
+        <div id="filterByCategory" class="mb-1">
+          <label for="categoryInputFilter" class="form-label">By Category:</label><label
+          for="categoryInputFilter"></label>
+          <input type="text"
+                                                   id="categoryInputFilter"
+                                                   class="form-control mb-3" [(ngModel)]="categoryFilter">
+          <button id="filterByCategoryButton" type="button" class="btn btn-info" style="max-width: 300px" (click)="filterByCategory()">
+            Filter by category
+          </button>
+        </div>
+        <div id="filterByYear" class="mb-1">
+          <label for="yearInputFilter" class="form-label">By year: </label><label
+          for="yearInputFilter"></label><input type="number"
+                                               id="yearInputFilter"
+                                               class="form-control mb-3"
+                                               value="2024" [(ngModel)]="yearFilter">
+          <button id="filterByYearButton" type="button" class="btn btn-info mb-3" style="max-width: 300px" (click)="filterByYear()">
+            Filter by year
+          </button>
+        </div>
+
+        <div>
+          <!--                    <button id="filterByUser" type="button" class="btn btn-info mb-1">Show my logs</button>-->
+          <button id="allNewsButton" type="button" class="btn btn-info mb-3 "
+                  style="max-width: 300px; width: 300px" (click)="showAllNews()">
+            Show all news
+          </button>
+        </div>
+        <div>
+          <form method="post">
+            <input id="returnButton" type="submit" class="btn btn-secondary mb-1" name="returnButton"
+                   value="Return to profile">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm" style="flex-grow: 2; margin-top: 30px">
+      <div class="container" id="showNews"
+           style="min-width: 700px; display: flex; flex-direction: column; margin: auto; align-items: center;">
+        <h3>All news that are currently posted:</h3>
+        <table class="newsTable table" style="min-width: 700px">
+          <thead>
+          <tr>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Content</th>
+            <th>Producer</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let oneNews of paginatedNews">
+            <td>{{oneNews.NewsTitle}}</td>
+            <td>{{oneNews.NewsDatePosted}}</td>
+            <td>{{oneNews.NewsCategory}}</td>
+            <td>{{oneNews.NewsContent}}</td>
+            <td>{{oneNews.NewsProducer}}</td>
+          </tbody>
+        </table>
+        <div id="pagination" class="container"
+             style="min-width: 500px; display: flex; flex-direction: row; margin: auto; align-items: center;">
+
+          <button type="button" id="previousButton" class="btn btn-info mb-1" style="margin: 10px " (click)="previousPage()" [disabled]="currentPage === 1">Previous
+          </button>
+          <button id="nextButton" type="button" class="btn btn-info mb-1" style="margin: 10px" (click)="nextPage()" [disabled]="currentPage === (news.length / newsPerPage - 1)">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -17,10 +17,16 @@ import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import EntitiesContext from './../ContextComponent.jsx';
 import Alert from '@mui/material/Alert';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 function MovieShowAll() {
-    const { movies, deleteMovie, error, updateMoviesNrCharacters } =
-        useContext(EntitiesContext);
+    const {
+        movies,
+        deleteMovie,
+        error,
+        updateMoviesNrCharacters,
+        fetchMoreData,
+    } = useContext(EntitiesContext);
     const [open, setOpen] = useState(false);
     const [selectedMovie, setSelectedMovie] = useState({});
     const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -124,7 +130,17 @@ function MovieShowAll() {
                         </TableCell>
                     </TableRow>
                 </TableHead>
-                <TableBody>
+                <InfiniteScroll
+                    dataLength={movies.length}
+                    next={fetchMoreData}
+                    hasMore={true} // Replace with actual condition
+                    loader={<h4>Loading...</h4>}
+                    endMessage={
+                        <p style={{ textAlign: 'center' }}>
+                            <b>End of list</b>
+                        </p>
+                    }
+                >
                     {movies.map((movie) => (
                         <TableRow key={movie.id}>
                             <TableCell data-testid="movie-name">
@@ -179,7 +195,7 @@ function MovieShowAll() {
                             </TableCell>
                         </TableRow>
                     ))}
-                </TableBody>
+                </InfiniteScroll>
             </Table>
 
             <Dialog

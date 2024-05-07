@@ -1,1 +1,11 @@
-<p>profile works!</p>
+<div class="container text-center">
+  <h3>Welcome, {{username}}!</h3>
+  <form method="post">
+    <input type="submit" class="btn btn-info" name="viewAllButton" value="View all news reports"
+           style="margin: auto; margin-top: 10px" (click)="viewAllNews()">
+    <input type="submit" class="btn btn-success" name="addNewsButton" value="Add a news report"
+           style="margin: auto; margin-top: 10px" (click)="addNews()">
+    <input type="submit" class="btn btn-dark" name="logoutButton" value="Log out"
+           style="margin: auto; margin-top: 10px" (click)="logout()">
+  </form>
+</div>
