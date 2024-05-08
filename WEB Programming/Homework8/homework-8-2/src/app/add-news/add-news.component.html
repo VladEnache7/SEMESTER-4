@@ -15,42 +15,61 @@
           </tr>
           </thead>
           <tbody>
+          <tr *ngFor="let oneNews of paginatedNews">
+            <td>{{ oneNews.NewsTitle }}</td>
+            <td>{{ oneNews.NewsDatePosted }}</td>
+            <td>{{ oneNews.NewsCategory }}</td>
+            <td>{{ oneNews.NewsContent }}</td>
+            <td>{{ oneNews.NewsProducer }}</td>
+            <td>
+              <button (click)="editNews(oneNews.NewsId)" class="btn btn-primary">Edit</button>
+            </td>
+          </tr>
           </tbody>
         </table>
-        <button type="button" id="previousButton" class="btn btn-info mb-1" style="margin: 10px">Previous
+        <button (click)="previousPage()" [disabled]="currentPage === 1" class="btn btn-info mb-1" id="previousButton"
+                style="margin: 10px" type="button"
+        >Previous
         </button>
-        <button id="nextButton" type="button" class="btn btn-info mb-1" style="margin: 10px">Next</button>
+        <button (click)="nextPage()" [disabled]="currentPage > (news.length / newsPerPage)"
+                class="btn btn-info mb-1"
+                id="nextButton"
+                style="margin: 10px"
+                type="button"
+        >Next
+        </button>
       </div>
     </div>
     <div class="col-sm" style="margin-top: 30px; display: flex; justify-content: center; align-items: center;">
-      <div id="addForm" class=" text-left" style="max-width: 380px; min-width: 380px">
+      <div class=" text-left" id="addForm" style="max-width: 380px; min-width: 380px">
         <h3>Enter the details for the news: </h3>
-        <div class="mb-1"><label for="titleField" class="form-label">Title: </label><label
-          for="titleField"></label><input type="text"
+        <div class="mb-1"><label class="form-label" for="titleField">Title: </label><label
+          for="titleField"></label><input [(ngModel)]="title"
+                                          class="form-control"
                                           id="titleField"
-                                          style="width: 100%; max-width: 450px"
-                                          class="form-control">
+                                          style="width: 100%; max-width: 450px" type="text">
         </div>
-        <div class="mb-1"><label for="categoryField" class="form-label">Category: </label><label
-          for="categoryField"></label><input type="text"
-                                             id="categoryField"
+        <div class="mb-1"><label class="form-label" for="categoryField">Category: </label><label
+          for="categoryField"></label><input [(ngModel)]="category"
                                              class="form-control"
-                                             style="width: 100%; max-width: 400px">
+                                             id="categoryField"
+                                             style="width: 100%; max-width: 400px" type="text">
         </div>
-        <div class="mb-1"><label for="contentField" class="form-label">Content: </label><label
+        <div class="mb-1"><label class="form-label" for="contentField">Content: </label><label
           for="contentField"></label>
-          <textarea id="contentField" class="form-control" rows="5"></textarea>
+          <textarea [(ngModel)]="content" class="form-control" id="contentField" rows="5"></textarea>
         </div>
 
-        <button id="insertNewsButton" type="button" class="btn btn-success mb-1"
-                style="display: block; margin: auto; margin-top: 15px; width: 100%;">Add the News
+        <button (click)="addNews()" class="btn btn-success mb-1"
+                id="insertNewsButton"
+                style="display: block; margin: auto; margin-top: 15px; width: 100%;" type="button">Add the News
         </button>
         <hr>
         <form method="post">
-          <input type="submit" class="btn btn-info mb-1" name="viewAllButton" value="View all news"
-                 style="margin: auto; margin-top: 10px">
-          <input type="submit" class="btn btn-secondary mb-1" name="returnButton"
-                 value="Return to your profile" style="margin: auto; margin-top: 10px">
+          <input class="btn btn-info mb-1" name="viewAllButton" style="margin: auto; margin-top: 10px" type="submit"
+                 value="View all news">
+          <input (click)="returnToProfile($event)" class="btn btn-secondary mb-1" name="returnButton"
+                 style="margin: auto; margin-top: 10px" type="submit" value="Return to your profile">
         </form>
       </div>
     </div>

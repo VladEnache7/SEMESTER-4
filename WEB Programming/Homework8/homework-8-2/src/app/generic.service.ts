@@ -1,13 +1,32 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { News } from './news';
+
 @Injectable({
     providedIn: 'root',
 })
 export class GenericService {
+    httpOptions = {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+        }),
+    };
     private currentUser = '';
+    private backendUrl =
+        'http://localhost/WebProgrammingCourse/DataBaseConnection.php'; // URL to web api
+    private selectedNewsId: number = -1;
+
+    constructor(private http: HttpClient) {}
+
+    set setSelectedNewsId(id: number) {
+        this.selectedNewsId = id;
+    }
+
+    get getSelectedNewsId(): number {
+        return this.selectedNewsId;
+    }
 
     set setCurrentUser(username: string) {
         this.currentUser = username;
@@ -16,14 +35,6 @@ export class GenericService {
     get getCurrentUser(): string {
         return this.currentUser;
     }
-    private backendUrl =
-        'http://localhost/WebProgrammingCourse/DataBaseConnection.php'; // URL to web api
-    httpOptions = {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-        }),
-    };
-    constructor(private http: HttpClient) {}
 
     fetchNews(): Observable<News[]> {
         return this.http
@@ -57,18 +68,23 @@ export class GenericService {
             .pipe(catchError(this.handleError<News[]>('fetchNewsByYear', [])));
     }
 
-    addNews(news: News): Observable<string> {
+    addNews(
+        title: string,
+        content: string,
+        category: string,
+        username: string,
+    ): Observable<string> {
         return this.http
             .get<string>(
                 this.backendUrl +
                     '?action=addNews&title=' +
-                    news.NewsTitle +
+                    title +
                     '&content=' +
-                    news.NewsContent +
+                    content +
                     '&category=' +
-                    news.NewsCategory +
+                    category +
                     '&username=' +
-                    news.NewsProducer,
+                    username,
             )
             .pipe(catchError(this.handleError<string>('addNews', '')));
     }
@@ -79,7 +95,7 @@ export class GenericService {
                 this.backendUrl +
                     '?action=updateNews&id=' +
                     news.NewsId +
-                    'title=' +
+                    '&title=' +
                     news.NewsTitle +
                     '&content=' +
                     news.NewsContent +
@@ -91,7 +107,7 @@ export class GenericService {
             .pipe(catchError(this.handleError<string>('updateNews', '')));
     }
 
-    fetchNewsById(id: string): Observable<News> {
+    fetchNewsById(id: number): Observable<News> {
         return this.http
             .get<News>(this.backendUrl + '?action=selectNewsById&id=' + id)
             .pipe(catchError(this.handleError<News>('fetchNewsById')));
