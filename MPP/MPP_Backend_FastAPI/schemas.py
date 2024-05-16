@@ -3,6 +3,16 @@ from pydantic import BaseModel
 
 # The code then defines two Pydantic models, MovieBase and MovieModel:
 # Create a class that will be used to create a table in the database
+
+class TokenData(BaseModel):
+    username: str
+
+
+class LoginRegisterModel(BaseModel):
+    username: str
+    hashedPassword: str
+
+
 class MovieBase(BaseModel):
     name: str
     year: int

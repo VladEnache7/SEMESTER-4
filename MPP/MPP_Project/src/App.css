@@ -1,29 +1,14 @@
 #root {
-    /*max-width: 1280px;*/
-    /*margin: 0 auto;*/
-    /*padding: 2rem;*/
-    /*text-align: center;*/
-    /*font-family: Arial, sans-serif;*/
-    /*color: #747bff;*/
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    color-scheme: light dark;
+    background-image: url("cool-background (3).png");
+    background-size: cover; /* Make the image cover the entire container */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-position: center; /* Center the image */
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Make the body take up the full viewport height */
 }
 
 
-/*[class^="Mui"], [class*=" Mui"] {*/
-/*    !*margin: 20px;*!*/
-/*}*/
 
-/*!*Change all the components from the form to be bigger*!*/
-/*.MuiInputBase-input {*/
-/*    font-size: 30px;*/
-/*    !*background-color: #747bff;*!*/
-/*}*/
-
-/*.FormControl {*/
-/*    background-color: #535bf2;*/
-/*}*/
-
-/*.InputLabel {*/
-/*    font-size: 30px;*/
-/*    color: white;*/
-/*    background-color: #646cff;*/
-/*}*/

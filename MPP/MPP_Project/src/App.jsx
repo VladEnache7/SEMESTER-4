@@ -15,6 +15,8 @@ import CharacterShowAll from './components/CharactersComponents/CharacterShowAll
 import CharacterAdd from './components/CharactersComponents/CharacterAdd.jsx';
 import CharacterDetails from './components/CharactersComponents/CharacterDetails.jsx';
 import CharacterEdit from './components/CharactersComponents/CharacterEdit.jsx';
+import LoginSide from './components/LoginRegister/LoginSide.jsx';
+import Register from './components/LoginRegister/Register.jsx';
 
 const App = () => {
     return (
@@ -23,11 +25,9 @@ const App = () => {
                 <AppNavbar />
                 <EntitiesProvider>
                     <Routes>
-                        <Route path="/" element={<MovieShowAll />} />
-                        <Route
-                            path="/movies"
-                            element={<MovieShowAllDataGrid />}
-                        />
+                        <Route path="/" element={<LoginSide />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route path="/movies" element={<MovieShowAll />} />
                         <Route path="/movies/add" element={<MovieAdd />} />
                         <Route
                             path="/movies/:movieId/details"

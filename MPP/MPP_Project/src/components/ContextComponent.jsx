@@ -33,12 +33,18 @@ export const EntitiesContext = createContext({
         characterDescription,
     ) {},
     error: null,
+    login: function (username, password) {},
+    register: function (username, password) {},
+    currentUsername: '',
 });
 
 let offlineMovies = [];
 let offlineCharacters = [];
 let offlineOperations = [];
 export const EntitiesProvider = ({ children }) => {
+    // Current username
+    const [currentUsername, setCurrentUsername] = useState('');
+
     // State for the current page
     const [page, setPage] = useState(0);
     // Function to fetch more data
@@ -486,6 +492,64 @@ export const EntitiesProvider = ({ children }) => {
             console.log('Offline mode - update-nr-characters:', offlineMovies);
         }
     }
+
+    // <-------------------------------------------------> Login & Register & Logout <------------------------------------------------->
+
+    async function login(username, password) {
+        try {
+            // console.log('Login:', {
+            //     username: username,
+            //     hashedPassword: password,
+            // });
+            const response = await FastAPI.post('/auth/login/', {
+                username: username,
+                hashedPassword: password,
+            });
+            console.log('Login response:', response);
+            if (response.data) {
+                // fetchMovies();
+                // fetchCharacters();
+
+                setCurrentUsername(username);
+                console.log('setCurrentUsername:', username);
+            }
+            return response.data;
+        } catch (error) {
+            console.error('Failed to login:', error);
+            return null;
+        }
+    }
+
+    async function register(username, password) {
+        try {
+            // console.log('Register:', {
+            //     username: username,
+            //     hashedPassword: password,
+            // });
+            const response = await FastAPI.post('/auth/register/', {
+                username: username,
+                hashedPassword: password,
+            });
+            console.log('Register response:', response);
+            return response.data;
+        } catch (error) {
+            console.error('Failed to register:', error);
+            return null;
+        }
+    }
+
+    async function logout() {
+        try {
+            const response = await FastAPI.post('/auth/logout/');
+            console.log('Logout response:', response);
+            return response.data;
+        } catch (error) {
+            console.error('Failed to logout:', error);
+            return null;
+        }
+    }
+
+    // <-------------------------------------------------> Return <------------------------------------------------->
     return (
         <EntitiesContext.Provider
             value={{
@@ -501,6 +565,9 @@ export const EntitiesProvider = ({ children }) => {
                 deleteCharacter,
                 editCharacter,
                 error,
+                login,
+                register,
+                username: currentUsername,
             }}
         >
             {children}

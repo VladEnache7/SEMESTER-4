@@ -10,9 +10,12 @@ import { MenuItem as BaseMenuItem, menuItemClasses } from '@mui/base/MenuItem';
 import { styled } from '@mui/system';
 
 import MovieFilterRoundedIcon from '@mui/icons-material/MovieFilterRounded';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import EntitiesContext from './ContextComponent.jsx';
 
 function AppNavbar() {
+    const { currentUsername } = useContext(EntitiesContext);
+    console.log('AppNavbar username: ', currentUsername);
     let navigate = useNavigate();
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -117,6 +120,24 @@ function AppNavbar() {
                                     data-testid="characters-link"
                                 >
                                     Add Characters
+                                </MenuItem>
+                            </Menu>
+                        </Dropdown>
+                    </Box>
+                    <Box sx={{ marginLeft: 'auto' }}>
+                        <Dropdown>
+                            <MenuButton>Logged In:{currentUsername}</MenuButton>
+                            <Menu>
+                                <MenuItem
+                                    onClick={() =>
+                                        navigate('/right-dropdown-link-1')
+                                    }
+                                    data-testid="right-dropdown-link-1"
+                                    sx={{
+                                        marginTop: 3,
+                                    }}
+                                >
+                                    Logout
                                 </MenuItem>
                             </Menu>
                         </Dropdown>

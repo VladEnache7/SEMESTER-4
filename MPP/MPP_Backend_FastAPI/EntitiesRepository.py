@@ -1,12 +1,14 @@
 import random
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Annotated, List
 from faker import Faker
 from fastapi import Depends, HTTPException
+from starlette import status
 
 import models
 from database import SessionLocalMovies
 from schemas import MovieBase, CharacterBase
+from auth_token import create_access_token, verify_password, get_password_hash, ACCESS_TOKEN_EXPIRE_MINUTES
 
 
 def get_database():
@@ -19,6 +21,7 @@ def get_database():
 
 db_dependency_movies = Annotated[models.Movie, Depends(get_database)]
 db_dependency_characters = Annotated[models.Character, Depends(get_database)]
+db_dependency_users = Annotated[models.User, Depends(get_database)]
 
 
 class EntitiesRepo:
@@ -36,7 +39,8 @@ class EntitiesRepo:
     @staticmethod
     def get_movies_skip_limit(db: db_dependency_movies, skip: int, limit: int):
         # TODO Expected type 'Session', got 'Type[Movie]' instead
-        movies = db.query(models.Movie).offset(skip).limit(limit).all()
+        # movies = db.query(models.Movie).offset(skip).limit(limit).all()
+        movies = db.query(models.Movie).order_by(models.Movie.id).offset(skip).limit(limit).all()
         return movies
 
     @staticmethod
@@ -150,7 +154,8 @@ class EntitiesRepo:
 
     @staticmethod
     def get_characters_skip_limit(db: db_dependency_characters, skip: int, limit: int):
-        characters = db.query(models.Character).offset(skip).limit(limit).all()
+        # characters = db.query(models.Character).offset(skip).limit(limit).all()
+        characters = db.query(models.Character).order_by(models.Character.id).offset(skip).limit(limit).all()
         return characters
 
     @staticmethod
@@ -265,6 +270,47 @@ class EntitiesRepo:
     @staticmethod
     def get_number_of_characters_in_database(db: db_dependency_characters):
         return db.query(models.Character).count()
+
+    @staticmethod
+    def get_id_of_user(db: db_dependency_users, username):
+        user = db.query(models.User).filter(models.User.username == username).first()
+        if user is None:
+            return None
+        return user.id
+
+    @staticmethod
+    def get_movies_by_user(db: db_dependency_movies, username):
+        user_id = EntitiesRepo().get_id_of_user(db, username)
+        return db.query(models.Movie).filter(models.Movie.editorId == user_id).all()
+
+    @staticmethod
+    def get_characters_by_user(db: db_dependency_characters, username):
+        user_id = EntitiesRepo().get_id_of_user(db, username)
+        return db.query(models.Character).filter(models.Character.editorId == user_id).all()
+
+    @staticmethod
+    def login(db: db_dependency_users, username, password):
+        user = db.query(models.User).filter(models.User.username == username).first()
+        if user is None or not verify_password(password, user.hashedPassword):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Incorrect username or password",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        access_token = create_access_token(
+            data={"sub": user.username}, expires_delta=access_token_expires
+        )
+        return {"access_token": access_token, "token_type": "bearer"}
+
+    @staticmethod
+    def register(db: db_dependency_users, username, hashedPassword):
+        if db.query(models.User).filter(models.User.username == username).first() is not None:
+            return False
+        new_user = models.User(username=username, hashedPassword=hashedPassword)
+        db.add(new_user)
+        db.commit()
+        return True
 
 
 if __name__ == '__main__':

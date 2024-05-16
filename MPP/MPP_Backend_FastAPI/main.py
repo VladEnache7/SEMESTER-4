@@ -7,12 +7,16 @@ from fastapi.responses import HTMLResponse
 from typing import List, Annotated
 
 import models
-from database import SessionLocalMovies, engine_movies
+from database import SessionLocalMovies, engine
 from fastapi.middleware.cors import CORSMiddleware
 from EntitiesRepository import EntitiesRepo
-from schemas import MovieBase, MovieModel, CharacterModel, CharacterBase
+from schemas import MovieBase, MovieModel, CharacterModel, CharacterBase, LoginRegisterModel, TokenData
 
 from fastapi.encoders import jsonable_encoder
+from fastapi import Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
+from jose import JWTError, jwt
+from auth_token import ALGORITHM, SECRET_KEY, get_password_hash
 
 # Create a new FastAPI instance
 app = FastAPI()
@@ -39,8 +43,9 @@ def get_database():
 
 db_dependency_movies = Annotated[models.Movie, Depends(get_database)]
 db_dependency_characters = Annotated[models.Character, Depends(get_database)]
+db_dependency_users = Annotated[models.User, Depends(get_database)]
 
-models.Base_database.metadata.create_all(bind=engine_movies)
+models.Base_database.metadata.create_all(bind=engine)
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -334,6 +339,56 @@ async def generate_characters(db: db_dependency_characters, number: int):
         thread.join()
 
     return {'message': f'Generated {number} characters'}
+
+
+# <todo> login - verify user and password
+@app.post('/auth/login/')
+async def login(db: db_dependency_users, login_model: LoginRegisterModel):
+    print(f'username: {login_model.username}, hashedPassword: {login_model.hashedPassword}')
+    # a POST route that verifies the username and password.
+    # It uses the username and hashedPassword parameters to verify the user and password.
+    return EntitiesRepo().login(db, login_model.username, login_model.hashedPassword)
+
+
+# <todo> register - add a new user
+@app.post('/auth/register/', response_model=bool)
+async def register(db: db_dependency_users, login_model: LoginRegisterModel):
+    # a POST route that adds a new user to the database.
+    # It uses the username and hashedPassword parameters to add the new user.
+
+    # Hash the password
+    hashed_password = get_password_hash(login_model.hashedPassword)
+
+    return EntitiesRepo().register(db, login_model.username, hashed_password)
+
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+
+async def get_current_user(token: str = Depends(oauth2_scheme)):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        if username is None:
+            raise credentials_exception
+        token_data = TokenData(username=username)
+    except JWTError:
+        raise credentials_exception
+    user = EntitiesRepo().get_user(username)
+    if user is None:
+        raise credentials_exception
+    return user
+
+
+# @app.get("/users/me/", response_model=User)
+@app.get("/users/me/")
+async def read_users_me(current_user: str = Depends(get_current_user)):
+    return current_user
 
 
 if __name__ == '__main__':
