@@ -12,10 +12,11 @@ import { styled } from '@mui/system';
 import MovieFilterRoundedIcon from '@mui/icons-material/MovieFilterRounded';
 import { useContext, useState } from 'react';
 import EntitiesContext from './ContextComponent.jsx';
+import { AccountCircle } from '@mui/icons-material';
 
 function AppNavbar() {
-    const { currentUsername } = useContext(EntitiesContext);
-    console.log('AppNavbar username: ', currentUsername);
+    const { currentUsername, logout } = useContext(EntitiesContext);
+    // console.log('AppNavbar username: ', currentUsername);
     let navigate = useNavigate();
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -126,12 +127,14 @@ function AppNavbar() {
                     </Box>
                     <Box sx={{ marginLeft: 'auto' }}>
                         <Dropdown>
-                            <MenuButton>Logged In:{currentUsername}</MenuButton>
+                            {currentUsername && <AccountCircle />}
+                            <MenuButton>{currentUsername}</MenuButton>
                             <Menu>
                                 <MenuItem
-                                    onClick={() =>
-                                        navigate('/right-dropdown-link-1')
-                                    }
+                                    onClick={() => {
+                                        logout();
+                                        navigate('/');
+                                    }}
                                     data-testid="right-dropdown-link-1"
                                     sx={{
                                         marginTop: 3,

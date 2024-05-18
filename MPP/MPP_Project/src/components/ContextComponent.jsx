@@ -35,6 +35,7 @@ export const EntitiesContext = createContext({
     error: null,
     login: function (username, password) {},
     register: function (username, password) {},
+    logout: function () {},
     currentUsername: '',
 });
 
@@ -511,7 +512,7 @@ export const EntitiesProvider = ({ children }) => {
                 // fetchCharacters();
 
                 setCurrentUsername(username);
-                console.log('setCurrentUsername:', username);
+                console.log('setCurrentUsername:', currentUsername);
             }
             return response.data;
         } catch (error) {
@@ -540,9 +541,11 @@ export const EntitiesProvider = ({ children }) => {
 
     async function logout() {
         try {
-            const response = await FastAPI.post('/auth/logout/');
-            console.log('Logout response:', response);
-            return response.data;
+            setCurrentUsername('');
+            // TODO implement logout in the backend
+            // const response = await FastAPI.post('/auth/logout/');
+            // console.log('Logout response:', response);
+            // return response.data;
         } catch (error) {
             console.error('Failed to logout:', error);
             return null;
@@ -567,7 +570,8 @@ export const EntitiesProvider = ({ children }) => {
                 error,
                 login,
                 register,
-                username: currentUsername,
+                logout,
+                currentUsername,
             }}
         >
             {children}

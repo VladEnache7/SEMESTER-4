@@ -69,7 +69,7 @@ export default function LoginSide() {
                     sx={{
                         backgroundImage:
                             // 'url(https://source.unsplash.com/random?wallpapers)',
-                            'url(src/components/LoginRegister/download_LE_auto_x2.jpg)',
+                            'url(src/components/LoginRegister/joshua-hibbert-Pn6iimgM-wo-unsplash.jpg)',
                         backgroundRepeat: 'no-repeat',
                         backgroundColor: (t) =>
                             t.palette.mode === 'light'

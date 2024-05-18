@@ -22,8 +22,8 @@ const App = () => {
     return (
         <BrowserRouter>
             <Container style={{ backgroundColor: 'white' }}>
-                <AppNavbar />
                 <EntitiesProvider>
+                    <AppNavbar />
                     <Routes>
                         <Route path="/" element={<LoginSide />} />
                         <Route path="/register" element={<Register />} />
