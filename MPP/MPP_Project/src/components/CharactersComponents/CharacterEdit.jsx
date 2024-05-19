@@ -15,8 +15,12 @@ import Alert from '@mui/material/Alert';
 import Container from 'react-bootstrap/Container';
 
 function CharacterEdit() {
-    const { movies, characters, editCharacter } = useContext(CharactersContext);
+    const { movies, characters, editCharacter, currentUsername } =
+        useContext(CharactersContext);
     const navigate = useNavigate();
+    if (!currentUsername) {
+        navigate('/');
+    }
 
     // take the character id from the url
     let { id } = useParams();

@@ -26,11 +26,20 @@ function MovieShowAll() {
         error,
         updateMoviesNrCharacters,
         fetchMoreData,
+        currentUsername,
     } = useContext(EntitiesContext);
     const [open, setOpen] = useState(false);
     const [selectedMovie, setSelectedMovie] = useState({});
     const [isOnline, setIsOnline] = useState(navigator.onLine);
 
+    // for navigation between pages
+    let navigate = useNavigate();
+    console.log('MovieShowAll username: ', currentUsername);
+    if (!currentUsername) {
+        navigate('/');
+    }
+
+    // check if the user is online
     useEffect(() => {
         function updateOnlineStatus() {
             setIsOnline(navigator.onLine);
@@ -52,9 +61,6 @@ function MovieShowAll() {
             </Alert>
         );
     }
-
-    // for navigation between pages
-    let navigate = useNavigate();
 
     function handleDeletePopUp(movie) {
         // open a pop up to confirm the delete

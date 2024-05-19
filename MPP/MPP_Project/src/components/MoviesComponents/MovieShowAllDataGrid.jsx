@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 function MovieShowAllDataGrid() {
     // get the movies from the context
-    const { movies, deleteMovie } = useContext(EntitiesContext);
+    const { movies, deleteMovie, currentUsername } = useContext(EntitiesContext);
     const [open, setOpen] = useState(false);
     const [selectedMovie, setSelectedMovie] = useState({});
 
@@ -26,6 +26,9 @@ function MovieShowAllDataGrid() {
 
     // for navigation between pages
     let navigate = useNavigate();
+    if (!currentUsername) {
+        navigate('/');
+    }
 
     // define the columns for the DataGrid
     const columns = [

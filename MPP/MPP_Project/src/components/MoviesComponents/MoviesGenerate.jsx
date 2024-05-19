@@ -12,10 +12,13 @@ import { useNavigate } from 'react-router-dom';
 import EntitiesContext from './../ContextComponent.jsx';
 
 function MoviesGenerate() {
-    const { generateMovies } = useContext(EntitiesContext);
+    const { generateMovies, currentUsername } = useContext(EntitiesContext);
 
     const [numberOfMovies, setNumberOfMovies] = React.useState(0);
     let navigate = useNavigate();
+    if (!currentUsername) {
+        navigate('/');
+    }
 
     const handleGenerateMovies = () => {
         generateMovies(numberOfMovies);

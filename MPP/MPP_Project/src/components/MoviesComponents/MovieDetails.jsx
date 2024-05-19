@@ -1,12 +1,17 @@
-﻿import { useParams } from 'react-router-dom';
+﻿import { useNavigate, useParams } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { useContext } from 'react';
 import EntitiesContext from './../ContextComponent.jsx';
 
 function MovieDetails() {
-    const { movies } = useContext(EntitiesContext);
+    const { movies, currentUsername } = useContext(EntitiesContext);
     let { movieId } = useParams();
     movieId = parseInt(movieId);
+
+    let navigate = useNavigate();
+    if (!currentUsername) {
+        navigate('/');
+    }
 
     // get the movie
     const movie = movies.find((movie) => movie.id === movieId);

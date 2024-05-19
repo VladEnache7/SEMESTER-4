@@ -53,7 +53,7 @@ function AppNavbar() {
                                 marginRight: 2,
                                 alignSelf: 'center',
                             }}
-                            onClick={() => navigate('/')}
+                            onClick={() => navigate('/movies')}
                         />
                         <Typography
                             variant="h6"
@@ -72,7 +72,7 @@ function AppNavbar() {
                             <MenuButton>MOVIES</MenuButton>
                             <Menu>
                                 <MenuItem
-                                    onClick={() => navigate('/')}
+                                    onClick={() => navigate('/movies')}
                                     data-testid="movies-link"
                                     sx={{
                                         marginTop: 3,

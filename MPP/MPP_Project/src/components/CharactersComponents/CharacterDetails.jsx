@@ -1,11 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import CharactersContext from './../ContextComponent.jsx';
 import { Box, Paper, Typography } from '@mui/material';
 import Alert from '@mui/material/Alert';
 
 function CharacterDetails() {
-    const { characters, error } = useContext(CharactersContext);
+    const { characters, error, currentUsername } =
+        useContext(CharactersContext);
+    let navigate = useNavigate();
+    if (!currentUsername) {
+        navigate('/');
+    }
 
     let { id } = useParams();
     id = parseInt(id);

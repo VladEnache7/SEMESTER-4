@@ -3,9 +3,14 @@ import { useContext } from 'react';
 import EntitiesContext from './../ContextComponent.jsx';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { PieChart } from '@mui/x-charts/PieChart';
+import { useNavigate } from 'react-router-dom';
 
 function ChartByYear() {
-    const { movies } = useContext(EntitiesContext);
+    const { movies, currentUsername } = useContext(EntitiesContext);
+    let navigate = useNavigate();
+    if (!currentUsername) {
+        navigate('/');
+    }
 
     // get the decades
     let decades = [];

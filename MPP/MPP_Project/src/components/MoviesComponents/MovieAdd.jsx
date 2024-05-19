@@ -13,8 +13,13 @@ import EntitiesContext from './../ContextComponent.jsx';
 import { useNavigate } from 'react-router-dom';
 
 function MovieAdd() {
-    const { addMovie } = useContext(EntitiesContext);
+    const { addMovie, currentUsername } = useContext(EntitiesContext);
+
     let navigate = useNavigate();
+    if (!currentUsername) {
+        navigate('/');
+    }
+
     // initial state to be the movies
     const [movieName, setMovieName] = useState('');
     const [movieYear, setMovieYear] = useState(2010);

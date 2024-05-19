@@ -12,8 +12,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 
 function MovieEdit() {
-    const { movies, editMovie } = useContext(EntitiesContext);
+    const { movies, editMovie, currentUsername } = useContext(EntitiesContext);
     let navigate = useNavigate();
+    if (!currentUsername) {
+        navigate('/');
+    }
 
     // take the movie id from the url
     let { movieId } = useParams();

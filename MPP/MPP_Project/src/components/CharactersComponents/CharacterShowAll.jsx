@@ -18,7 +18,8 @@ import EntitiesContext from './../ContextComponent.jsx';
 import Alert from '@mui/material/Alert';
 
 function CharacterShowAll() {
-    const { characters, deleteCharacter, error } = useContext(EntitiesContext);
+    const { characters, deleteCharacter, error, currentUsername } =
+        useContext(EntitiesContext);
     const [open, setOpen] = useState(false);
     const [selectedCharacter, setSelectedCharacter] = useState({});
     const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -47,6 +48,9 @@ function CharacterShowAll() {
 
     // for navigation between pages
     let navigate = useNavigate();
+    if (!currentUsername) {
+        navigate('/');
+    }
 
     function handleDeletePopUp(character) {
         // open a pop up to confirm the delete

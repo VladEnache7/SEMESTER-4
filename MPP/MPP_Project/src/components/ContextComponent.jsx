@@ -1,5 +1,5 @@
 ﻿import React, { createContext, useEffect, useState } from 'react';
-import FastAPI from '../FastAPI.js';
+import FastAPI, { setAuthToken } from '../FastAPI.js';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 
 export const EntitiesContext = createContext({
@@ -189,7 +189,8 @@ export const EntitiesProvider = ({ children }) => {
 
     const fetchMovies = () => {
         try {
-            FastAPI.get('/movies/', {
+            //  make the call for this @app.get('/movies/username/{username}', response_model=List[MovieModel])
+            /*FastAPI.get('/movies/', {
                 params: {
                     skip: 0,
                     limit: 50,
@@ -199,16 +200,31 @@ export const EntitiesProvider = ({ children }) => {
                     setMovies(response.data);
                     offlineMovies = response.data;
                     console.log('Offline movies: ', offlineMovies);
-                }
-                if (response.status !== 200) {
+                } else {
                     setError('Unable to fetch movies from the backend');
                     setMovies(offlineMovies);
                     console.log(
                         'Fetch movies - response status != 200 - Offline movies: ',
                         offlineMovies,
                     );
-                } else console.log('Fetch movies');
-            });
+                }
+            });*/
+            FastAPI.get('/movies/username/' + currentUsername).then(
+                (response) => {
+                    if (response.status === 200) {
+                        setMovies(response.data);
+                        offlineMovies = response.data;
+                        console.log('Offline movies: ', offlineMovies);
+                    } else {
+                        setError('Unable to fetch movies from the backend');
+                        setMovies(offlineMovies);
+                        console.log(
+                            'Fetch movies - response status != 200 - Offline movies: ',
+                            offlineMovies,
+                        );
+                    }
+                },
+            );
         } catch (error) {
             setError('Unable to connect to the backend');
             setMovies(offlineMovies);
@@ -511,6 +527,9 @@ export const EntitiesProvider = ({ children }) => {
                 // fetchMovies();
                 // fetchCharacters();
 
+                // Set the token in the axios instance
+                setAuthToken(response.data.token);
+
                 setCurrentUsername(username);
                 console.log('setCurrentUsername:', currentUsername);
             }
@@ -541,11 +560,14 @@ export const EntitiesProvider = ({ children }) => {
 
     async function logout() {
         try {
-            setCurrentUsername('');
             // TODO implement logout in the backend
             // const response = await FastAPI.post('/auth/logout/');
             // console.log('Logout response:', response);
             // return response.data;
+
+            setCurrentUsername('');
+            // Remove the token from the axios instance
+            setAuthToken(null);
         } catch (error) {
             console.error('Failed to logout:', error);
             return null;
