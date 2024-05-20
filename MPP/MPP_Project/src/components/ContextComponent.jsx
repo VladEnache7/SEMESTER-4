@@ -4,7 +4,9 @@ import useWebSocket, { ReadyState } from 'react-use-websocket';
 
 export const EntitiesContext = createContext({
     movies: [],
+    fetchMovies: function () {},
     fetchMoreData: function () {},
+    hasMoreMovies: true,
     addMovie: function (
         movieName,
         movieYear,
@@ -37,6 +39,7 @@ export const EntitiesContext = createContext({
     register: function (username, password) {},
     logout: function () {},
     currentUsername: '',
+    currentUserId: null,
 });
 
 let offlineMovies = [];
@@ -45,13 +48,19 @@ let offlineOperations = [];
 export const EntitiesProvider = ({ children }) => {
     // Current username
     const [currentUsername, setCurrentUsername] = useState('');
+    const [currentUserId, setCurrentUserId] = useState(null);
 
     // State for the current page
     const [page, setPage] = useState(0);
+
+    // State to keep track of whether there are more movies to fetch
+    const [hasMoreMovies, setHasMoreMovies] = useState(true);
+
     // Function to fetch more data
     const fetchMoreData = () => {
         // Increase the page number
         setPage(page + 1);
+        console.log('fetchMoreData - page after: ', page);
 
         // Fetch more data and append it to the current data
         // This is a placeholder function, replace it with your actual data fetching function
@@ -60,14 +69,22 @@ export const EntitiesProvider = ({ children }) => {
         });
     };
 
+    // TODO: Bug: fetchMoreMovies is not working properly - it duplicates the first 50 movies
     async function fetchMoreMovies(page) {
         try {
-            const response = await FastAPI.get('/movies/', {
-                params: {
-                    skip: page * 50,
-                    limit: 50,
+            const response = await FastAPI.get(
+                '/movies/username/' + currentUsername,
+                {
+                    params: {
+                        skip: page * 50,
+                        limit: 50,
+                    },
                 },
-            });
+            );
+            // if the response.data is an empty array, set hasMoreMovies to false
+            if (response.data.length === 0) {
+                setHasMoreMovies(false);
+            }
             return response.data;
         } catch (error) {
             console.error('Failed to fetch more movies:', error);
@@ -189,8 +206,10 @@ export const EntitiesProvider = ({ children }) => {
 
     const fetchMovies = () => {
         try {
-            //  make the call for this @app.get('/movies/username/{username}', response_model=List[MovieModel])
-            /*FastAPI.get('/movies/', {
+            setHasMoreMovies(true);
+            setPage(0);
+            console.log('setHasMoreMovies(true) - fetchMovies');
+            FastAPI.get('/movies/username/' + currentUsername, {
                 params: {
                     skip: 0,
                     limit: 50,
@@ -208,23 +227,7 @@ export const EntitiesProvider = ({ children }) => {
                         offlineMovies,
                     );
                 }
-            });*/
-            FastAPI.get('/movies/username/' + currentUsername).then(
-                (response) => {
-                    if (response.status === 200) {
-                        setMovies(response.data);
-                        offlineMovies = response.data;
-                        console.log('Offline movies: ', offlineMovies);
-                    } else {
-                        setError('Unable to fetch movies from the backend');
-                        setMovies(offlineMovies);
-                        console.log(
-                            'Fetch movies - response status != 200 - Offline movies: ',
-                            offlineMovies,
-                        );
-                    }
-                },
-            );
+            });
         } catch (error) {
             setError('Unable to connect to the backend');
             setMovies(offlineMovies);
@@ -237,21 +240,23 @@ export const EntitiesProvider = ({ children }) => {
 
     const fetchCharacters = () => {
         try {
-            FastAPI.get('/characters/').then((response) => {
-                if (response.status === 200) {
-                    setCharacters(response.data);
-                    offlineCharacters = response.data;
-                    console.log('Offline characters: ', offlineCharacters);
-                }
-                if (response.status !== 200) {
-                    setError('Unable to fetch characters from the backend');
-                    setCharacters(offlineCharacters);
-                    console.log(
-                        'Fetch characters - response status != 200 - Offline characters: ',
-                        offlineCharacters,
-                    );
-                } else console.log('Fetch characters');
-            });
+            console.log('fetchCharacters - currentUsername:', currentUsername);
+            FastAPI.get('/characters/username/' + currentUsername).then(
+                (response) => {
+                    if (response.status === 200) {
+                        setCharacters(response.data);
+                        offlineCharacters = response.data;
+                        console.log('Offline characters: ', offlineCharacters);
+                    } else {
+                        setError('Unable to fetch characters from the backend');
+                        setCharacters(offlineCharacters);
+                        console.log(
+                            'Fetch characters - response status != 200 - Offline characters: ',
+                            offlineCharacters,
+                        );
+                    }
+                },
+            );
         } catch (error) {
             setError('Unable to connect to the backend');
             setCharacters(offlineCharacters);
@@ -282,9 +287,12 @@ export const EntitiesProvider = ({ children }) => {
             duration: movieDuration,
             genre: movieGenre,
             description: movieDescription,
+            editorId: currentUserId,
         };
+        console.log('New movie: ', newMovie);
         try {
             await FastAPI.post('/movies/', newMovie);
+            console.log('addMovie - After post');
             fetchMovies();
         } catch (error) {
             offlineOperations.push({
@@ -422,6 +430,7 @@ export const EntitiesProvider = ({ children }) => {
             name: characterName,
             movieName: movieName,
             description: characterDescription,
+            editorId: currentUserId,
         };
         try {
             await FastAPI.post('/characters/', newCharacter);
@@ -531,7 +540,9 @@ export const EntitiesProvider = ({ children }) => {
                 setAuthToken(response.data.token);
 
                 setCurrentUsername(username);
+                setCurrentUserId(response.data.id);
                 console.log('setCurrentUsername:', currentUsername);
+                console.log('setCurrentUserId:', currentUserId);
             }
             return response.data;
         } catch (error) {
@@ -560,14 +571,13 @@ export const EntitiesProvider = ({ children }) => {
 
     async function logout() {
         try {
-            // TODO implement logout in the backend
-            // const response = await FastAPI.post('/auth/logout/');
-            // console.log('Logout response:', response);
-            // return response.data;
+            const response = await FastAPI.post('/auth/logout/');
+            console.log('Logout response:', response);
 
             setCurrentUsername('');
             // Remove the token from the axios instance
             setAuthToken(null);
+            return response.data;
         } catch (error) {
             console.error('Failed to logout:', error);
             return null;
@@ -579,7 +589,9 @@ export const EntitiesProvider = ({ children }) => {
         <EntitiesContext.Provider
             value={{
                 movies,
+                fetchMovies,
                 fetchMoreData,
+                hasMoreMovies,
                 addMovie,
                 deleteMovie,
                 editMovie,
@@ -594,6 +606,7 @@ export const EntitiesProvider = ({ children }) => {
                 register,
                 logout,
                 currentUsername,
+                currentUserId,
             }}
         >
             {children}

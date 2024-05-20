@@ -133,6 +133,9 @@ function AppNavbar() {
                                 <MenuItem
                                     onClick={() => {
                                         logout();
+                                        console.log(
+                                            'AppNavbar - logout called',
+                                        );
                                         navigate('/');
                                     }}
                                     data-testid="right-dropdown-link-1"

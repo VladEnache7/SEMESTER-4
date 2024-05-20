@@ -12,7 +12,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 
 function MovieEdit() {
-    const { movies, editMovie, currentUsername } = useContext(EntitiesContext);
+    const { movies, editMovie, currentUsername, currentUserId } =
+        useContext(EntitiesContext);
     let navigate = useNavigate();
     if (!currentUsername) {
         navigate('/');

@@ -1,6 +1,6 @@
 ﻿import { useNavigate, useParams } from 'react-router-dom';
-import { Box } from '@mui/material';
-import { useContext } from 'react';
+import { Box, Button } from '@mui/material';
+import React, { useContext } from 'react';
 import EntitiesContext from './../ContextComponent.jsx';
 
 function MovieDetails() {
@@ -15,6 +15,10 @@ function MovieDetails() {
 
     // get the movie
     const movie = movies.find((movie) => movie.id === movieId);
+
+    function backToMovies() {
+        navigate('/movies');
+    }
 
     return (
         <div data-testid="details-page">
@@ -50,6 +54,14 @@ function MovieDetails() {
                     <b>Description:</b> {movie.description}
                 </p>
             </Box>
+            <Button
+                variant="contained"
+                onClick={backToMovies}
+                style={{ margin: 15 }}
+                data-testid="back-to-movies-button"
+            >
+                Back to Movies
+            </Button>
         </div>
     );
 }

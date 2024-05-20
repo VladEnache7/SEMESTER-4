@@ -22,11 +22,14 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 function MovieShowAll() {
     const {
         movies,
+        fetchMovies,
         deleteMovie,
         error,
         updateMoviesNrCharacters,
         fetchMoreData,
         currentUsername,
+        hasMoreMovies,
+        currentUserId,
     } = useContext(EntitiesContext);
     const [open, setOpen] = useState(false);
     const [selectedMovie, setSelectedMovie] = useState({});
@@ -34,13 +37,15 @@ function MovieShowAll() {
 
     // for navigation between pages
     let navigate = useNavigate();
-    console.log('MovieShowAll username: ', currentUsername);
+    // console.log('MovieShowAll username: ', currentUsername);
+    // console.log('MovieShowAll userId: ', currentUserId);
     if (!currentUsername) {
         navigate('/');
     }
 
     // check if the user is online
     useEffect(() => {
+        fetchMovies();
         function updateOnlineStatus() {
             setIsOnline(navigator.onLine);
         }
@@ -96,12 +101,16 @@ function MovieShowAll() {
             <InfiniteScroll
                 dataLength={movies.length}
                 next={fetchMoreData}
-                hasMore={true} // Replace with actual condition
-                loader={<h4>Loading...</h4>}
+                hasMore={hasMoreMovies}
+                loader={
+                    <Alert severity="info" style={{ marginTop: 30 }}>
+                        Loading...
+                    </Alert>
+                }
                 endMessage={
-                    <p style={{ textAlign: 'center' }}>
-                        <b>End of list</b>
-                    </p>
+                    <Alert severity="info" style={{ marginTop: 30 }}>
+                        End of Movies
+                    </Alert>
                 }
             >
                 <Table>

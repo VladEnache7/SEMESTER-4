@@ -44,12 +44,13 @@ function MovieAdd() {
             movieGenre,
             movieDescription,
         );
+        console.log('MovieAdd: handleAddMovie: addMovie called');
         setMovieName('');
         setMovieYear(2010);
         setMovieDuration('');
         setMovieGenre('');
         setMovieDescription('');
-        navigate(`/`);
+        navigate(`/movies`);
     }
 
     function handleNameChange(event) {
