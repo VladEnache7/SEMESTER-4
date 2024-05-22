@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a9111e37-eb2a-4274-b178-a123ee7ee582" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../MPP_Project/src/components/MoviesGenerate.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/.vs/DBMS_Homeworks/FileContentIndex/1ab4335a-bdc9-4e3d-bf4a-35feb31550e9.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/.vs/DBMS_Homeworks/FileContentIndex/28ac16e4-6c2d-459b-aa6e-57cfe614d76c.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/.vs/DBMS_Homeworks/FileContentIndex/b7082ca4-f4cf-4981-8895-3af86019f591.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/.vs/DBMS_Homeworks/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/.vs/DBMS_Homeworks/v17/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/.vs/DBMS_Homeworks/v17/DocumentLayout.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/.vs/DBMS_Homeworks/v17/DocumentLayout.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/bin/Debug/DBMS_Homeworks.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/bin/Debug/DBMS_Homeworks.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/bin/Debug/DBMS_Homeworks.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/bin/Debug/DBMS_Homeworks.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/obj/Debug/DBMS_Homeworks.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/obj/Debug/DBMS_Homeworks.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/obj/Debug/DBMS_Homeworks.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/obj/Debug/DBMS_Homeworks.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/obj/Debug/DBMS_Homeworks.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/obj/Debug/DBMS_Homeworks.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/obj/Debug/DBMS_Homeworks.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/obj/Debug/DBMS_Homeworks.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../../DBMS/DBMS_Homeworks/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ISS/Lab2V3/.vs/Lab2V3/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../../ISS/Lab2V3/.vs/Lab2V3/v17/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ISS/Lab2V3/obj/Debug/Lab2V3.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../../ISS/Lab2V3/obj/Debug/Lab2V3.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MPP_Backend_FastAPI/MoviesRepository.py" beforeDir="false" afterPath="$PROJECT_DIR$/../MPP_Backend_FastAPI/MoviesRepository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MPP_Backend_FastAPI/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../MPP_Backend_FastAPI/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MPP_Backend_FastAPI/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/../MPP_Backend_FastAPI/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MPP_Project/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../MPP_Project/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MPP_Project/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../MPP_Project/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MPP_Project/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../MPP_Project/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MPP_Project/src/App.test.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../MPP_Project/src/App.test.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MPP_Project/src/components/AppNavbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../MPP_Project/src/components/AppNavbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MPP_Project/src/components/ContextComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../MPP_Project/src/components/ContextComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MPP_Project/src/components/MovieAdd.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../MPP_Project/src/components/MovieAdd.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MPP_Project/src/components/MovieShowAll.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../MPP_Project/src/components/MovieShowAll.jsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2eb2ViLzv92sWXoExbc41144cUC" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Admin\Documents\GitHub\SEMESTER 4\MPP\UBB-SE-2024-Dancing-Flowers\App\Domain" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="UBB-SE-2024-Dancing-Flowers" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a9111e37-eb2a-4274-b178-a123ee7ee582" name="Changes" comment="" />
+      <created>1712158982464</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1712158982464</updated>
+      <workItem from="1712158985270" duration="457000" />
+      <workItem from="1712758569967" duration="75000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="Creating-Domain-Classes" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>8</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

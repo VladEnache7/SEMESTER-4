@@ -1,0 +1,19 @@
+<h2>List of news 2</h2>
+<table class="news">
+  <tr>
+    <th>Title</th>
+    <th>Producer</th>
+    <th>Date Posted</th>
+    <th>Category</th>
+    <th>Content</th>
+  </tr>
+  <tr *ngFor="let oneNews of news" (click)="onSelect(oneNews)">
+    <td>{{oneNews.NewsTitle}}</td>
+    <td>{{oneNews.NewsProducer}}</td>
+    <td>{{oneNews.NewsDatePosted}}</td>
+    <td>{{oneNews.NewsCategory}}</td>
+    <td>{{oneNews.NewsContent}}</td>
+  </tr>
+
+</table>
+

@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="url-app-jsp">
+    <output-path>$PROJECT_DIR$/out/artifacts/url_app_jsp</output-path>
+    <root id="root" />
+  </artifact>
+</component>
