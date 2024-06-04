@@ -291,7 +291,7 @@ class EntitiesRepo:
     @staticmethod
     def login(db: db_dependency_users, username, password):
         user = db.query(models.User).filter(models.User.username == username).first()
-        if user is None or not verify_password(password, user.hashedPassword):
+        if user is None or not verify_password(password, user.password):
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Incorrect username or password",

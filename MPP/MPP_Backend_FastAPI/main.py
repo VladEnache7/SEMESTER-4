@@ -344,20 +344,15 @@ async def generate_characters(db: db_dependency_characters, number: int):
 # <todo> login - verify user and password
 @app.post('/auth/login/')
 async def login(db: db_dependency_users, login_model: LoginRegisterModel):
-    print(f'username: {login_model.username}, hashedPassword: {login_model.hashedPassword}')
-    # a POST route that verifies the username and password.
-    # It uses the username and hashedPassword parameters to verify the user and password.
-    return EntitiesRepo().login(db, login_model.username, login_model.hashedPassword)
+    # print(f'username: {login_model.username}, password: {login_model.password}')
+    return EntitiesRepo().login(db, login_model.username, login_model.password)
 
 
 # <todo> register - add a new user
 @app.post('/auth/register/', response_model=bool)
 async def register(db: db_dependency_users, login_model: LoginRegisterModel):
-    # a POST route that adds a new user to the database.
-    # It uses the username and hashedPassword parameters to add the new user.
-
     # Hash the password
-    hashed_password = get_password_hash(login_model.hashedPassword)
+    hashed_password = get_password_hash(login_model.password)
 
     return EntitiesRepo().register(db, login_model.username, hashed_password)
 

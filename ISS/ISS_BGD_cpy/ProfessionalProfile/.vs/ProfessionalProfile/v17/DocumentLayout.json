@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ProfessionalProfile\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{81B471DB-5712-4916-AA35-32A8AAEF5D3F}|ProfessionalProfile\\ProfessionalProfile.csproj|c:\\users\\admin\\documents\\github\\semester 4\\iss\\iss_bgd_cpy\\professionalprofile\\professionalprofile\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81B471DB-5712-4916-AA35-32A8AAEF5D3F}|ProfessionalProfile\\ProfessionalProfile.csproj|solutionrelative:professionalprofile\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ProfessionalProfile\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{81B471DB-5712-4916-AA35-32A8AAEF5D3F}|ProfessionalProfile\\ProfessionalProfile.csproj|c:\\users\\admin\\documents\\github\\semester 4\\iss\\iss_bgd_cpy\\professionalprofile\\professionalprofile\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{81B471DB-5712-4916-AA35-32A8AAEF5D3F}|ProfessionalProfile\\ProfessionalProfile.csproj|solutionrelative:professionalprofile\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81B471DB-5712-4916-AA35-32A8AAEF5D3F}|ProfessionalProfile\\ProfessionalProfile.csproj|c:\\users\\admin\\documents\\github\\semester 4\\iss\\iss_bgd_cpy\\professionalprofile\\professionalprofile\\migrations\\20240526160728_initialcreate3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81B471DB-5712-4916-AA35-32A8AAEF5D3F}|ProfessionalProfile\\ProfessionalProfile.csproj|solutionrelative:professionalprofile\\migrations\\20240526160728_initialcreate3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81B471DB-5712-4916-AA35-32A8AAEF5D3F}|ProfessionalProfile\\ProfessionalProfile.csproj|c:\\users\\admin\\documents\\github\\semester 4\\iss\\iss_bgd_cpy\\professionalprofile\\professionalprofile\\domain\\databasecontext\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81B471DB-5712-4916-AA35-32A8AAEF5D3F}|ProfessionalProfile\\ProfessionalProfile.csproj|solutionrelative:professionalprofile\\domain\\databasecontext\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81B471DB-5712-4916-AA35-32A8AAEF5D3F}|ProfessionalProfile\\ProfessionalProfile.csproj|c:\\users\\admin\\documents\\github\\semester 4\\iss\\iss_bgd_cpy\\professionalprofile\\professionalprofile\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81B471DB-5712-4916-AA35-32A8AAEF5D3F}|ProfessionalProfile\\ProfessionalProfile.csproj|solutionrelative:professionalprofile\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\Controllers\\WeatherForecastController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,16 +31,12 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ProfessionalProfile\\DatabaseContext\\DataContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\Controllers\\UserController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ProfessionalProfile\\Controllers\\UserController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{81B471DB-5712-4916-AA35-32A8AAEF5D3F}|ProfessionalProfile\\ProfessionalProfile.csproj|c:\\users\\admin\\documents\\github\\semester 4\\iss\\iss_bgd_cpy\\professionalprofile\\professionalprofile\\domain\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81B471DB-5712-4916-AA35-32A8AAEF5D3F}|ProfessionalProfile\\ProfessionalProfile.csproj|solutionrelative:professionalprofile\\domain\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\domain\\User.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ProfessionalProfile\\domain\\User.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\Properties\\launchSettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ProfessionalProfile\\Properties\\launchSettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{81B471DB-5712-4916-AA35-32A8AAEF5D3F}|ProfessionalProfile\\ProfessionalProfile.csproj|c:\\users\\admin\\documents\\github\\semester 4\\iss\\iss_bgd_cpy\\professionalprofile\\professionalprofile\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{81B471DB-5712-4916-AA35-32A8AAEF5D3F}|ProfessionalProfile\\ProfessionalProfile.csproj|solutionrelative:professionalprofile\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +46,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -49,6 +57,18 @@
               "Name": "ST:0:0:{d84ee353-0bef-5a41-a649-8f89aca5d84d}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "appsettings.json",
@@ -56,12 +76,53 @@
               "RelativeDocumentMoniker": "ProfessionalProfile\\appsettings.json",
               "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\appsettings.json",
               "RelativeToolTip": "ProfessionalProfile\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-05-12T12:31:45.9Z"
+              "WhenOpened": "2024-05-12T12:31:45.9Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "ProfessionalProfile\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\Controllers\\UserController.cs",
+              "RelativeToolTip": "ProfessionalProfile\\Controllers\\UserController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-12T08:39:13.521Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "20240526160728_InitialCreate3.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\Migrations\\20240526160728_InitialCreate3.cs",
+              "RelativeDocumentMoniker": "ProfessionalProfile\\Migrations\\20240526160728_InitialCreate3.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\Migrations\\20240526160728_InitialCreate3.cs",
+              "RelativeToolTip": "ProfessionalProfile\\Migrations\\20240526160728_InitialCreate3.cs",
+              "ViewState": "AQIAAD0AAAAAAAAAAAAQwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-26T16:07:28.81Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DataContext.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\domain\\DatabaseContext\\DataContext.cs",
+              "RelativeDocumentMoniker": "ProfessionalProfile\\domain\\DatabaseContext\\DataContext.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\domain\\DatabaseContext\\DataContext.cs",
+              "RelativeToolTip": "ProfessionalProfile\\domain\\DatabaseContext\\DataContext.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-26T16:04:58.11Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\Program.cs",
               "RelativeDocumentMoniker": "ProfessionalProfile\\Program.cs",
@@ -74,43 +135,29 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "WeatherForecastController.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\Controllers\\WeatherForecastController.cs",
               "RelativeDocumentMoniker": "ProfessionalProfile\\Controllers\\WeatherForecastController.cs",
               "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\Controllers\\WeatherForecastController.cs",
               "RelativeToolTip": "ProfessionalProfile\\Controllers\\WeatherForecastController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-12T08:46:47.275Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "DataContext.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\DatabaseContext\\DataContext.cs",
               "RelativeDocumentMoniker": "ProfessionalProfile\\DatabaseContext\\DataContext.cs",
               "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\DatabaseContext\\DataContext.cs",
               "RelativeToolTip": "ProfessionalProfile\\DatabaseContext\\DataContext.cs",
-              "ViewState": "AQIAAFUAAAAAAAAAAAAqwGIAAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-12T08:42:49.05Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "ProfessionalProfile\\Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\Controllers\\UserController.cs",
-              "RelativeToolTip": "ProfessionalProfile\\Controllers\\UserController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAUAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-12T08:39:13.521Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\domain\\User.cs",
               "RelativeDocumentMoniker": "ProfessionalProfile\\domain\\User.cs",
@@ -118,18 +165,21 @@
               "RelativeToolTip": "ProfessionalProfile\\domain\\User.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACMAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-12T01:50:27.477Z"
+              "WhenOpened": "2024-05-12T01:50:27.477Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "ProfessionalProfile\\Properties\\launchSettings.json",
               "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\ISS\\ISS_BGD_cpy\\ProfessionalProfile\\ProfessionalProfile\\Properties\\launchSettings.json",
               "RelativeToolTip": "ProfessionalProfile\\Properties\\launchSettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-05-12T08:39:04.184Z"
+              "WhenOpened": "2024-05-12T08:39:04.184Z",
+              "EditorCaption": ""
             }
           ]
         }

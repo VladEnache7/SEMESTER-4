@@ -18,13 +18,19 @@ import EntitiesContext from './../ContextComponent.jsx';
 import Alert from '@mui/material/Alert';
 
 function CharacterShowAll() {
-    const { characters, deleteCharacter, error, currentUsername } =
-        useContext(EntitiesContext);
+    const {
+        characters,
+        deleteCharacter,
+        error,
+        currentUsername,
+        fetchCharacters,
+    } = useContext(EntitiesContext);
     const [open, setOpen] = useState(false);
     const [selectedCharacter, setSelectedCharacter] = useState({});
     const [isOnline, setIsOnline] = useState(navigator.onLine);
 
     useEffect(() => {
+        fetchCharacters();
         function updateOnlineStatus() {
             setIsOnline(navigator.onLine);
         }
@@ -119,30 +125,34 @@ function CharacterShowAll() {
                                 >
                                     Details
                                 </Button>
-                                <Button
-                                    variant="contained"
-                                    size="small"
-                                    sx={{ margin: 0.5 }}
-                                    onClick={() => {
-                                        navigate(
-                                            `/characters/${character.id}/edit`,
-                                        );
-                                    }}
-                                    data-testid="edit-button"
-                                >
-                                    Edit
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    size="small"
-                                    sx={{ margin: 0.5 }}
-                                    onClick={() => {
-                                        handleDeletePopUp(character);
-                                    }}
-                                    data-testid="delete-button"
-                                >
-                                    Delete
-                                </Button>
+                                {currentUsername !== 'guest' && (
+                                    <>
+                                        <Button
+                                            variant="contained"
+                                            size="small"
+                                            sx={{ margin: 0.5 }}
+                                            onClick={() => {
+                                                navigate(
+                                                    `/characters/${character.id}/edit`,
+                                                );
+                                            }}
+                                            data-testid="edit-button"
+                                        >
+                                            Edit
+                                        </Button>
+                                        <Button
+                                            variant="contained"
+                                            size="small"
+                                            sx={{ margin: 0.5 }}
+                                            onClick={() => {
+                                                handleDeletePopUp(character);
+                                            }}
+                                            data-testid="delete-button"
+                                        >
+                                            Delete
+                                        </Button>
+                                    </>
+                                )}
                             </TableCell>
                         </TableRow>
                     ))}

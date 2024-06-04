@@ -15,12 +15,13 @@ import EntitiesContext from './../ContextComponent.jsx';
 import { useNavigate } from 'react-router-dom';
 
 function CharacterAdd() {
-    const { movies, addCharacter, currentUsername } = useContext(EntitiesContext);
+    const { movies, addCharacter, currentUsername, fetchCharacters } =
+        useContext(EntitiesContext);
     let navigate = useNavigate();
     if (!currentUsername) {
         navigate('/');
     }
-    
+
     // initial state to be the characters
     const [characterName, setCharacterName] = useState('');
     const [characterMovieName, setCharacterMovieName] = useState('');
@@ -39,6 +40,7 @@ function CharacterAdd() {
         setCharacterName('');
         setCharacterMovieName('');
         setCharacterDescription('');
+        fetchCharacters();
         navigate(`/characters`);
     }
 

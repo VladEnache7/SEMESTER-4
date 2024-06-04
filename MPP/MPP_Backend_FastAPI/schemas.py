@@ -10,7 +10,7 @@ class TokenData(BaseModel):
 
 class LoginRegisterModel(BaseModel):
     username: str
-    hashedPassword: str
+    password: str
 
 
 class MovieBase(BaseModel):

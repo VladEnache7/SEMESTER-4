@@ -90,8 +90,6 @@ function MovieShowAll() {
             component={Paper}
             sx={{
                 borderRadius: 3,
-                // width: 'fit-content',
-                // margin: 'auto',
                 marginTop: 3,
                 marginBottom: 10,
                 backgroundColor: 'lightblue',
@@ -142,16 +140,19 @@ function MovieShowAll() {
                             <TableCell
                                 sx={{ fontWeight: 'bold', fontSize: 20 }}
                             >
-                                <Button
-                                    variant="outlined"
-                                    color="secondary"
-                                    onClick={() => {
-                                        updateMoviesNrCharacters();
-                                    }}
-                                >
-                                    =>Update
-                                </Button>
-
+                                {currentUsername !== 'guest' && (
+                                    <>
+                                        <Button
+                                            variant="outlined"
+                                            color="secondary"
+                                            onClick={() => {
+                                                updateMoviesNrCharacters();
+                                            }}
+                                        >
+                                            =>Update
+                                        </Button>
+                                    </>
+                                )}
                                 <p
                                     style={{
                                         display: 'inline',
@@ -195,31 +196,34 @@ function MovieShowAll() {
                                     >
                                         Details
                                     </Button>
-                                    <Button
-                                        variant="contained"
-                                        size="small"
-                                        sx={{ margin: 0.5 }}
-                                        onClick={() => {
-                                            navigate(
-                                                `/movies/${movie.id}/edit`,
-                                            );
-                                        }}
-                                        data-testid="edit-button"
-                                    >
-                                        Edit
-                                    </Button>
-                                    <Button
-                                        variant="contained"
-                                        size="small"
-                                        sx={{ margin: 0.5 }}
-                                        onClick={() => {
-                                            handleDeletePopUp(movie);
-                                            // console.log(movie.id);
-                                        }}
-                                        data-testid="delete-button"
-                                    >
-                                        Delete
-                                    </Button>
+                                    {currentUsername !== 'guest' && (
+                                        <>
+                                            <Button
+                                                variant="contained"
+                                                size="small"
+                                                sx={{ margin: 0.5 }}
+                                                onClick={() => {
+                                                    navigate(
+                                                        `/movies/${movie.id}/edit`,
+                                                    );
+                                                }}
+                                                data-testid="edit-button"
+                                            >
+                                                Edit
+                                            </Button>
+                                            <Button
+                                                variant="contained"
+                                                size="small"
+                                                sx={{ margin: 0.5 }}
+                                                onClick={() => {
+                                                    handleDeletePopUp(movie);
+                                                }}
+                                                data-testid="delete-button"
+                                            >
+                                                Delete
+                                            </Button>
+                                        </>
+                                    )}
                                 </TableCell>
                             </TableRow>
                         ))}

@@ -8,12 +8,12 @@ INSERT INTO Movies(MovieId,MovieTitle, MovieDescription) VALUES (8,'Dune II','De
 SELECT * FROM Movies
 
 BEGIN TRAN
-	EXEC addLogConcurrencyIssue 'non-repeatable read - before update'
+	PRINT 'non-repeatable read - before update'
 
 	WAITFOR DELAY '00:00:05'
 	UPDATE Movies SET MovieDescription='NEW Description of Dune' WHERE MovieId = 8
 
-	EXEC addLogConcurrencyIssue 'non-repeatable read - after update'
+	PRINT 'non-repeatable read - after update'
 COMMIT TRAN
 
 SELECT * FROM LogConcurrencyIssues

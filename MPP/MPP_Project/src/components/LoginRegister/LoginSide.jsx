@@ -1,20 +1,20 @@
-﻿import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
-import EntitiesContext from '../ContextComponent.jsx';
+﻿import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import EntitiesContext from "../ContextComponent.jsx";
 
 function Copyright(props) {
     return (
@@ -24,12 +24,12 @@ function Copyright(props) {
             align="center"
             {...props}
         >
-            {'Copyright © '}
+            {"Copyright © "}
             <Link color="inherit" href="https://mui.com/">
                 Disney Movies
-            </Link>{' '}
+            </Link>{" "}
             {new Date().getFullYear()}
-            {'.'}
+            {"."}
         </Typography>
     );
 }
@@ -39,27 +39,37 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function LoginSide() {
-    const { login } = useContext(EntitiesContext);
+    const { login, setCurrentUsername } = useContext(EntitiesContext);
     let navigate = useNavigate();
     const handleLogin = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         console.log({
-            username: data.get('username'),
-            password: data.get('password'),
+            username: data.get("username"),
+            password: data.get("password"),
         });
-        let response = await login(data.get('username'), data.get('password'));
+        let response = await login(data.get("username"), data.get("password"));
         console.log(response);
         if (response) {
-            navigate('/movies');
+            navigate("/movies");
         } else {
-            alert('Invalid username or password');
+            alert("Invalid username or password");
         }
     };
 
+    const handleGuest = async (event) => {
+        event.preventDefault();
+        setCurrentUsername("guest");
+        navigate("/movies");
+    };
+
+    useEffect(() => {
+        setCurrentUsername();
+    }, []);
+
     return (
         <ThemeProvider theme={defaultTheme}>
-            <Grid container component="main" sx={{ height: '100vh' }}>
+            <Grid container component="main" sx={{ height: "100vh" }}>
                 <CssBaseline />
                 <Grid
                     item
@@ -69,14 +79,14 @@ export default function LoginSide() {
                     sx={{
                         backgroundImage:
                             // 'url(https://source.unsplash.com/random?wallpapers)',
-                            'url(src/components/LoginRegister/joshua-hibbert-Pn6iimgM-wo-unsplash.jpg)',
-                        backgroundRepeat: 'no-repeat',
+                            "url(src/components/LoginRegister/joshua-hibbert-Pn6iimgM-wo-unsplash.jpg)",
+                        backgroundRepeat: "no-repeat",
                         backgroundColor: (t) =>
-                            t.palette.mode === 'light'
+                            t.palette.mode === "light"
                                 ? t.palette.grey[50]
                                 : t.palette.grey[900],
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
                     }}
                 />
                 <Grid
@@ -92,12 +102,12 @@ export default function LoginSide() {
                         sx={{
                             my: 8,
                             mx: 4,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
                         }}
                     >
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">
@@ -118,6 +128,7 @@ export default function LoginSide() {
                                 name="username"
                                 autoComplete="username"
                                 autoFocus
+                                data-testid="username-input"
                             />
                             <TextField
                                 margin="normal"
@@ -128,15 +139,7 @@ export default function LoginSide() {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        value="remember"
-                                        color="primary"
-                                    />
-                                }
-                                label="Remember me"
+                                data-testid="password-input"
                             />
                             <Button
                                 type="submit"
@@ -144,16 +147,27 @@ export default function LoginSide() {
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                                 onClick={() => {}}
+                                data-testid="submit-button"
                             >
                                 Sign In
                             </Button>
                             <Grid container>
                                 <Grid item>
-                                    <Link onClick={() => navigate('/register')}>
+                                    <Link onClick={() => navigate("/register")}>
                                         {"Don't have an account? Register"}
                                     </Link>
                                 </Grid>
                             </Grid>
+                            <Button
+                                fullWidth
+                                variant="contained"
+                                color="secondary"
+                                sx={{ mt: 3, mb: 2 }}
+                                onClick={handleGuest}
+                                data-testid="guest-button"
+                            >
+                                Visit as Guest
+                            </Button>
                             <Copyright sx={{ mt: 5 }} />
                         </Box>
                     </Box>

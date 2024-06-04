@@ -17,6 +17,7 @@ import CharacterDetails from './components/CharactersComponents/CharacterDetails
 import CharacterEdit from './components/CharactersComponents/CharacterEdit.jsx';
 import LoginSide from './components/LoginRegister/LoginSide.jsx';
 import Register from './components/LoginRegister/Register.jsx';
+import UsersView from './components/UsersView.jsx';
 
 const App = () => {
     return (
@@ -58,7 +59,7 @@ const App = () => {
                             path="/characters/:id/edit"
                             element={<CharacterEdit />}
                         />
-
+                        <Route path="/users" element={<UsersView />} />
                         <Route path="*" element={<h1>Page Not Found</h1>} />
                     </Routes>
                 </EntitiesProvider>

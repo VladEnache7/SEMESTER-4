@@ -45,8 +45,8 @@ namespace DBMS_Homeworks
 
             // creating the foreign key relation
             DataRelation dr = new DataRelation("FK_Company_Employees",
-                ds.Tables["Partners_Companies"].Columns["CompanyCUI"],
-                ds.Tables["Employees"].Columns["CompanyCUI"]);
+                ds.Tables["Partners_Companies"].Columns["Partners_CompaniesID"],
+                ds.Tables["Employees"].Columns["Partners_CompaniesID"]);
             // adding the relation to the data set
             ds.Relations.Add(dr);
 

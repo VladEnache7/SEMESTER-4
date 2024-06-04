@@ -14,13 +14,13 @@ SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED -- to allow dirty read
 -- SET TRANSACTION ISOLATION LEVEL READ COMMITTED -- to fix dirty read
 
 BEGIN TRAN
-	EXEC addLogConcurrencyIssue 'dirty read - before first select'
+	PRINT 'dirty read - before first select'
 	SELECT * FROM Movies
-	EXEC addLogConcurrencyIssue 'dirty read - after second select'
+	PRINT 'dirty read - after second select'
 
 	WAITFOR DELAY '00:00:15'
 
-	EXEC addLogConcurrencyIssue 'dirty read - before second select'
+	PRINT 'dirty read - before second select'
 	SELECT * FROM Movies
-	EXEC addLogConcurrencyIssue 'dirty read - after second select'
+	PRINT 'dirty read - after second select'
 COMMIT TRAN

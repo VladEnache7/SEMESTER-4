@@ -11,22 +11,25 @@
 
 use homework3
 
+-- the isolation that causes the problem
+--SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+
 -- solution:
  SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
 
---SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+
 BEGIN TRAN
 
-	EXEC addLogConcurrencyIssue 'non-repeatable read - before select'
+	PRINT 'non-repeatable read - before select'
 
 	SELECT * FROM Movies
 
-	EXEC addLogConcurrencyIssue 'non-repeatable read - between select'
+	PRINT 'non-repeatable read - between select'
 
 	WAITFOR DELAY '00:00:05'
 
 	SELECT * FROM Movies
 
-	EXEC addLogConcurrencyIssue 'non-repeatable read - after select'
+	PRINT 'non-repeatable read - after select'
 
 COMMIT TRAN

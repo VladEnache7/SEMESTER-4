@@ -1,7 +1,5 @@
-﻿import { useNavigate } from 'react-router-dom';
+﻿import { useLocation, useNavigate } from 'react-router-dom';
 import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
-import { alpha } from '@mui/material/styles';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import { Dropdown } from '@mui/base/Dropdown';
 import { Menu } from '@mui/base/Menu';
@@ -15,6 +13,13 @@ import EntitiesContext from './ContextComponent.jsx';
 import { AccountCircle } from '@mui/icons-material';
 
 function AppNavbar() {
+    const location = useLocation();
+
+    // Don't render the navbar on the login or register page
+    if (location.pathname === '/' || location.pathname === '/register') {
+        return null;
+    }
+
     const { currentUsername, logout } = useContext(EntitiesContext);
     // console.log('AppNavbar username: ', currentUsername);
     let navigate = useNavigate();
@@ -80,12 +85,18 @@ function AppNavbar() {
                                 >
                                     All Movies
                                 </MenuItem>
-                                <MenuItem
-                                    onClick={() => navigate('/movies/add')}
-                                    data-testid="add-movie-link"
-                                >
-                                    Add Movie
-                                </MenuItem>
+                                {currentUsername !== 'guest' && (
+                                    <>
+                                        <MenuItem
+                                            onClick={() =>
+                                                navigate('/movies/add')
+                                            }
+                                            data-testid="add-movie-link"
+                                        >
+                                            Add Movie
+                                        </MenuItem>
+                                    </>
+                                )}
                                 <MenuItem
                                     onClick={() => {
                                         navigate('/movies/chart');
@@ -94,14 +105,18 @@ function AppNavbar() {
                                 >
                                     Chart Movies
                                 </MenuItem>
-                                <MenuItem
-                                    onClick={() => {
-                                        navigate('/movies/generate');
-                                        handleClose();
-                                    }}
-                                >
-                                    Generate Movies
-                                </MenuItem>
+                                {currentUsername !== 'guest' && (
+                                    <>
+                                        <MenuItem
+                                            onClick={() => {
+                                                navigate('/movies/generate');
+                                                handleClose();
+                                            }}
+                                        >
+                                            Generate Movies
+                                        </MenuItem>
+                                    </>
+                                )}
                             </Menu>
                         </Dropdown>
                         <Dropdown>
@@ -116,14 +131,38 @@ function AppNavbar() {
                                 >
                                     All Characters
                                 </MenuItem>
-                                <MenuItem
-                                    onClick={() => navigate('/characters/add')}
-                                    data-testid="characters-link"
-                                >
-                                    Add Characters
-                                </MenuItem>
+                                {currentUsername !== 'guest' && (
+                                    <>
+                                        <MenuItem
+                                            onClick={() =>
+                                                navigate('/characters/add')
+                                            }
+                                            data-testid="characters-link"
+                                        >
+                                            Add Characters
+                                        </MenuItem>
+                                    </>
+                                )}
                             </Menu>
                         </Dropdown>
+                        {currentUsername === 'admin' && (
+                            <>
+                                <Dropdown>
+                                    <MenuButton>USERS</MenuButton>
+                                    <Menu>
+                                        <MenuItem
+                                            onClick={() => navigate('/users')}
+                                            data-testid="users-link"
+                                            sx={{
+                                                marginTop: 3,
+                                            }}
+                                        >
+                                            All Users
+                                        </MenuItem>
+                                    </Menu>
+                                </Dropdown>
+                            </>
+                        )}
                     </Box>
                     <Box sx={{ marginLeft: 'auto' }}>
                         <Dropdown>
