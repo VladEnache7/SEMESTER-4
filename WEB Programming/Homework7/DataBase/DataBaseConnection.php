@@ -6,7 +6,7 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 class DataBaseConnection
 {
     private string $host = "localhost";
-    private string $databaseName = "newsdatabase";
+    private string $databaseName = "planning_db";
     private string $user = 'root';
     private string $password = '';
     private string $charset = 'UTF8';
@@ -33,141 +33,131 @@ class DataBaseConnection
     }
 
     /**
-     * Selects all news items from the database.
+     * Selects available flights from the database with the specific date and destination city.
      *
-     * @return array An associative array containing all news items.
+     * @param string $date The date of the flights.
+     * @param string $destinationCity The destination city of the flights.
+     *
+     * @return array An associative array containing all flights with the specific date and destination city.
      */
-    public function selectAllNews(): array
+    public function selectAvailableFlightsByDateAndDestination(string $date, string $destinationCity): array
     {
-        $sql = "SELECT * FROM news LIMIT 10";
+        $sql = "SELECT * FROM flights WHERE date = :date AND destinationCity = :destination AND availableSeats > 0";
         $statement = $this->pdo->prepare($sql);
-        $statement->execute();
+        $statement->execute(['date' => $date, 'destination' => $destinationCity]);
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
-     * Selects all news items from the database that were created by the user who is currently logged in.
+     * Selects available hotels from the database with the specific date and destination city.
      *
-     * @param string $userName The username of the news producer.
+     * @param string $date The date of the hotels' availability.
+     * @param string $destinationCity The destination city of the hotels.
      *
-     * @return array An associative array containing all news items created by the user who is currently logged in.
+     * @return array An associative array containing all hotels with the specific date and destination city.
      */
-    public function selectNewsByUser(string $userName): array
+    public function selectAvailableHotelsByDateAndDestination(string $date, string $destinationCity): array
     {
-        $sql = "SELECT * FROM news WHERE NewsProducer = :userName";
+        $sql = "SELECT * FROM hotels WHERE date = :date AND city = :destination AND availableRooms > 0";
         $statement = $this->pdo->prepare($sql);
-        $statement->execute(['userName' => $userName]);
+        $statement->execute(['date' => $date, 'destination' => $destinationCity]);
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
-     * Selects all news items from the database that belong to a specific category.
-     *
-     * @param string $category The category of the news items.
-     *
-     * @return array An associative array containing all news items that belong to the specified category.
-     */
-    public function selectNewsByCategory(string $category): array
-    {
-        $sql = "SELECT * FROM news WHERE NewsCategory = :category";
-        $statement = $this->pdo->prepare($sql);
-        $statement->execute(['category' => $category]);
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    /**
-     * Selects all news items from the database that were created in a specific year.
-     *
-     * @param string $year The year of the news items.
-     *
-     * @return array An associative array containing all news items that were created in the specified year.
-     */
-    public function selectNewsByYear(string $year): array
-    {
-        $sql = "SELECT * FROM news WHERE YEAR(NewsDatePosted) = :year";
-        $statement = $this->pdo->prepare($sql);
-        $statement->execute(['year' => $year]);
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    /**
-     * Inserts a new news item into the database.
-     *
-     * @param string $title The title of the news item.
-     * @param string $content The content of the news item.
-     * @param string $category The category of the news item.
-     * @param string $producer The username of the news producer.
-     *
-     * @return bool True if the news item was successfully inserted, false otherwise.
-     */
-    public function insertNews(string $title, string $content, string $category, string $producer): bool
-    {
-        $sql = "INSERT INTO news (NewsTitle, NewsContent, NewsCategory, NewsProducer) VALUES (:title, :content, :category, :producer)";
-        $statement = $this->pdo->prepare($sql);
-        return $statement->execute(['title' => $title, 'content' => $content, 'category' => $category, 'producer' => $producer]);
-    }
-
-
-    /**
-     * Updates a news item in the database only if the news item was created by the user who is currently logged in.
-     *
-     * @param int $id The ID of the news item to be updated.
-     * @param string $username The username of the news producer.
-     * @param string $title The new title of the news item.
-     * @param string $content The new content of the news item.
-     * @param string $category The new category of the news item.
-     *
-     * @return bool True if the news item was successfully updated, false otherwise.
-     */
-    public function updateNews(int $id, string $username, string $title, string $content, string $category): bool
-    {
-        $sql = "UPDATE news SET NewsTitle = :title, NewsContent = :content, NewsCategory = :category WHERE NewsID = :id AND NewsProducer = :username";
-        $statement = $this->pdo->prepare($sql);
-        return $statement->execute(['id' => $id, 'username' => $username, 'title' => $title, 'content' => $content, 'category' => $category]);
-    }
-
-    /**
-     * Selects a user from the database by their username.
+     * Reserve a flight seat for a specific user.
      *
      * @param string $username The username of the user.
+     * @param int $flightId The ID of the flight.
      *
-     * @return array An associative array containing the user's information.
+     * @return bool True if the flight seat was successfully reserved, false otherwise.
      */
-    public function selectUserByUsername(string $username): array
+//    public function reserveFlightSeat(string $username, int $flightId): bool
+//    {
+//        $sql = "UPDATE flights SET availableSeats = availableSeats - 1 WHERE flightID = :flightId";
+//        $statement = $this->pdo->prepare($sql);
+//        $statement->execute(['flightId' => $flightId]);
+//
+//        $sql = "INSERT INTO reservations (person, idReservedResource, type) VALUES (:username, :flightId, 'Flight')";
+//        $statement = $this->pdo->prepare($sql);
+//        return $statement->execute(['username' => $username, 'flightId' => $flightId]);
+//    }
+    public function reserveFlightSeat(string $username, int $flightId): bool
     {
-        $sql = "SELECT * FROM users WHERE UserName = :username";
-        $statement = $this->pdo->prepare($sql);
-        $statement->execute(['username' => $username]);
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
+        $sessionID = session_id();
 
-    public function checkValidPassword(string $username, string $password): bool
-    {
-        $result = $this->selectUserByUsername($username);
-        if (count($result) == 0) {
-            return false;
-        } else {
-            if ($result[0]["UserPassword"] === $password) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        $sql = "UPDATE flights SET availableSeats = availableSeats - 1 WHERE flightID = :flightId";
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(['flightId' => $flightId]);
+
+        $sql = "INSERT INTO reservations (person, idReservedResource, type, sessionID) VALUES (:username, :flightId, 'Flight', :sessionID)";
+        $statement = $this->pdo->prepare($sql);
+        return $statement->execute(['username' => $username, 'flightId' => $flightId, 'sessionID' => $sessionID]);
     }
 
     /**
-     * Selects a news item from the database by its ID.
+     * Reserve a hotel room for a specific user.
      *
-     * @param int $id The ID of the news item.
-     * returns the news item with the specified ID.
-     * @return array An associative array containing the news item.
+     * @param string $username The username of the user.
+     * @param int $hotelId The ID of the hotel.
+     *
+     * @return bool True if the hotel room was successfully reserved, false otherwise.
      */
-    public function selectNewsById(int $id): array
+//    public function reserveHotelRoom(string $username, int $hotelId): bool
+//    {
+//        $sql = "UPDATE hotels SET availableRooms = availableRooms - 1 WHERE hotelID = :hotelId";
+//        $statement = $this->pdo->prepare($sql);
+//        $statement->execute(['hotelId' => $hotelId]);
+//
+//        $sql = "INSERT INTO reservations (person, idReservedResource, type) VALUES (:username, :hotelId, 'Hotel')";
+//        $statement = $this->pdo->prepare($sql);
+//        return $statement->execute(['username' => $username, 'hotelId' => $hotelId]);
+//    }
+    public function reserveHotelRoom(string $username, int $hotelId): bool
     {
-        $sql = "SELECT * FROM news WHERE NewsID = :id";
+        $sessionID = session_id();
+
+        $sql = "UPDATE hotels SET availableRooms = availableRooms - 1 WHERE hotelID = :hotelId";
         $statement = $this->pdo->prepare($sql);
-        $statement->execute(['id' => $id]);
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+        $statement->execute(['hotelId' => $hotelId]);
+
+        $sql = "INSERT INTO reservations (person, idReservedResource, type, sessionID) VALUES (:username, :hotelId, 'Hotel', :sessionID)";
+        $statement = $this->pdo->prepare($sql);
+        return $statement->execute(['username' => $username, 'hotelId' => $hotelId, 'sessionID' => $sessionID]);
+    }
+
+    public function cancelAllReservations($username, $sessionID)
+    {
+        // SQL query to select all reservations made by the user during the current session
+        $sql = "SELECT * FROM Reservations WHERE person = :username AND sessionID = :sessionID";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':username', $username);
+        $stmt->bindValue(':sessionID', $sessionID);
+        $stmt->execute();
+        $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($reservations as $reservation) {
+            if ($reservation['type'] == 'Flight') {
+                // If the reservation is for a flight, increment the availableSeats in the flights table
+                $sql = "UPDATE flights SET availableSeats = availableSeats + 1 WHERE flightID = :flightId";
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->bindValue(':flightId', $reservation['idReservedResource']);
+                $stmt->execute();
+            } elseif ($reservation['type'] == 'Hotel') {
+                // If the reservation is for a hotel, increment the availableRooms in the hotels table
+                $sql = "UPDATE hotels SET availableRooms = availableRooms + 1 WHERE hotelID = :hotelId";
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->bindValue(':hotelId', $reservation['idReservedResource']);
+                $stmt->execute();
+            }
+        }
+
+        // SQL query to delete all reservations made by the user during the current session
+        $sql = "DELETE FROM Reservations WHERE person = :username AND sessionID = :sessionID";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':username', $username);
+        $stmt->bindValue(':sessionID', $sessionID);
+        $stmt->execute();
     }
 
     public function show($value)
@@ -179,43 +169,40 @@ class DataBaseConnection
     {
         if (isset($_GET['action']) && !empty($_GET['action'])) {
             switch ($_GET['action']) {
-                case 'selectAllNews':
-                    session_start();
-                    $this->show($this->selectAllNews());
-                    break;
-                case 'selectNewsByUser':
-                    session_start();
-                    if (!isset($_SESSION['username']) && isset($_GET['username'])) {
-                        $_SESSION['username'] = $_GET['username'];
+                case 'selectAvailableFlightsByDateAndDestination':
+                    if (isset($_GET['date']) && !empty($_GET['date']) && isset($_GET['destinationCity']) && !empty($_GET['destinationCity'])) {
+                        $date = $_GET['date'];
+                        $destinationCity = $_GET['destinationCity'];
+                        $flights = $this->selectAvailableFlightsByDateAndDestination($date, $destinationCity);
+                        $this->show($flights);
                     }
-                    $this->show($this->selectNewsByUser($_SESSION['username']));
                     break;
-                case 'selectNewsByCategory':
-                    session_start();
-                    $this->show($this->selectNewsByCategory($_GET['category']));
+                case 'selectAvailableHotelsByDateAndDestination':
+                    if (isset($_GET['date']) && !empty($_GET['date']) && isset($_GET['destinationCity']) && !empty($_GET['destinationCity'])) {
+                        $date = $_GET['date'];
+                        $destinationCity = $_GET['destinationCity'];
+                        $hotels = $this->selectAvailableHotelsByDateAndDestination($date, $destinationCity);
+                        $this->show($hotels);
+                    }
                     break;
-                case 'selectNewsByYear':
-                    session_start();
-                    $this->show($this->selectNewsByYear($_GET['year']));
+                case 'reserveFlightSeat':
+                    if (isset($_GET['username']) && !empty($_GET['username']) && isset($_GET['flightId']) && !empty($_GET['flightId'])) {
+                        $username = $_GET['username'];
+                        $flightId = $_GET['flightId'];
+                        $result = $this->reserveFlightSeat($username, $flightId);
+                        $this->show($result);
+                    }
                     break;
-                case 'addNews':
-                    session_start();
-                    $this->insertNews($_GET['title'], $_GET['content'], $_GET['category'], $_SESSION['username']);
+                case 'reserveHotelRoom':
+                    if (isset($_GET['username']) && !empty($_GET['username']) && isset($_GET['hotelId']) && !empty($_GET['hotelId'])) {
+                        $username = $_GET['username'];
+                        $hotelId = $_GET['hotelId'];
+                        $result = $this->reserveHotelRoom($username, $hotelId);
+                        $this->show($result);
+                    }
                     break;
-                case 'updateNews':
-                    session_start();
-                    $this->updateNews($_GET['id'], $_SESSION['username'], $_GET['title'], $_GET['content'], $_GET['category']);
-                    break;
-                case 'selectNewsById':
-                    session_start();
-                    $this->show($this->selectNewsById($_GET['id']));
-                    break;
-                case 'checkValidUser':
-                    session_start();
-                    // TODO: Be careful here to use post instead of get !!!!!!!!!
-//                    $this->show("username: " . $_POST['username'] . " password: " . $_POST['password'] . $this->checkValidPassword($_POST['username'], $_POST['password']));
-                    $this->show($this->checkValidPassword($_GET['username'], $_GET['password']));
-                    break;
+
+
             }
         }
     }

@@ -55,7 +55,8 @@ td {
     font-weight: normal;
 }
 
-/* set the with for elements with class newsTable*/
-.newsTable {
-    min-width: 700px;
+.navbar-nav.justify-content-between {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }

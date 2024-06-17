@@ -1,5 +1,7 @@
 ﻿<?php
 
+require_once __DIR__ . '/../../DataBase/DataBaseConnection.php';
+
 session_start();
 
 if (isset($_SESSION['username'])) {
@@ -26,6 +28,14 @@ if (isset($_POST['addNewsButton'])) {
     header('Location: ../News/addNews.php');
 }
 
+if (isset($_POST['cancelAllReservationsButton'])) {
+    $username = $_SESSION['username'];
+    $sessionID = session_id();
+
+    $databaseConnection = new DataBaseConnection();
+    $databaseConnection->cancelAllReservations($username, $sessionID);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -39,19 +49,12 @@ if (isset($_POST['addNewsButton'])) {
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../styles/style.css">
-    <title>User page</title>
+    <title>Reservation page</title>
 </head>
 <body>
 <div class="container text-center">
     <h3>Welcome, <?php echo $username; ?>!</h3>
-    <form method="post">
-        <input type="submit" class="btn btn-info" name="viewAllButton" value="View all news reports"
-               style="margin: auto; margin-top: 10px">
-        <input type="submit" class="btn btn-success" name="addNewsButton" value="Add a news report"
-               style="margin: auto; margin-top: 10px">
-        <input type="submit" class="btn btn-dark" name="logoutButton" value="Log out"
-               style="margin: auto; margin-top: 10px">
-    </form>
+    <?php include '../partials/navbar.php'; ?>
 </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

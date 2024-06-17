@@ -25,24 +25,24 @@ function checkValidPassword(string $username, string $password): bool
     }
 }
 
-if (isset($_POST['loginButton'])) {
+if (isset($_POST['beginReservationButton'])) {
     $errors = 0;
-    if (!isset($_POST["username"]) or !isset($_POST["password"]))
-        $_SESSION['login-error'] = "You have not entered a username or password! Try again!";
+    if (!isset($_POST["username"]) or !isset($_POST["date"]) or !isset($_POST["destinationCity"]))
+        $_SESSION['login-error'] = "You have not entered a all the fields! Try again!";
     else {
         $username = $_POST['username'];
-        $password = $_POST['password'];
-        if (checkValidPassword($username, $password)) {
-            $_SESSION['username'] = $username;
-            header("Location: profile.php");
-        } else {
-            $_SESSION['login-error'] = "Invalid username and/or password! Try again!";
-        }
+        $date = $_POST['date'];
+        $destinationCity = $_POST['destinationCity'];
+
+        $_SESSION['username'] = $username;
+        $_SESSION['date'] = $date;
+        $_SESSION['destinationCity'] = $destinationCity;
+        header("Location: profile.php");
     }
 }
 
 if (isset($_POST['indexPage'])) {
-    header('Location: ../../index.html');
+    header("Location: login.php");
 }
 ?>
 
@@ -62,23 +62,28 @@ if (isset($_POST['indexPage'])) {
 </head>
 <body>
 <div class="container">
-    <h2>Login</h2>
+    <h2>Planning Reservations</h2>
     <form id="login-form" method="post" action="login.php">
         <div class="mb-3 mt-3">
-            <label for="username" class="form-label">Username:</label>
-            <input type="text" class="form-control" id="username" placeholder="Enter username" name="username">
+            <label for="username" class="form-label">Your Name:</label>
+            <input type="text" class="form-control" id="username" placeholder="Enter username" name="username" required>
         </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password:</label>
-            <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
+        <div class="mb-3 mt-3">
+            <label for="date" class="form-label">Date:</label>
+            <input type="date" class="form-control" id="date" name="date" required>
         </div>
-        <input type="submit" class="btn btn-info" name="loginButton" value="Login">
+        <div class="mb-3 mt-3">
+            <label for="destinationCity" class="form-label">Destination City:</label>
+            <input type="text" class="form-control" id="destinationCity" placeholder="Enter destination city"
+                   name="destinationCity" required>
+        </div>
+        <input type="submit" class="btn btn-info" name="beginReservationButton" value="Begin Reservation">
         <input type="submit" class="btn btn-secondary" name="indexPage" value="Cancel">
         <?php
         if (isset($_SESSION['login-error'])) {
             $error = $_SESSION['login-error'];
             echo '<script type="text/javascript">';
-            echo 'window.alert("Invalid username and/or password")';
+            echo 'window.alert("Please enter all the fields!")';
             echo '</script>';
         }
         ?>
