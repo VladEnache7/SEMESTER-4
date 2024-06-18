@@ -1,28 +1,31 @@
-import './App.css';
-import AppNavbar from './components/AppNavbar.jsx';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Container from 'react-bootstrap/Container';
-import { EntitiesProvider } from './components/ContextComponent.jsx';
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import MovieDetails from './components/MoviesComponents/MovieDetails.jsx';
-import MovieAdd from './components/MoviesComponents/MovieAdd.jsx';
-import MovieShowAll from './components/MoviesComponents/MovieShowAll.jsx';
-import MovieEdit from './components/MoviesComponents/MovieEdit.jsx';
-import MovieShowAllDataGrid from './components/MoviesComponents/MovieShowAllDataGrid.jsx';
-import ChartByYear from './components/MoviesComponents/MoviesChart.jsx';
-import MoviesGenerate from './components/MoviesComponents/MoviesGenerate.jsx';
-import CharacterShowAll from './components/CharactersComponents/CharacterShowAll.jsx';
-import CharacterAdd from './components/CharactersComponents/CharacterAdd.jsx';
-import CharacterDetails from './components/CharactersComponents/CharacterDetails.jsx';
-import CharacterEdit from './components/CharactersComponents/CharacterEdit.jsx';
-import LoginSide from './components/LoginRegister/LoginSide.jsx';
-import Register from './components/LoginRegister/Register.jsx';
-import UsersView from './components/UsersView.jsx';
+import "./App.css";
+import AppNavbar from "./components/AppNavbar.jsx";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Container from "react-bootstrap/Container";
+import { EntitiesProvider } from "./components/ContextComponent.jsx";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import MovieDetails from "./components/MoviesComponents/MovieDetails.jsx";
+import MovieAdd from "./components/MoviesComponents/MovieAdd.jsx";
+import MovieShowAll from "./components/MoviesComponents/MovieShowAll.jsx";
+import MovieEdit from "./components/MoviesComponents/MovieEdit.jsx";
+import MovieShowAllDataGrid from "./components/MoviesComponents/MovieShowAllDataGrid.jsx";
+import ChartByYear from "./components/MoviesComponents/MoviesChart.jsx";
+import MoviesGenerate from "./components/MoviesComponents/MoviesGenerate.jsx";
+import CharacterShowAll from "./components/CharactersComponents/CharacterShowAll.jsx";
+import CharacterAdd from "./components/CharactersComponents/CharacterAdd.jsx";
+import CharacterDetails from "./components/CharactersComponents/CharacterDetails.jsx";
+import CharacterEdit from "./components/CharactersComponents/CharacterEdit.jsx";
+import LoginSide from "./components/LoginRegister/LoginSide.jsx";
+import Register from "./components/LoginRegister/Register.jsx";
+import UsersView from "./components/UsersView.jsx";
+import MoveMe from "./components/MoviesComponents/MoveMe.jsx";
+import DeepSearch from "./components/MoviesComponents/DeepSearch.jsx";
+import MovieNight from "./components/MoviesComponents/MovieNight.jsx";
 
 const App = () => {
     return (
         <BrowserRouter>
-            <Container style={{ backgroundColor: 'white' }}>
+            <Container style={{ backgroundColor: "white" }}>
                 <EntitiesProvider>
                     <AppNavbar />
                     <Routes>
@@ -60,6 +63,9 @@ const App = () => {
                             element={<CharacterEdit />}
                         />
                         <Route path="/users" element={<UsersView />} />
+                        <Route path="/moveMe" element={<MoveMe />} />
+                        <Route path="/deepSearch" element={<DeepSearch />} />
+                        <Route path="/movieNight" element={<MovieNight />} />
                         <Route path="*" element={<h1>Page Not Found</h1>} />
                     </Routes>
                 </EntitiesProvider>

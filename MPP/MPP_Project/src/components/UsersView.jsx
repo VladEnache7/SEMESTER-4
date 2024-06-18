@@ -26,42 +26,44 @@ function UsersView() {
     }, []);
 
     return (
-        <TableContainer
-            component={Paper}
-            sx={{
-                borderRadius: 3,
-                marginTop: 3,
-                marginBottom: 10,
-                backgroundColor: "lightblue",
-            }}
-        >
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Username</TableCell>
-                        <TableCell>User ID</TableCell>
-                        <TableCell>Nr Movies</TableCell>
-                        <TableCell>Nr Characters</TableCell>
-                        <TableCell>Action</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {users.map((user) => (
-                        <TableRow key={user.id}>
-                            <TableCell>{user.username}</TableCell>
-                            <TableCell>{user.id}</TableCell>
-                            <TableCell>{user.nrMovies}</TableCell>
-                            <TableCell>{user.nrCharacters}</TableCell>
-                            <TableCell>
-                                <Button color="error" variant="outlined">
-                                    Remove
-                                </Button>
-                            </TableCell>
+        <>
+            <TableContainer
+                component={Paper}
+                sx={{
+                    borderRadius: 3,
+                    marginTop: 3,
+                    marginBottom: 10,
+                    backgroundColor: "lightblue",
+                }}
+            >
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Username</TableCell>
+                            <TableCell>User ID</TableCell>
+                            <TableCell>Nr Movies</TableCell>
+                            <TableCell>Nr Characters</TableCell>
+                            <TableCell>Action</TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                        {users.map((user) => (
+                            <TableRow key={user.id}>
+                                <TableCell>{user.username}</TableCell>
+                                <TableCell>{user.id}</TableCell>
+                                <TableCell>{user.nrMovies}</TableCell>
+                                <TableCell>{user.nrCharacters}</TableCell>
+                                <TableCell>
+                                    <Button color="error" variant="outlined">
+                                        Remove
+                                    </Button>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </>
     );
 }
 
