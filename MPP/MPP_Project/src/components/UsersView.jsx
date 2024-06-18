@@ -1,6 +1,6 @@
-﻿import { useNavigate } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
-import EntitiesContext from './ContextComponent.jsx';
+﻿import { useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import EntitiesContext from "./ContextComponent.jsx";
 import {
     TableContainer,
     Table,
@@ -10,7 +10,7 @@ import {
     TableBody,
     Button,
     Paper,
-} from '@mui/material';
+} from "@mui/material";
 
 function UsersView() {
     const { users, fetchUsers, removeUser, currentUsername } =
@@ -18,8 +18,8 @@ function UsersView() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (currentUsername !== 'admin') {
-            navigate('/');
+        if (currentUsername !== "admin") {
+            navigate("/");
         } else {
             fetchUsers();
         }
@@ -32,7 +32,7 @@ function UsersView() {
                 borderRadius: 3,
                 marginTop: 3,
                 marginBottom: 10,
-                backgroundColor: 'lightblue',
+                backgroundColor: "lightblue",
             }}
         >
             <Table>
@@ -53,7 +53,9 @@ function UsersView() {
                             <TableCell>{user.nrMovies}</TableCell>
                             <TableCell>{user.nrCharacters}</TableCell>
                             <TableCell>
-                                <Button>Remove</Button>
+                                <Button color="error" variant="outlined">
+                                    Remove
+                                </Button>
                             </TableCell>
                         </TableRow>
                     ))}

@@ -612,18 +612,18 @@ export const EntitiesProvider = ({ children }) => {
 
     async function login(username, password) {
         try {
-            // console.log('Login:', {
-            //     username: username,
-            //     hashedPassword: password,
-            // });
+            console.log("Login:", {
+                username: username,
+                hashedPassword: password,
+            });
             const response = await FastAPI.post("/auth/login/", {
                 username: username,
                 hashedPassword: password,
             });
             console.log("Login response:", response);
             if (response.data) {
-                // fetchMovies();
-                // fetchCharacters();
+                fetchMovies();
+                fetchCharacters();
 
                 // Set the token in the axios instance
                 setAuthToken(response.data.token);
