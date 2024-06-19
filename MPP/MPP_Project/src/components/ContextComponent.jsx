@@ -44,6 +44,7 @@ export const EntitiesContext = createContext({
     currentUserId: null,
     users: [],
     fetchUsers: function () {},
+    fetchNonAdminUsers: function () {},
     removeUser: function (userId) {},
 });
 
@@ -51,6 +52,15 @@ let offlineMovies = [];
 let offlineCharacters = [];
 let offlineOperations = [];
 export const EntitiesProvider = ({ children }) => {
+    // This useEffect hook will run only once when the component is mounted
+    useEffect(() => {
+        if (currentUsername !== "") {
+            fetchMovies();
+            fetchCharacters();
+        }
+    }, []);
+
+    /* <-------------------------------------------------> State <-------------------------------------------------> */
     const [movies, setMovies] = useState([
         {
             id: 1,
@@ -83,17 +93,12 @@ export const EntitiesProvider = ({ children }) => {
     ]);
     const [users, setUsers] = useState([]);
     const [error, setError] = useState(null);
-    // Current username
     const [currentUsername, setCurrentUsername] = useState("");
     const [currentUserId, setCurrentUserId] = useState(null);
-
-    // State for the current page
     const [page, setPage] = useState(0);
-
-    // State to keep track of whether there are more movies to fetch
     const [hasMoreMovies, setHasMoreMovies] = useState(true);
 
-    // Function to fetch more data
+    /* <-------------------------------------------------> Movies Functions <-------------------------------------------------> */
     const fetchMoreData = () => {
         // Increase the page number
         setPage(page + 1);
@@ -106,7 +111,6 @@ export const EntitiesProvider = ({ children }) => {
         });
     };
 
-    // TODO: Bug: fetchMoreMovies is not working properly - it duplicates the first 50 movies
     async function fetchMoreMovies(page) {
         try {
             let response;
@@ -138,86 +142,6 @@ export const EntitiesProvider = ({ children }) => {
             return [];
         }
     }
-
-    async function performOperationOnServer(operation) {
-        try {
-            switch (operation.type) {
-                case "add-movie":
-                    console.log("Back online - add-movie: ", operation.data);
-                    await FastAPI.post(`/movies/`, operation.data);
-                    break;
-                case "delete-movie":
-                    console.log("Back online - delete-movie: ", operation.data);
-                    await FastAPI.delete(`/movies/${operation.data.id}`);
-                    break;
-                case "edit-movie":
-                    console.log("Back online - edit-movie: ", operation.data);
-                    await FastAPI.put(
-                        `/movies/${operation.data.id}`,
-                        operation.data,
-                    );
-                    break;
-                case "generate-movies":
-                    console.log(
-                        "Back online - generate-movies: ",
-                        operation.data,
-                    );
-                    await FastAPI.post(`/movies/generate/${operation.data}`);
-                    break;
-                case "add-character":
-                    console.log(
-                        "Back online - add-character: ",
-                        operation.data,
-                    );
-                    await FastAPI.post(`/characters/`, operation.data);
-                    break;
-                case "delete-character":
-                    console.log(
-                        "Back online - delete-character: ",
-                        operation.data,
-                    );
-                    await FastAPI.delete(`/characters/${operation.data.id}`);
-                    break;
-                case "edit-character":
-                    console.log(
-                        "Back online - edit-character: ",
-                        operation.data,
-                    );
-                    await FastAPI.put(
-                        `/characters/${operation.data.id}`,
-                        operation.data,
-                    );
-                    break;
-                case "update-nr-characters":
-                    console.log("Back online - update-nr-characters");
-                    await FastAPI.get(`/movies/update_nr_characters`);
-                    break;
-                default:
-                    throw new Error("Unknown operation type:" + operation.type);
-            }
-        } catch (error) {
-            console.error("Failed to perform operation:", error);
-        }
-    }
-
-    async function performOperations() {
-        try {
-            // Perform each operation on the server
-            for (const operation of offlineOperations) {
-                await performOperationOnServer(operation);
-
-                // If the operation was successful, remove it from the local database
-                offlineOperations = offlineOperations.filter(
-                    (op) => op !== operation,
-                );
-                console.log("Operation performed:", operation);
-            }
-        } catch (error) {
-            console.error("Failed to perform operation:", error);
-        }
-    }
-
-    window.addEventListener("online", performOperations);
 
     const fetchMovies = () => {
         try {
@@ -275,94 +199,6 @@ export const EntitiesProvider = ({ children }) => {
         }
     };
 
-    const fetchCharacters = () => {
-        try {
-            console.log("fetchCharacters - currentUsername:", currentUsername);
-            if (currentUsername === "guest" || currentUsername === "admin") {
-                FastAPI.get("/characters/").then((response) => {
-                    if (response.status === 200) {
-                        setCharacters(response.data);
-                        offlineCharacters = response.data;
-                        console.log("Offline characters: ", offlineCharacters);
-                    } else {
-                        setError("Unable to fetch characters from the backend");
-                        setCharacters(offlineCharacters);
-                        console.log(
-                            "Fetch characters - response status != 200 - Offline characters: ",
-                            offlineCharacters,
-                        );
-                    }
-                });
-            } else {
-                FastAPI.get("/characters/username/" + currentUsername).then(
-                    (response) => {
-                        if (response.status === 200) {
-                            setCharacters(response.data);
-                            offlineCharacters = response.data;
-                            console.log(
-                                "Offline characters: ",
-                                offlineCharacters,
-                            );
-                        } else {
-                            setError(
-                                "Unable to fetch characters from the backend",
-                            );
-                            setCharacters(offlineCharacters);
-                            console.log(
-                                "Fetch characters - response status != 200 - Offline characters: ",
-                                offlineCharacters,
-                            );
-                        }
-                    },
-                );
-            }
-        } catch (error) {
-            setError("Unable to connect to the backend");
-            setCharacters(offlineCharacters);
-            console.log(
-                "Offline mode - fetch - Offline characters: ",
-                offlineCharacters,
-            );
-        }
-    };
-
-    const fetchUsers = () => {
-        try {
-            FastAPI.get("/users/").then((response) => {
-                if (response.status === 200) {
-                    setUsers(response.data);
-                } else {
-                    setError("Unable to fetch users from the backend");
-                }
-            });
-        } catch (error) {
-            setError("Unable to connect to the backend");
-        }
-    };
-
-    const removeUser = (userId) => {
-        try {
-            FastAPI.delete(`/users/${userId}`).then((response) => {
-                if (response.status === 200) {
-                    fetchUsers();
-                } else {
-                    setError("Unable to remove user from the backend");
-                }
-            });
-        } catch (error) {
-            setError("Unable to connect to the backend");
-        }
-    };
-
-    // This useEffect hook will run only once when the component is mounted
-    useEffect(() => {
-        if (currentUsername !== "") {
-            fetchMovies();
-            fetchCharacters();
-        }
-    }, []);
-
-    // <-------------------------------------------------> CRUD on Movies <------------------------------------------------->
     async function addMovie(
         movieName,
         movieYear,
@@ -454,6 +290,87 @@ export const EntitiesProvider = ({ children }) => {
         }
     }
 
+    // <-------------------------------------------------> Offline Operations <------------------------------------------------->
+    async function performOperationOnServer(operation) {
+        try {
+            switch (operation.type) {
+                case "add-movie":
+                    console.log("Back online - add-movie: ", operation.data);
+                    await FastAPI.post(`/movies/`, operation.data);
+                    break;
+                case "delete-movie":
+                    console.log("Back online - delete-movie: ", operation.data);
+                    await FastAPI.delete(`/movies/${operation.data.id}`);
+                    break;
+                case "edit-movie":
+                    console.log("Back online - edit-movie: ", operation.data);
+                    await FastAPI.put(
+                        `/movies/${operation.data.id}`,
+                        operation.data,
+                    );
+                    break;
+                case "generate-movies":
+                    console.log(
+                        "Back online - generate-movies: ",
+                        operation.data,
+                    );
+                    await FastAPI.post(`/movies/generate/${operation.data}`);
+                    break;
+                case "add-character":
+                    console.log(
+                        "Back online - add-character: ",
+                        operation.data,
+                    );
+                    await FastAPI.post(`/characters/`, operation.data);
+                    break;
+                case "delete-character":
+                    console.log(
+                        "Back online - delete-character: ",
+                        operation.data,
+                    );
+                    await FastAPI.delete(`/characters/${operation.data.id}`);
+                    break;
+                case "edit-character":
+                    console.log(
+                        "Back online - edit-character: ",
+                        operation.data,
+                    );
+                    await FastAPI.put(
+                        `/characters/${operation.data.id}`,
+                        operation.data,
+                    );
+                    break;
+                case "update-nr-characters":
+                    console.log("Back online - update-nr-characters");
+                    await FastAPI.get(`/movies/update_nr_characters`);
+                    break;
+                default:
+                    throw new Error("Unknown operation type:" + operation.type);
+            }
+        } catch (error) {
+            console.error("Failed to perform operation:", error);
+        }
+    }
+
+    async function performOperations() {
+        try {
+            // Perform each operation on the server
+            for (const operation of offlineOperations) {
+                await performOperationOnServer(operation);
+
+                // If the operation was successful, remove it from the local database
+                offlineOperations = offlineOperations.filter(
+                    (op) => op !== operation,
+                );
+                console.log("Operation performed:", operation);
+            }
+        } catch (error) {
+            console.error("Failed to perform operation:", error);
+        }
+    }
+
+    window.addEventListener("online", performOperations);
+
     // <-------------------------------------------------> WebSocket <------------------------------------------------->
     const WS_URL = "ws://127.0.0.1:8000/ws";
     const { lastJsonMessage, readyState } = useWebSocket(WS_URL, {
@@ -509,7 +426,59 @@ export const EntitiesProvider = ({ children }) => {
         }
     }
 
-    // <-------------------------------------------------> CRUD on Characters <------------------------------------------------->
+    // <-------------------------------------------------> Characters Functions <------------------------------------------------->
+
+    const fetchCharacters = () => {
+        try {
+            console.log("fetchCharacters - currentUsername:", currentUsername);
+            if (currentUsername === "guest" || currentUsername === "admin") {
+                FastAPI.get("/characters/").then((response) => {
+                    if (response.status === 200) {
+                        setCharacters(response.data);
+                        offlineCharacters = response.data;
+                        console.log("Offline characters: ", offlineCharacters);
+                    } else {
+                        setError("Unable to fetch characters from the backend");
+                        setCharacters(offlineCharacters);
+                        console.log(
+                            "Fetch characters - response status != 200 - Offline characters: ",
+                            offlineCharacters,
+                        );
+                    }
+                });
+            } else {
+                FastAPI.get("/characters/username/" + currentUsername).then(
+                    (response) => {
+                        if (response.status === 200) {
+                            setCharacters(response.data);
+                            offlineCharacters = response.data;
+                            console.log(
+                                "Offline characters: ",
+                                offlineCharacters,
+                            );
+                        } else {
+                            setError(
+                                "Unable to fetch characters from the backend",
+                            );
+                            setCharacters(offlineCharacters);
+                            console.log(
+                                "Fetch characters - response status != 200 - Offline characters: ",
+                                offlineCharacters,
+                            );
+                        }
+                    },
+                );
+            }
+        } catch (error) {
+            setError("Unable to connect to the backend");
+            setCharacters(offlineCharacters);
+            console.log(
+                "Offline mode - fetch - Offline characters: ",
+                offlineCharacters,
+            );
+        }
+    };
+
     async function addCharacter(
         characterName,
         movieName,
@@ -608,7 +577,7 @@ export const EntitiesProvider = ({ children }) => {
         }
     }
 
-    // <-------------------------------------------------> Login & Register & Logout <------------------------------------------------->
+    // <-------------------------------------------------> Login Register Logout + Users Functions <------------------------------------------------->
 
     async function login(username, password) {
         try {
@@ -673,6 +642,48 @@ export const EntitiesProvider = ({ children }) => {
         }
     }
 
+    const fetchUsers = () => {
+        try {
+            FastAPI.get("/users/basicUsers/").then((response) => {
+                if (response.status === 200) {
+                    setUsers(response.data);
+                } else {
+                    setError("Unable to fetch users from the backend");
+                }
+            });
+        } catch (error) {
+            setError("Unable to connect to the backend");
+        }
+    };
+
+    const fetchNonAdminUsers = () => {
+        try {
+            FastAPI.get("/users/nonAdmin/").then((response) => {
+                if (response.status === 200) {
+                    setUsers(response.data);
+                } else {
+                    setError("Unable to fetch users from the backend");
+                }
+            });
+        } catch (error) {
+            setError("Unable to connect to the backend");
+        }
+    };
+
+    const removeUser = (userId) => {
+        try {
+            FastAPI.delete(`/users/${userId}`).then((response) => {
+                if (response.status === 200) {
+                    fetchUsers();
+                } else {
+                    setError("Unable to remove user from the backend");
+                }
+            });
+        } catch (error) {
+            setError("Unable to connect to the backend");
+        }
+    };
+
     // <-------------------------------------------------> Return <------------------------------------------------->
     return (
         <EntitiesContext.Provider
@@ -700,6 +711,7 @@ export const EntitiesProvider = ({ children }) => {
                 currentUserId,
                 users,
                 fetchUsers,
+                fetchNonAdminUsers,
                 removeUser,
             }}
         >

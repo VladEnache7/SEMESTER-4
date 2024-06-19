@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 function UsersView() {
-    const { users, fetchUsers, removeUser, currentUsername } =
+    const { users, fetchNonAdminUsers, removeUser, currentUsername } =
         useContext(EntitiesContext);
     const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ function UsersView() {
         if (currentUsername !== "admin") {
             navigate("/");
         } else {
-            fetchUsers();
+            fetchNonAdminUsers();
         }
     }, []);
 
