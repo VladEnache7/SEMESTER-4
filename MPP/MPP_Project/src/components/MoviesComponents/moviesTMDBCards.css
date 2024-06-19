@@ -1,0 +1,29 @@
+﻿.movie-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.movie-card {
+    position: relative;
+    width: 23%; /* Adjust this value to change the card size */
+    margin: 1%; /* Adjust this value to change the space between cards */
+    border-radius: 15px;
+}
+
+.movie-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+.movie-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    color: white;
+    width: 100%;
+    padding: 10px;
+    border-radius: 15px;
+}

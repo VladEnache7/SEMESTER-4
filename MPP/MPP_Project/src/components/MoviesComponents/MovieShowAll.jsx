@@ -12,12 +12,12 @@
     TableHead,
     TablePagination,
     TableRow,
-} from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
-import EntitiesContext from './../ContextComponent.jsx';
-import Alert from '@mui/material/Alert';
-import InfiniteScroll from 'react-infinite-scroll-component';
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import EntitiesContext from "./../ContextComponent.jsx";
+import Alert from "@mui/material/Alert";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 function MovieShowAll() {
     const {
@@ -40,7 +40,7 @@ function MovieShowAll() {
     // console.log('MovieShowAll username: ', currentUsername);
     // console.log('MovieShowAll userId: ', currentUserId);
     if (!currentUsername) {
-        navigate('/');
+        navigate("/");
     }
 
     // check if the user is online
@@ -50,12 +50,12 @@ function MovieShowAll() {
             setIsOnline(navigator.onLine);
         }
 
-        window.addEventListener('online', updateOnlineStatus);
-        window.addEventListener('offline', updateOnlineStatus);
+        window.addEventListener("online", updateOnlineStatus);
+        window.addEventListener("offline", updateOnlineStatus);
 
         return () => {
-            window.removeEventListener('online', updateOnlineStatus);
-            window.removeEventListener('offline', updateOnlineStatus);
+            window.removeEventListener("online", updateOnlineStatus);
+            window.removeEventListener("offline", updateOnlineStatus);
         };
     }, []);
 
@@ -92,7 +92,7 @@ function MovieShowAll() {
                 borderRadius: 3,
                 marginTop: 3,
                 marginBottom: 10,
-                backgroundColor: 'lightblue',
+                backgroundColor: "lightblue",
             }}
             data-testid="movies-table-container"
         >
@@ -116,31 +116,31 @@ function MovieShowAll() {
                         <TableRow>
                             <TableCell
                                 sx={{
-                                    fontWeight: 'bold',
+                                    fontWeight: "bold",
                                     fontSize: 20,
                                 }}
                             >
                                 Name
                             </TableCell>
                             <TableCell
-                                sx={{ fontWeight: 'bold', fontSize: 20 }}
+                                sx={{ fontWeight: "bold", fontSize: 20 }}
                             >
                                 Year
                             </TableCell>
                             <TableCell
-                                sx={{ fontWeight: 'bold', fontSize: 20 }}
+                                sx={{ fontWeight: "bold", fontSize: 20 }}
                             >
                                 Genre
                             </TableCell>
                             <TableCell
-                                sx={{ fontWeight: 'bold', fontSize: 20 }}
+                                sx={{ fontWeight: "bold", fontSize: 20 }}
                             >
                                 Characters
                             </TableCell>
                             <TableCell
-                                sx={{ fontWeight: 'bold', fontSize: 20 }}
+                                sx={{ fontWeight: "bold", fontSize: 20 }}
                             >
-                                {currentUsername !== 'guest' && (
+                                {currentUsername !== "guest" && (
                                     <>
                                         <Button
                                             variant="outlined"
@@ -155,7 +155,7 @@ function MovieShowAll() {
                                 )}
                                 <p
                                     style={{
-                                        display: 'inline',
+                                        display: "inline",
                                         marginLeft: 30,
                                     }}
                                 >
@@ -196,7 +196,7 @@ function MovieShowAll() {
                                     >
                                         Details
                                     </Button>
-                                    {currentUsername !== 'guest' && (
+                                    {currentUsername !== "guest" && (
                                         <>
                                             <Button
                                                 variant="contained"

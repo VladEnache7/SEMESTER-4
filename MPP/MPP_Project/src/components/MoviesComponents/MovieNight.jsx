@@ -1,15 +1,18 @@
-﻿import React, { useContext, useEffect, useState } from "react";
+﻿import React, { useContext, useEffect, useRef, useState } from "react";
 import EntitiesContext from "../ContextComponent.jsx";
 import { Autocomplete, TextField, Button } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import "./expandingCards.css";
 
 function MovieNight() {
     let navigate = useNavigate();
     const { users, fetchUsers, currentUsername } = useContext(EntitiesContext);
     const [usernames, setUsernames] = useState([""]);
     const [duplicateUsernameError, setDuplicateUsernameError] = useState(false);
+
+    const panelsRef = useRef(null);
 
     if (currentUsername === "guest") {
         return (
@@ -23,9 +26,35 @@ function MovieNight() {
         navigate("/");
     }
 
-    // fetch the users on the first render
     useEffect(() => {
         fetchUsers();
+        if (panelsRef.current) {
+            const panels = panelsRef.current.querySelectorAll(".panel");
+
+            const handleClick = (panel) => {
+                removeActiveClasses();
+                panel.classList.add("active");
+            };
+
+            panels.forEach((panel) => {
+                panel.addEventListener("click", () => handleClick(panel));
+            });
+
+            function removeActiveClasses() {
+                panels.forEach((panel) => {
+                    panel.classList.remove("active");
+                });
+            }
+
+            // Clean up function
+            return () => {
+                panels.forEach((panel) => {
+                    panel.removeEventListener("click", () =>
+                        handleClick(panel),
+                    );
+                });
+            };
+        }
     }, []);
 
     const handleUsernameChange = (index) => (event, value) => {
@@ -73,6 +102,7 @@ function MovieNight() {
                     // marginTop: "40px",
                     // marginBottom: "10px",
                     flexWrap: "wrap",
+                    marginLeft: "20px",
                 }}
             >
                 {usernames.map((username, index) => (
@@ -154,19 +184,60 @@ function MovieNight() {
                 </Button>
             </div>
             <div>
-                <iframe
-                    src="https://deepsearch.mycelebs.com/movie"
-                    width="100%"
-                    height={700}
-                    width={1000}
-                    style={{
-                        borderRadius: "15px",
-                        margin: "20px",
-                        border: "10px",
-                    }}
-                    title="MoveMe.tv"
-                    allowFullScreen
-                ></iframe>
+                <div
+                    ref={panelsRef}
+                    className="expandingCards"
+                    style={{ maxWidth: "1000px", margin: "20px" }}
+                >
+                    <div
+                        className="panel active"
+                        style={{
+                            backgroundImage:
+                                "url(https://image.tmdb.org/t/p/w500/aBkqu7EddWK7qmY4grL4I6edx2h.jpg)",
+                        }}
+                    >
+                        <h3>The Fall Guy</h3>
+                    </div>
+
+                    <div
+                        className="panel"
+                        style={{
+                            backgroundImage:
+                                "url(https://image.tmdb.org/t/p/w500/kDp1vUBnMpe8ak4rjgl3cLELqjU.jpg)",
+                        }}
+                    >
+                        <h3>Kung Fu Panda 4</h3>
+                    </div>
+                    <div
+                        className="panel"
+                        style={{
+                            backgroundImage:
+                                "url('https://image.tmdb.org/t/p/w500/nP6RliHjxsz4irTKsxe8FRhKZYl.jpg')",
+                        }}
+                    >
+                        <h3>Bad Boys: Ride or Die</h3>
+                    </div>
+
+                    <div
+                        className="panel"
+                        style={{
+                            backgroundImage:
+                                "url('https://image.tmdb.org/t/p/w500/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg')",
+                        }}
+                    >
+                        <h3>Inside Out 2</h3>
+                    </div>
+
+                    <div
+                        className="panel"
+                        style={{
+                            backgroundImage:
+                                "url('https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg')",
+                        }}
+                    >
+                        <h3>Fast X</h3>
+                    </div>
+                </div>
             </div>
         </div>
     );

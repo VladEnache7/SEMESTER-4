@@ -21,6 +21,7 @@ import UsersView from "./components/UsersView.jsx";
 import MoveMe from "./components/MoviesComponents/MoveMe.jsx";
 import DeepSearch from "./components/MoviesComponents/DeepSearch.jsx";
 import MovieNight from "./components/MoviesComponents/MovieNight.jsx";
+import MoviesTMDB from "./components/MoviesComponents/MoviesTMDB.jsx";
 
 const App = () => {
     return (
@@ -66,6 +67,7 @@ const App = () => {
                         <Route path="/moveMe" element={<MoveMe />} />
                         <Route path="/deepSearch" element={<DeepSearch />} />
                         <Route path="/movieNight" element={<MovieNight />} />
+                        <Route path="/moviesTMDB" element={<MoviesTMDB />} />
                         <Route path="*" element={<h1>Page Not Found</h1>} />
                     </Routes>
                 </EntitiesProvider>

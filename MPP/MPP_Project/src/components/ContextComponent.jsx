@@ -25,6 +25,8 @@ export const EntitiesContext = createContext({
     ) {},
     generateMovies: function (numberOfMovies) {},
     updateMoviesNrCharacters: function () {},
+    moviesTMDB: [],
+    fetchMoviesTMDB: function () {},
     characters: [],
     fetchCharacters: function () {},
     addCharacter: function (characterName, movieName, characterDescription) {},
@@ -81,6 +83,42 @@ export const EntitiesProvider = ({ children }) => {
             description:
                 "When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain",
             nrCharacters: 2,
+        },
+    ]);
+    const [moviesTMDB, setMoviesTMDB] = useState([
+        {
+            adult: false,
+            backdrop_path: "/coATv42PoiLqAFKStJiMZs2r6Zb.jpg",
+            genre_ids: [16, 10751, 18, 12, 35],
+            id: 1022789,
+            original_language: "en",
+            original_title: "Inside Out 2",
+            overview:
+                "Teenager Riley's mind headquarters is undergoing a sudden demolition to make room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, Fear and Disgust, who’ve long been running a successful operation by all accounts, aren’t sure how to feel when Anxiety shows up. And it looks like she’s not alone.",
+            popularity: 9017.097,
+            poster_path: "/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg",
+            release_date: "2024-06-11",
+            title: "Inside Out 2",
+            video: false,
+            vote_average: 8.008,
+            vote_count: 299,
+        },
+        {
+            adult: false,
+            backdrop_path: "/fqv8v6AycXKsivp1T5yKtLbGXce.jpg",
+            genre_ids: [878, 12, 28],
+            id: 653346,
+            original_language: "en",
+            original_title: "Kingdom of the Planet of the Apes",
+            overview:
+                "Several generations in the future following Caesar's reign, apes are now the dominant species and live harmoniously while humans have been reduced to living in the shadows. As a new tyrannical ape leader builds his empire, one young ape undertakes a harrowing journey that will cause him to question all that he has known about the past and to make choices that will define a future for apes and humans alike.",
+            popularity: 3374.453,
+            poster_path: "/gKkl37BQuKTanygYQG1pyYgLVgf.jpg",
+            release_date: "2024-05-08",
+            title: "Kingdom of the Planet of the Apes",
+            video: false,
+            vote_average: 6.9,
+            vote_count: 1110,
         },
     ]);
     const [characters, setCharacters] = useState([
@@ -289,6 +327,20 @@ export const EntitiesProvider = ({ children }) => {
             );
         }
     }
+
+    const fetchMoviesTMDB = () => {
+        try {
+            FastAPI.get("/moviesTMDB/").then((response) => {
+                if (response.status === 200) {
+                    setMoviesTMDB(response.data);
+                } else {
+                    setError("Unable to fetch movies from the backend");
+                }
+            });
+        } catch (error) {
+            setError("Unable to connect to the backend");
+        }
+    };
 
     // <-------------------------------------------------> Offline Operations <------------------------------------------------->
     async function performOperationOnServer(operation) {
@@ -697,6 +749,8 @@ export const EntitiesProvider = ({ children }) => {
                 editMovie,
                 generateMovies,
                 updateMoviesNrCharacters,
+                moviesTMDB,
+                fetchMoviesTMDB,
                 characters,
                 fetchCharacters,
                 addCharacter,
