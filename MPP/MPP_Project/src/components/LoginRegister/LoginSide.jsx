@@ -39,7 +39,8 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function LoginSide() {
-    const { login, setCurrentUsername } = useContext(EntitiesContext);
+    const { login, setCurrentUsername, currentUsername } =
+        useContext(EntitiesContext);
     let navigate = useNavigate();
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -51,7 +52,15 @@ export default function LoginSide() {
         let response = await login(data.get("username"), data.get("password"));
         console.log(response);
         if (response) {
-            navigate("/movies");
+            // if the currentUsername starts with an uppercase
+            if (
+                data.get("username")[0] ===
+                data.get("username")[0].toUpperCase()
+            ) {
+                navigate("/moviesTMDB");
+            } else {
+                navigate("/movies");
+            }
         } else {
             alert("Invalid username or password");
         }
@@ -59,7 +68,7 @@ export default function LoginSide() {
 
     const handleGuest = async (event) => {
         event.preventDefault();
-        setCurrentUsername("guest");
+        setCurrentUsername("Guest");
         navigate("/movies");
     };
 

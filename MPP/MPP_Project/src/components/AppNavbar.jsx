@@ -76,74 +76,107 @@ function AppNavbar() {
                             <MenuButton>MOVIES</MenuButton>
                             <Menu>
                                 <MenuItem
-                                    onClick={() => navigate("/movies")}
-                                    data-testid="movies-link"
-                                    sx={{
-                                        marginTop: 2,
-                                    }}
-                                >
-                                    All Movies
-                                </MenuItem>
-                                {currentUsername !== "guest" && (
-                                    <>
-                                        <MenuItem
-                                            onClick={() =>
-                                                navigate("/movies/add")
-                                            }
-                                            data-testid="add-movie-link"
-                                        >
-                                            Add Movie
-                                        </MenuItem>
-                                    </>
-                                )}
-                                <MenuItem
                                     onClick={() => {
-                                        navigate("/movies/chart");
+                                        navigate("/moviesTMDB");
                                         handleClose();
                                     }}
-                                >
-                                    Chart Movies
-                                </MenuItem>
-                                {currentUsername !== "guest" && (
-                                    <>
-                                        <MenuItem
-                                            onClick={() => {
-                                                navigate("/movies/generate");
-                                                handleClose();
-                                            }}
-                                        >
-                                            Generate Movies
-                                        </MenuItem>
-                                    </>
-                                )}
-                            </Menu>
-                        </Dropdown>
-                        <Dropdown>
-                            <MenuButton>CHARACTERS</MenuButton>
-                            <Menu>
-                                <MenuItem
-                                    onClick={() => navigate("/characters")}
-                                    data-testid="characters-link"
                                     sx={{
                                         marginTop: 2,
                                     }}
                                 >
-                                    All Characters
+                                    TMDB Movies
                                 </MenuItem>
-                                {currentUsername !== "guest" && (
-                                    <>
-                                        <MenuItem
-                                            onClick={() =>
-                                                navigate("/characters/add")
-                                            }
-                                            data-testid="characters-link"
-                                        >
-                                            Add Characters
-                                        </MenuItem>
-                                    </>
-                                )}
+                                {currentUsername !== "guest" &&
+                                    currentUsername.charCodeAt(0) >= 97 && (
+                                        <>
+                                            <MenuItem
+                                                onClick={() =>
+                                                    navigate("/movies")
+                                                }
+                                                data-testid="movies-link"
+                                            >
+                                                All Movies
+                                            </MenuItem>
+                                        </>
+                                    )}
+                                {currentUsername !== "guest" &&
+                                    currentUsername.charCodeAt(0) >= 97 && (
+                                        <>
+                                            <MenuItem
+                                                onClick={() =>
+                                                    navigate("/movies/add")
+                                                }
+                                                data-testid="add-movie-link"
+                                            >
+                                                Add Movie
+                                            </MenuItem>
+                                        </>
+                                    )}
+                                {currentUsername !== "guest" &&
+                                    currentUsername.charCodeAt(0) >= 97 && (
+                                        <>
+                                            <MenuItem
+                                                onClick={() => {
+                                                    navigate("/movies/chart");
+                                                    handleClose();
+                                                }}
+                                            >
+                                                Chart Movies
+                                            </MenuItem>
+                                        </>
+                                    )}
+                                {currentUsername !== "guest" &&
+                                    currentUsername.charCodeAt(0) >= 97 && (
+                                        <>
+                                            <MenuItem
+                                                onClick={() => {
+                                                    navigate(
+                                                        "/movies/generate",
+                                                    );
+                                                    handleClose();
+                                                }}
+                                            >
+                                                Generate Movies
+                                            </MenuItem>
+                                        </>
+                                    )}
                             </Menu>
                         </Dropdown>
+                        {currentUsername !== "guest" &&
+                            currentUsername.charCodeAt(0) >= 97 && (
+                                <>
+                                    <Dropdown>
+                                        <MenuButton>CHARACTERS</MenuButton>
+                                        <Menu>
+                                            <MenuItem
+                                                onClick={() =>
+                                                    navigate("/characters")
+                                                }
+                                                data-testid="characters-link"
+                                                sx={{
+                                                    marginTop: 2,
+                                                }}
+                                            >
+                                                All Characters
+                                            </MenuItem>
+                                            {currentUsername !== "guest" && (
+                                                <>
+                                                    <MenuItem
+                                                        onClick={() =>
+                                                            navigate(
+                                                                "/characters/add",
+                                                            )
+                                                        }
+                                                        data-testid="characters-link"
+                                                    >
+                                                        Add Characters
+                                                    </MenuItem>
+                                                </>
+                                            )}
+                                        </Menu>
+                                    </Dropdown>
+                                </>
+                            )}
                         {currentUsername === "admin" && (
                             <>
                                 <Dropdown>

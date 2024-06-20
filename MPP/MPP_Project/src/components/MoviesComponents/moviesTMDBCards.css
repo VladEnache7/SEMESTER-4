@@ -1,4 +1,6 @@
-﻿.movie-cards-container {
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.movie-cards-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -26,4 +28,43 @@
     width: 100%;
     padding: 10px;
     border-radius: 15px;
+    display: flex;
+    justify-content: space-between; /* Add this line to push child elements to the edges */
+}
+
+.vote-average {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 0.25rem 0.25rem;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.green {
+    color: green;
+}
+
+.orange {
+    color: orange;
+}
+
+.red {
+    color: red;
+}
+
+.blur {
+    filter: blur(8px);
+    transition: filter 2s;
+}
+
+@keyframes blurIn {
+    0% {
+        filter: blur(10px);
+    }
+    100% {
+        filter: blur(0px);
+    }
+}
+
+.blur-in {
+    animation: blurIn 3s forwards;
 }

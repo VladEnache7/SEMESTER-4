@@ -8,6 +8,7 @@
                 style={{
                     borderRadius: "15px",
                     marginBottom: "100px",
+                    marginTop: "40px",
                     border: "2px",
                 }}
                 title="MoveMe.tv"
