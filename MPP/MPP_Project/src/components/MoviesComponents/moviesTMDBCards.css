@@ -68,3 +68,24 @@
 .blur-in {
     animation: blurIn 3s forwards;
 }
+
+.movie-image-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.movie-overview {
+    position: absolute;
+    bottom: -100%; /* Initially position it off the bottom */
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    transition: bottom 0.5s ease-in-out;
+    border-radius: 15px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.movie-image-container:hover .movie-overview {
+    bottom: 14%; /* Position it to the middle on hover */
+}

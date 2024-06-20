@@ -27,6 +27,7 @@ export const EntitiesContext = createContext({
     updateMoviesNrCharacters: function () {},
     moviesTMDB: [],
     fetchMoviesTMDB: function () {},
+    searchTMDBMoviesByTitle: function (title) {},
     characters: [],
     fetchCharacters: function () {},
     addCharacter: function (characterName, movieName, characterDescription) {},
@@ -327,10 +328,24 @@ export const EntitiesProvider = ({ children }) => {
             );
         }
     }
-
+    // <----------------------------> TMDB Movies <---------------------------->
     const fetchMoviesTMDB = () => {
         try {
             FastAPI.get("/moviesTMDB/").then((response) => {
+                if (response.status === 200) {
+                    setMoviesTMDB(response.data);
+                } else {
+                    setError("Unable to fetch movies from the backend");
+                }
+            });
+        } catch (error) {
+            setError("Unable to connect to the backend");
+        }
+    };
+
+    const searchTMDBMoviesByTitle = (title) => {
+        try {
+            FastAPI.get("/moviesTMDB/search/" + title).then((response) => {
                 if (response.status === 200) {
                     setMoviesTMDB(response.data);
                 } else {
@@ -751,6 +766,7 @@ export const EntitiesProvider = ({ children }) => {
                 updateMoviesNrCharacters,
                 moviesTMDB,
                 fetchMoviesTMDB,
+                searchTMDBMoviesByTitle,
                 characters,
                 fetchCharacters,
                 addCharacter,
