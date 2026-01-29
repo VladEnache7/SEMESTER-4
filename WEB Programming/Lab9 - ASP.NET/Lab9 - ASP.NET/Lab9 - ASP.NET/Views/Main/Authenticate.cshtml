@@ -1,0 +1,26 @@
+﻿@{
+    Layout = null;
+    var username = ViewBag.Username;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link rel="stylesheet" href="~/css/login.css">
+</head>
+<body>
+    <div class="container">
+        <form id="loginForm" action="/Main/Authenticate" method="GET">
+            <h1>Authenticate</h1>
+            <p>Username:</p>
+            <input type="text" name="username" id="username" value=@username >
+            <p>Password:</p>
+            <input type="text" name="password" id="password" value="" >
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</body>
+</html>

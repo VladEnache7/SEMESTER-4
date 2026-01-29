@@ -24,7 +24,7 @@ app = FastAPI()
 # Add CORS middleware to allow requests from the frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['http://localhost:5173'],
+    allow_origins=['*'],
     allow_credentials=True,
     allow_methods=['*'],
     allow_headers=['*'],
@@ -90,29 +90,29 @@ async def notify_clients():
 
 # <todo> GET ALL movies from the database
 @app.get('/movies', response_model=List[MovieModel])
-async def get_movies(db: db_dependency_movies, skip: int = 0, limit: int = 100):
+async def get_movies(db: db_dependency_movies, skip: int = 0, limit: int = 20):
     #  get_movies is a GET route that retrieves a list of movies from the database.
     #  It uses the MovieModel model to shape the response data.
     movies = EntitiesRepo().get_movies_skip_limit(db, skip, limit)
     return movies
 
 
-# <todo> GET ALL movies names from the database
-@app.get('/movies/names', response_model=List[str])
-async def get_movies_names(db: db_dependency_movies):
-    #  get_movies is a GET route that retrieves a list of movies from the database.
-    #  It uses the MovieModel model to shape the response data.
-    movies_names = EntitiesRepo().get_movies_names(db)
-    return movies_names
+# # <todo> GET ALL movies names from the database
+# @app.get('/movies/names', response_model=List[str])
+# async def get_movies_names(db: db_dependency_movies):
+#     #  get_movies is a GET route that retrieves a list of movies from the database.
+#     #  It uses the MovieModel model to shape the response data.
+#     movies_names = EntitiesRepo().get_movies_names(db)
+#     return movies_names
 
 
 # <todo> GET a single movie from the database
-@app.get('/movies/{movie_id}', response_model=MovieModel)
-async def get_movie(db: db_dependency_movies, movie_id: int):
-    movie = EntitiesRepo().get_movie(db, movie_id)
-    if movie is None:
-        raise HTTPException(status_code=404, detail='Movie not found')
-    return movie
+# @app.get('/movies/{movie_id}', response_model=MovieModel)
+# async def get_movie(db: db_dependency_movies, movie_id: int):
+#     movie = EntitiesRepo().get_movie(db, movie_id)
+#     if movie is None:
+#         raise HTTPException(status_code=404, detail='Movie not found')
+#     return movie
 
 
 # <todo> CREATE a new movie in the database
@@ -357,33 +357,37 @@ async def register(db: db_dependency_users, login_model: LoginRegisterModel):
     return EntitiesRepo().register(db, login_model.username, hashed_password)
 
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+# oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+#
+#
+# async def get_current_user(token: str = Depends(oauth2_scheme)):
+#     credentials_exception = HTTPException(
+#         status_code=status.HTTP_401_UNAUTHORIZED,
+#         detail="Could not validate credentials",
+#         headers={"WWW-Authenticate": "Bearer"},
+#     )
+#     try:
+#         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+#         username: str = payload.get("sub")
+#         if username is None:
+#             raise credentials_exception
+#         token_data = TokenData(username=username)
+#     except JWTError:
+#         raise credentials_exception
+#     user = EntitiesRepo().get_user(username)
+#     if user is None:
+#         raise credentials_exception
+#     return user
+#
+#
+# # @app.get("/users/me/", response_model=User)
+# @app.get("/users/me/")
+# async def read_users_me(current_user: str = Depends(get_current_user)):
+#     return current_user
 
-
-async def get_current_user(token: str = Depends(oauth2_scheme)):
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
-            raise credentials_exception
-        token_data = TokenData(username=username)
-    except JWTError:
-        raise credentials_exception
-    user = EntitiesRepo().get_user(username)
-    if user is None:
-        raise credentials_exception
-    return user
-
-
-# @app.get("/users/me/", response_model=User)
 @app.get("/users/me/")
-async def read_users_me(current_user: str = Depends(get_current_user)):
-    return current_user
+async def read_users_me():
+    return {"message": "User information"}
 
 
 if __name__ == '__main__':

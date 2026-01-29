@@ -1,0 +1,62 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin-top: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url('cool-background (3).png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+.add-container,
+.get-container,
+.filter-container,
+.logout-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    margin-bottom: 5px;
+}
+
+.add-btn,
+.get-btn,
+.filter-btn,
+.logout-btn {
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    flex-grow: 1;
+    margin: 3px 5px;
+    width: 40%;
+}
+
+.filter-btn {
+    background-color: #ff9800;
+}
+
+.add-btn {
+    background-color: #4caf50;
+}
+
+.get-btn {
+    background-color: #2196f3;
+}
+
+.filtered-posts-btn {
+    background-color: #ff9800;
+}
+
+.logout-btn {
+    background-color: #f44336;
+}

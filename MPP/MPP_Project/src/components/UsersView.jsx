@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 function UsersView() {
-    const { users, fetchNonAdminUsers, removeUser, currentUsername } =
+    const { users, fetchNonAdminUsers, removeUser, currentUsername, remove } =
         useContext(EntitiesContext);
     const navigate = useNavigate();
 
@@ -54,7 +54,14 @@ function UsersView() {
                                 <TableCell>{user.nrMovies}</TableCell>
                                 <TableCell>{user.nrCharacters}</TableCell>
                                 <TableCell>
-                                    <Button color="error" variant="outlined">
+                                    <Button
+                                        color="error"
+                                        variant="outlined"
+                                        onClick={() => {
+                                            removeUser(user.id);
+                                            fetchNonAdminUsers();
+                                        }}
+                                    >
                                         Remove
                                     </Button>
                                 </TableCell>

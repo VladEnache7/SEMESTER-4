@@ -23,7 +23,7 @@ class Movie(Base_database):
     year = Column(Integer)
     duration = Column(String)
     genre = Column(String)
-    description = Column(Integer)
+    description = Column(String)
     nrCharacters = Column(Integer, default=0)
     editorId = Column(Integer, ForeignKey("Users.id"))
 

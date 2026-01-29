@@ -1,0 +1,51 @@
+﻿<Properties StartupConfiguration="{15AB44B0-400D-461D-9A83-23AD69402469}|https">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Lab9 - ASP.NET/DB/DBManager.cs">
+    <Files>
+      <File FileName="Lab9 - ASP.NET/Controllers/MainController.cs" />
+      <File FileName="Lab9 - ASP.NET/Views/Main/Home.cshtml" />
+      <File FileName="Lab9 - ASP.NET/Program.cs" />
+      <File FileName="Lab9 - ASP.NET/Models/Log.cs" />
+      <File FileName="Lab9 - ASP.NET/Views/Main/Error.cshtml" />
+      <File FileName="Lab9 - ASP.NET/Views/Main/Login.cshtml" />
+      <File FileName="Lab9 - ASP.NET/appsettings.json" />
+      <File FileName="Lab9 - ASP.NET/appsettings.Development.json" />
+      <File FileName="Lab9 - ASP.NET/DB/DBManager.cs" Line="30" Column="10" />
+      <File FileName="Lab9 - ASP.NET/wwwroot/css/login.css" />
+      <File FileName="Lab9 - ASP.NET/wwwroot/css/home.css" />
+      <File FileName="Lab9 - ASP.NET/wwwroot/css/view.css" />
+      <File FileName="Lab9 - ASP.NET/wwwroot/css/addLog.css" />
+      <File FileName="Lab9 - ASP.NET/Views/Main/Authenticate.cshtml" />
+      <File FileName="Lab9 - ASP.NET/Models/Message.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Lab9 - ASP.NET" expanded="True">
+            <Node name="Lab9 - ASP.NET" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="DB" expanded="True">
+                <Node name="DBManager.cs" selected="True" />
+              </Node>
+              <Node name="Models" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="Main" expanded="True" />
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="css" expanded="True" />
+                <Node name="js" expanded="True" />
+              </Node>
+              <Node name="appsettings.json" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Lab9_220-_220ASP.NET PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MultiItemStartupConfigurations />
+</Properties>

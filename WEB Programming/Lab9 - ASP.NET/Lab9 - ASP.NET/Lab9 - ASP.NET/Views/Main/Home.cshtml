@@ -1,0 +1,32 @@
+﻿@{
+    Layout = null;
+    var username = ViewBag.Username;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home</title>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <link rel="stylesheet" href="~/css/home.css">
+</head>
+<body>
+    <h1>>>  Welcome @username  <<</h1>
+    <div class="add-container">
+        <button onclick="redirect('ViewAddNews')" class="add-btn">Add a news report</button>
+    </div>
+    <div class="get-container">
+        <button onclick="redirect('ViewAllNews')" class="get-btn">View all News</button>
+        <button onclick="redirect('ViewMyNews')" class="get-btn">View my News</button>
+    </div>
+    <div class="logout-container">
+        <button onclick="redirect('Logout')" class="logout-btn">Logout</button>
+    </div>
+
+    <script>function redirect(dest) {
+            window.location.href = "/Main/" + dest;
+        }</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Validate Username</title>
+    <link rel="stylesheet" href="~/css/login.css">
+</head>
+<body>
+    <div class="container">
+        <form id="loginForm" action="/Main/Login" method="POST">
+            <h1>Validate Username</h1>
+            <input type="text" name="username" id="username" value="user1" placeholder="Username">
+
+            <button type="submit">Verify</button>
+        </form>
+    </div>
+</body>
+</html>

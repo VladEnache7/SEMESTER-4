@@ -1,0 +1,90 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\DBMS\\DBMS_Homeworks\\PRACTICAL\\MiniFacebook\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CEA12824-DC02-450F-9AE0-0E0D81901F0B}|MiniFacebook\\MiniFacebook.csproj|c:\\users\\admin\\documents\\github\\semester 4\\dbms\\dbms_homeworks\\practical\\minifacebook\\minifacebook\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{CEA12824-DC02-450F-9AE0-0E0D81901F0B}|MiniFacebook\\MiniFacebook.csproj|solutionrelative:minifacebook\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CEA12824-DC02-450F-9AE0-0E0D81901F0B}|MiniFacebook\\MiniFacebook.csproj|c:\\users\\admin\\documents\\github\\semester 4\\dbms\\dbms_homeworks\\practical\\minifacebook\\minifacebook\\app.config||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{CEA12824-DC02-450F-9AE0-0E0D81901F0B}|MiniFacebook\\MiniFacebook.csproj|solutionrelative:minifacebook\\app.config||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CEA12824-DC02-450F-9AE0-0E0D81901F0B}|MiniFacebook\\MiniFacebook.csproj|c:\\users\\admin\\documents\\github\\semester 4\\dbms\\dbms_homeworks\\practical\\minifacebook\\minifacebook\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CEA12824-DC02-450F-9AE0-0E0D81901F0B}|MiniFacebook\\MiniFacebook.csproj|solutionrelative:minifacebook\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d84ee353-0bef-5a41-a649-8f89aca5d84d}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "App.config",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\DBMS\\DBMS_Homeworks\\PRACTICAL\\MiniFacebook\\MiniFacebook\\App.config",
+              "RelativeDocumentMoniker": "MiniFacebook\\App.config",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\DBMS\\DBMS_Homeworks\\PRACTICAL\\MiniFacebook\\MiniFacebook\\App.config",
+              "RelativeToolTip": "MiniFacebook\\App.config",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2024-06-02T17:19:37.658Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\DBMS\\DBMS_Homeworks\\PRACTICAL\\MiniFacebook\\MiniFacebook\\Form1.cs",
+              "RelativeDocumentMoniker": "MiniFacebook\\Form1.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\DBMS\\DBMS_Homeworks\\PRACTICAL\\MiniFacebook\\MiniFacebook\\Form1.cs",
+              "RelativeToolTip": "MiniFacebook\\Form1.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAvwBAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-02T17:17:12.796Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\DBMS\\DBMS_Homeworks\\PRACTICAL\\MiniFacebook\\MiniFacebook\\Form1.cs",
+              "RelativeDocumentMoniker": "MiniFacebook\\Form1.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\SEMESTER 4\\DBMS\\DBMS_Homeworks\\PRACTICAL\\MiniFacebook\\MiniFacebook\\Form1.cs [Design]",
+              "RelativeToolTip": "MiniFacebook\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-02T17:13:34.273Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

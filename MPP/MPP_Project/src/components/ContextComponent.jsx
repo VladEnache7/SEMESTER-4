@@ -1,6 +1,7 @@
 ﻿import React, { createContext, useEffect, useState } from "react";
 import FastAPI, { setAuthToken } from "../FastAPI.js";
 import useWebSocket, { ReadyState } from "react-use-websocket";
+import axios from "axios";
 
 export const EntitiesContext = createContext({
     movies: [],
@@ -154,12 +155,7 @@ export const EntitiesProvider = ({ children }) => {
         try {
             let response;
             if (currentUsername === "guest" || currentUsername === "admin") {
-                response = await FastAPI.get("/movies/", {
-                    params: {
-                        skip: page * 50,
-                        limit: 50,
-                    },
-                });
+                response = await axios.get("http://127.0.0.1:8000/movies", {});
             } else {
                 response = await FastAPI.get(
                     "/movies/username/" + currentUsername,
@@ -663,9 +659,9 @@ export const EntitiesProvider = ({ children }) => {
 
                 // Set the token in the axios instance
                 setAuthToken(response.data.token);
-
+                console.log("Data:", response.data);
                 setCurrentUsername(username);
-                setCurrentUserId(response.data.id);
+                setCurrentUserId(response.data["user_id"]);
                 console.log("setCurrentUsername:", currentUsername);
                 console.log("setCurrentUserId:", currentUserId);
             }

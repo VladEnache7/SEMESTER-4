@@ -1,0 +1,44 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add Log</title>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <link rel="stylesheet" href="~/css/addLog.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script>$(document).ready(function () {
+            $("#dateInput").datepicker();
+        });</script>
+</head>
+<body>
+    <div class="container">
+        <h1>Add News</h1>
+        <form id="addLogForm" action="/Main/AddNews" method="GET">
+            <table>
+                <tr>
+                    <td><p>Title:</p></td>
+                    <td><input type="text" id="titleInput" name="title"  required/></td>
+                </tr>
+                <tr>
+                    <td><p>Category:</p></td>
+                    <td><input type="text" id="categoryInput" name="category"  required/></td>
+                </tr>
+                <tr>
+                    <td><p>Content:</p></td>
+                    <td><input type="text" id="contentInput" name="content"  required/></td>
+                </tr>
+                <tr>
+                    <td><button type="submit">Add News</button></td>
+                </tr>
+            </table>
+        </form>
+        <button onclick="window.location.href = '/Main/Home'" id="home-btn">Home</button>
+    </div>
+</body>
+</html>

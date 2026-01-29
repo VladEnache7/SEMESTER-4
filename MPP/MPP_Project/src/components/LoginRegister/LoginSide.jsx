@@ -69,7 +69,7 @@ export default function LoginSide() {
     const handleGuest = async (event) => {
         event.preventDefault();
         setCurrentUsername("Guest");
-        navigate("/movies");
+        navigate("/moviesTMDB");
     };
 
     useEffect(() => {

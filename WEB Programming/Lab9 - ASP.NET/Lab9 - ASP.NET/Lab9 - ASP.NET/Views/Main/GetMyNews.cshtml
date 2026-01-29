@@ -1,0 +1,32 @@
+﻿@{
+    Layout = null;
+    var totalLogs = ViewBag.TotalLogs;
+    var currentPage = 1;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View All Unicast News</title>
+    <link rel="stylesheet" href="~/css/view.css">
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script>$(document).ready(function () {
+            function fetchNews() {
+                $.get("/Main/GetMyNews", function (data, status) {
+                    $("#messagesTable").html(data);
+                });
+            }
+            fetchNews();
+        });</script>
+</head>
+<body>
+    <div id="maindiv">
+        <h1>All News</h1>
+        <table id="messagesTable"></table>
+        <div id="homeBtnRow">
+            <button onclick="window.location.href = '/Main/Home'" id="homeBtn">Home</button>
+        </div>
+    </div>
+</body>
+</html>

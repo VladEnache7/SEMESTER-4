@@ -1,0 +1,104 @@
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/appsettings.Development.json
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/appsettings.json
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/Lab9 - ASP.NET.staticwebassets.runtime.json
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/Lab9 - ASP.NET
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/Lab9 - ASP.NET.deps.json
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/Lab9 - ASP.NET.runtimeconfig.json
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/Lab9 - ASP.NET.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/Lab9 - ASP.NET.pdb
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/Lab9 - ASP.NET.csproj.AssemblyReference.cache
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/Lab9 - ASP.NET.GeneratedMSBuildEditorConfig.editorconfig
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/Lab9 - ASP.NET.AssemblyInfoInputs.cache
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/Lab9 - ASP.NET.AssemblyInfo.cs
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/Lab9 - ASP.NET.csproj.CoreCompileInputs.cache
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/Lab9 - ASP.NET.MvcApplicationPartsAssemblyInfo.cache
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/Lab9 - ASP.NET.RazorAssemblyInfo.cache
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/Lab9 - ASP.NET.RazorAssemblyInfo.cs
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/staticwebassets/msbuild.Lab9 - ASP.NET.Microsoft.AspNetCore.StaticWebAssets.props
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/staticwebassets/msbuild.build.Lab9 - ASP.NET.props
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/staticwebassets/msbuild.buildMultiTargeting.Lab9 - ASP.NET.props
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/staticwebassets/msbuild.buildTransitive.Lab9 - ASP.NET.props
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/staticwebassets.pack.json
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/staticwebassets.build.json
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/staticwebassets.development.json
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/scopedcss/bundle/Lab9 - ASP.NET.styles.css
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/Lab9 - ASP.NET.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/refint/Lab9 - ASP.NET.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/Lab9 - ASP.NET.pdb
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/Lab9 - ASP.NET.genruntimeconfig.cache
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/ref/Lab9 - ASP.NET.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/MySql.Data.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/obj/Debug/net7.0/Lab9 - ASP.NET.csproj.CopyComplete
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/Google.Protobuf.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/K4os.Compression.LZ4.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/K4os.Compression.LZ4.Streams.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/K4os.Hash.xxHash.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/Microsoft.Win32.SystemEvents.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/BouncyCastle.Crypto.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/System.Configuration.ConfigurationManager.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/System.Drawing.Common.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/System.Security.Cryptography.ProtectedData.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/System.Security.Permissions.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/System.Windows.Extensions.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/runtimes/win/lib/netcoreapp3.0/Microsoft.Win32.SystemEvents.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/runtimes/win-x64/native/comerr64.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/runtimes/win-x64/native/gssapi64.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/runtimes/win-x64/native/k5sprt64.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/runtimes/win-x64/native/krb5_64.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/runtimes/win-x64/native/krbcc64.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/runtimes/unix/lib/netcoreapp3.0/System.Drawing.Common.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/runtimes/win/lib/netcoreapp3.0/System.Drawing.Common.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll
+/Users/georgezirbo/Documents/UBB/Semester 4/Web Programming/Labs/Lab9 - ASP.NET/Lab9 - ASP.NET/bin/Debug/net7.0/runtimes/win/lib/netcoreapp3.0/System.Windows.Extensions.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\appsettings.Development.json
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\appsettings.json
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\Lab9 - ASP.NET.staticwebassets.runtime.json
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\Lab9 - ASP.NET.exe
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\Lab9 - ASP.NET.deps.json
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\Lab9 - ASP.NET.runtimeconfig.json
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\Lab9 - ASP.NET.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\Lab9 - ASP.NET.pdb
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\Google.Protobuf.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\K4os.Compression.LZ4.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\K4os.Compression.LZ4.Streams.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\K4os.Hash.xxHash.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\MySql.Data.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\BouncyCastle.Crypto.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\System.Configuration.ConfigurationManager.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\System.Drawing.Common.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\System.Security.Permissions.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\System.Windows.Extensions.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\runtimes\win-x64\native\comerr64.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\runtimes\win-x64\native\gssapi64.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\runtimes\win-x64\native\k5sprt64.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\runtimes\win-x64\native\krb5_64.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\runtimes\win-x64\native\krbcc64.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\bin\Debug\net7.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\Lab9 - ASP.NET.csproj.AssemblyReference.cache
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\Lab9 - ASP.NET.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\Lab9 - ASP.NET.AssemblyInfoInputs.cache
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\Lab9 - ASP.NET.AssemblyInfo.cs
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\Lab9 - ASP.NET.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\Lab9 - ASP.NET.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\Lab9 - ASP.NET.RazorAssemblyInfo.cache
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\Lab9 - ASP.NET.RazorAssemblyInfo.cs
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\staticwebassets.build.json
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\staticwebassets.development.json
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\staticwebassets\msbuild.Lab9 - ASP.NET.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\staticwebassets\msbuild.build.Lab9 - ASP.NET.props
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.Lab9 - ASP.NET.props
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\staticwebassets\msbuild.buildTransitive.Lab9 - ASP.NET.props
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\staticwebassets.pack.json
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\scopedcss\bundle\Lab9 - ASP.NET.styles.css
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\Lab9 - A.9422A686.Up2Date
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\Lab9 - ASP.NET.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\refint\Lab9 - ASP.NET.dll
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\Lab9 - ASP.NET.pdb
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\Lab9 - ASP.NET.genruntimeconfig.cache
+C:\Users\Admin\Downloads\Lab9 - ASP.NET\Lab9 - ASP.NET\Lab9 - ASP.NET\obj\Debug\net7.0\ref\Lab9 - ASP.NET.dll

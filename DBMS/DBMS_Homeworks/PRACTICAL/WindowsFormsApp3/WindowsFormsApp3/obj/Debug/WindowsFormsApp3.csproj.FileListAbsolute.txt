@@ -1,0 +1,10 @@
+C:\Users\Admin\Documents\GitHub\SEMESTER 4\DBMS\DBMS_Homeworks\PRACTICAL\WindowsFormsApp3\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.csproj.AssemblyReference.cache
+C:\Users\Admin\Documents\GitHub\SEMESTER 4\DBMS\DBMS_Homeworks\PRACTICAL\WindowsFormsApp3\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.Form1.resources
+C:\Users\Admin\Documents\GitHub\SEMESTER 4\DBMS\DBMS_Homeworks\PRACTICAL\WindowsFormsApp3\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.Properties.Resources.resources
+C:\Users\Admin\Documents\GitHub\SEMESTER 4\DBMS\DBMS_Homeworks\PRACTICAL\WindowsFormsApp3\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.csproj.GenerateResource.cache
+C:\Users\Admin\Documents\GitHub\SEMESTER 4\DBMS\DBMS_Homeworks\PRACTICAL\WindowsFormsApp3\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Documents\GitHub\SEMESTER 4\DBMS\DBMS_Homeworks\PRACTICAL\WindowsFormsApp3\WindowsFormsApp3\bin\Debug\WindowsFormsApp3.exe.config
+C:\Users\Admin\Documents\GitHub\SEMESTER 4\DBMS\DBMS_Homeworks\PRACTICAL\WindowsFormsApp3\WindowsFormsApp3\bin\Debug\WindowsFormsApp3.exe
+C:\Users\Admin\Documents\GitHub\SEMESTER 4\DBMS\DBMS_Homeworks\PRACTICAL\WindowsFormsApp3\WindowsFormsApp3\bin\Debug\WindowsFormsApp3.pdb
+C:\Users\Admin\Documents\GitHub\SEMESTER 4\DBMS\DBMS_Homeworks\PRACTICAL\WindowsFormsApp3\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.exe
+C:\Users\Admin\Documents\GitHub\SEMESTER 4\DBMS\DBMS_Homeworks\PRACTICAL\WindowsFormsApp3\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.pdb

@@ -1,0 +1,30 @@
+﻿@model Lab9___ASP.NET.Models.News
+
+@{
+Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit News</title>
+    <link rel="stylesheet" href="~/css/edit.css">
+</head>
+<body>
+<div class="container">
+    <form id="editForm" action="/Main/UpdateNews" method="POST">
+        <h1>Edit News</h1>
+        <input type="hidden" name="NewsId" value="@Model.NewsId" />
+        <p>Title:</p>
+        <input type="text" name="title" value="@Model.NewsTitle" required/>
+        <p>Category:</p>
+        <input type="text" name="category" value="@Model.NewsCategory" required/>
+        <p>Content:</p>
+        <input type="text" name="content" value="@Model.NewsContent" required/>
+        <button type="submit">Update News</button>
+    </form>
+</div>
+</body>
+</html>

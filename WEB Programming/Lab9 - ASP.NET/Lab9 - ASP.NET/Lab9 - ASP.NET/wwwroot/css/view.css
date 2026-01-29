@@ -1,0 +1,103 @@
+﻿body {
+    margin-top: 40px;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+    background-image: url('cool-background (3).png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#maindiv {
+    width: 80%;
+    margin: 20px auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+th,
+td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+#previousBtn,
+#nextBtn {
+    flex-grow: 1;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+#homeBtn {
+    flex-grow: 1;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+#buttonRow {
+    display: flex;
+    justify-content: space-between;
+/*    margin-top: 10px; */
+    gap: 10px;
+}
+
+#homeBtnRow {
+    display: flex;
+    justify-content: center;
+}
+
+#previousBtn:disabled,
+#nextBtn:disabled {
+    background-color: #ccc;
+}
+
+.delete-btn {
+    width: 50%;
+    background-color: #2196f3;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+#filterInput {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    color: black;
+}
+
+#filterButton {
+    width: 100%;
+    padding: 10px;
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+

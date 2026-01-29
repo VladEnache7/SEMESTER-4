@@ -1,0 +1,54 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+    background-image: url('cool-background (3).png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#loginForm {
+    padding: 20px;
+    border-radius: 4px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+}
+
+    #loginForm h1 {
+        text-align: center;
+        margin-bottom: 40px;
+        margin-top: 20px;
+        color: #2196f3;
+    }
+
+    #loginForm input[type="text"],
+    #loginForm input[type="password"],
+    #loginForm button[type="submit"] {
+        width: 100%;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        box-sizing: border-box; /* Ensure padding and border are included in the width */
+    }
+
+    #loginForm button[type="submit"] {
+        background-color: #2196f3;
+        color: #fff;
+        cursor: pointer;
+    }
+
+        #loginForm button[type="submit"]:hover {
+            background-color: #0c7cd5;
+        }

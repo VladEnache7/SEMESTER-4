@@ -1,0 +1,70 @@
+﻿body {
+    background-image: url('cool-background (3).png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    margin: 20px auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+    color: #2196f3;
+}
+
+#addLogForm {
+    width: 100%;
+    padding: 20px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    color: #2196f3;
+}
+
+table {
+    width: 100%;
+}
+
+    table td {
+        padding: 10px;
+        font-family: Arial, sans-serif;
+        color: #2196f3;
+    }
+
+    table input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    table button {
+        width: 100%;
+        padding: 10px;
+        background-color: #2196f3;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+#home-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #2196f3;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}

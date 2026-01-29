@@ -1,0 +1,25 @@
+USE WineStore
+
+DELETE Varieties
+WHERE VName = 'VAR SUB 1'
+
+-- the isolation that causes the problem
+--SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+
+-- solution:
+ SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+
+BEGIN TRAN
+	SELECT *
+	FROM Varieties
+
+	WAITFOR DELAY '00:00:05'
+
+	--SELECT *
+	--FROM Varieties
+
+	UPDATE Varieties
+	SET VDescr = 'CHANGED DESCR'
+	WHERE VName = 'VAR SUB 1'
+COMMIT TRAN
+

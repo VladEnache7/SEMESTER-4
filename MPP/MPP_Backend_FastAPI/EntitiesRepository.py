@@ -37,11 +37,18 @@ class EntitiesRepo:
         return [movie.name for movie in movies]
 
     @staticmethod
-    def get_movies_skip_limit(db: db_dependency_movies, skip: int, limit: int):
+    def get_movies_skip_limit(db: db_dependency_movies, skip: int = 0, limit: int = 20):
         # TODO Expected type 'Session', got 'Type[Movie]' instead
         # movies = db.query(models.Movie).offset(skip).limit(limit).all()
         movies = db.query(models.Movie).order_by(models.Movie.id).offset(skip).limit(limit).all()
         return movies
+
+    # def get_movies_skip_limit(db: db_dependency_movies, skip: int, limit: int):
+    #     movies = db.query(models.Movie).with_entities(
+    #         models.Movie.id, models.Movie.name, models.Movie.year, models.Movie.duration, models.Movie.genre,
+    #         models.Movie.description
+    #     ).order_by(models.Movie.id).offset(skip).limit(limit).all()
+    #     return movies
 
     @staticmethod
     def get_movie(db: db_dependency_movies, movie_id: int):

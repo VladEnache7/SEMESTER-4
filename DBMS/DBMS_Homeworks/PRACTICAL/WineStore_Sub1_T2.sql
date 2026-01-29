@@ -1,0 +1,17 @@
+USE WineStore
+
+-- the isolation that causes the problem
+--SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+
+-- solution:
+ SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+
+
+
+BEGIN TRAN
+	INSERT INTO Varieties (VName, VDescr) VALUES ('VAR SUB 1', 'descr')
+COMMIT TRAN
+
+--SELECT * FROM Varieties
+
+PRINT SYSDATETIME()
