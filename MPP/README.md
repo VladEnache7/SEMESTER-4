@@ -3,6 +3,8 @@
 
 This course focuses on the *ecosystem* of software development. You will move beyond writing isolated algorithms to building full-scale Enterprise Applications. The focus is on **Architecture**, **Persistence** (ORM), **Dependency Injection**, and **Distributed Systems**.
 
+[MPP-Backend](https://github.com/VladEnache7/MPP-Backend/tree/main) - FastAPI
+
 ### 📅 Weekly Syllabus
 
 The course progresses from setting up a professional build environment to building distributed web services and real-time applications.
