@@ -1,0 +1,3 @@
+[submodule "MPP/MPP-Backend"]
+	path = MPP/MPP-Backend
+	url = https://github.com/VladEnache7/MPP-Backend.git
